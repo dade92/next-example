@@ -1,5 +1,6 @@
 import {GetServerSideProps} from 'next';
 import {FC} from "react";
+import styled from 'styled-components';
 
 type Data = {
     name: string;
@@ -10,20 +11,24 @@ type Props = {
     data: Data[];
 }
 
-const DataDisplay: FC<Props> = ({data}) => {
-    return (
+const StyledSpan = styled.span`
+    color: red;
+`
+
+
+const DataDisplay: FC<Props> = ({data}) =>
+    (
         <>
             {
                 data.map(d => {
                     return <div key={d.name}>
-                        <span>{d.age}</span>
-                        <span>{d.name}</span>
+                        <StyledSpan>{d.age}</StyledSpan>
+                        <StyledSpan>{d.name}</StyledSpan>
                     </div>
                 })
             }
         </>
     )
-}
 
 export default DataDisplay;
 
