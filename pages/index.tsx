@@ -1,27 +1,45 @@
-
-import { GetServerSideProps } from 'next';
+import {GetServerSideProps} from 'next';
+import {FC} from "react";
 
 type Data = {
-  name: string;
-  age: number;
+    name: string;
+    age: number;
 }
 
 type Props = {
-  data: string;
+    data: Data[];
 }
 
-const DataDisplay: React.FC<Props> = ({ data }) => {
-  return (
-    <span>{data}</span>
-  )
+const DataDisplay: FC<Props> = ({data}) => {
+    return (
+        <>
+            {
+                data.map(d => {
+                    return <div key={d.name}>
+                        <span>{d.age}</span>
+                        <span>{d.name}</span>
+                    </div>
+                })
+            }
+        </>
+    )
 }
 
 export default DataDisplay;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  return {
-    props: {
-      data: "Here you can load dynamic content",
-    },
-  };
+    return {
+        props: {
+            data: [
+                {
+                    age: 10,
+                    name: "ciccio"
+                },
+                {
+                    age: 12,
+                    name: "pasticcio"
+                }
+            ],
+        },
+    };
 };
