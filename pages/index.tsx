@@ -1,6 +1,6 @@
 import {GetServerSideProps} from 'next';
 import {FC} from "react";
-import styled from 'styled-components';
+import {StyledSpan} from "./Texts";
 
 type Data = {
     name: string;
@@ -10,10 +10,6 @@ type Data = {
 type Props = {
     data: Data[];
 }
-
-const StyledSpan = styled.span`
-    color: red;
-`
 
 
 const DataDisplay: FC<Props> = ({data}) =>
