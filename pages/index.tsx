@@ -29,6 +29,7 @@ const DataDisplay: FC<Props> = ({data}) =>
 export default DataDisplay;
 
 export const getServerSideProps: GetServerSideProps = async () => {
+    console.log('Retrieving props on server side...')
     return {
         props: {
             data: [
