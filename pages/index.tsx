@@ -1,6 +1,6 @@
 import {GetServerSideProps} from 'next';
-import {FC} from "react";
-import StyledSpan from "./Texts";
+import React, {FC} from "react";
+import StyledSpan from "../components/Texts";
 
 type Data = {
     name: string;
