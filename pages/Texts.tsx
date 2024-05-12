@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
-export const StyledSpan = styled.span`
+const StyledSpan = styled.span`
     color: red;
 `
+
+export default StyledSpan;
