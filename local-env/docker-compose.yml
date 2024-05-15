@@ -1,0 +1,5 @@
+services:
+  mysqldb:
+    build: .
+    ports:
+      - "3306:3306"
