@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === 'development') {
     host = "http://localhost:3000/api";
 } else if (process.env.NODE_ENV === 'production') {
     //Modify the host here to deploy on a different "server"
-    host = "http://raspberrypi:8080/api";
+    host = "http://localhost:3000/api";
 }
 
 export class RestClient {

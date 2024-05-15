@@ -3,12 +3,13 @@ FROM node:18
 WORKDIR /usr/src/app
 
 COPY package.json ./
-COPY tsconfig.json ./
-COPY next.config.js ./
-COPY next-env.d.ts ./
 
 RUN npm install
 
+COPY tsconfig.json ./
+COPY next.config.js ./
+COPY next-env.d.ts ./
+COPY .env.production .
 COPY public ./public
 COPY styles ./styles
 COPY pages ./pages
@@ -18,7 +19,5 @@ COPY utils ./utils
 RUN npm run build
 
 EXPOSE 3000
-
-ENV STAGE=prod
 
 CMD [ "npm", "start" ]
