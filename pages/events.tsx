@@ -1,50 +1,33 @@
 import React, {FC} from "react";
-import StyledSpan from "../components/Texts";
 import {GetServerSideProps} from "next";
-import {retrieveData} from "../db/db";
-
-
-type Events = {
-    name: string;
-    age: number;
-}
+import {getEvents, MyEvent} from "../db/eventsProvider";
 
 type Props = {
-    data: Events[];
+    data: MyEvent[];
 }
 
 
 const DataDisplay: FC<Props> = ({data}) =>
     (
         <>
-            {
-                data.map(d => {
-                    return <div key={d.name}>
-                        <StyledSpan>{d.age}</StyledSpan>
-                        <StyledSpan>{d.name}</StyledSpan>
+            <span>EVENTS</span>
+            <>
+                {data.map(d => {
+                    return <div key={d.id}>
+                        <span>{d.message}</span>
                     </div>
-                })
-            }
+                })}
+            </>
         </>
     )
 
 export default DataDisplay;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    await retrieveData();
-
+    const data = await getEvents();
     return {
         props: {
-            data: [
-                {
-                    age: 10,
-                    name: "ciccio"
-                },
-                {
-                    age: 12,
-                    name: "pasticcio"
-                }
-            ],
+            data: JSON.parse(JSON.stringify(data)),
         },
     };
 };
