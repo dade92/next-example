@@ -4,10 +4,17 @@ import {getEvents, MyEvent} from "../utils/db/eventsProvider";
 import {Button} from "@mui/material";
 import {staticRestClient} from "../utils/rest/RestClient";
 import {Data} from "./api/hello";
+import styled from "styled-components";
 
 type Props = {
     data: MyEvent[];
 }
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+`
 
 
 const DataDisplay: FC<Props> = ({data}) => {
@@ -20,7 +27,7 @@ const DataDisplay: FC<Props> = ({data}) => {
     }
 
     return (
-        <>
+        <Wrapper>
             <span>EVENTS</span>
             <>
                 {data.map(d => {
@@ -31,7 +38,7 @@ const DataDisplay: FC<Props> = ({data}) => {
             </>
             <Button variant="contained" onClick={getHello}>API call</Button>
             {restData && <span>{restData.name}</span>}
-        </>
+        </Wrapper>
     );
 }
 
