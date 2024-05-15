@@ -13,6 +13,7 @@ COPY public ./public
 COPY styles ./styles
 COPY pages ./pages
 COPY components ./components
+COPY utils ./utils
 
 RUN npm run build
 

@@ -7,7 +7,6 @@ export interface MyEvent {
 
 export const getEvents = async (): Promise<MyEvent[]> =>
     query<MyEvent[]>(
-        `select ID as id, event_message as message
-         from EVENTS`,
+        `select ID as id, event_message as message from EVENTS`,
         []
     );
