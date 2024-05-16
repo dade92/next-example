@@ -4,8 +4,9 @@ import {Button} from "@mui/material";
 import {staticRestClient} from "../utils/rest/RestClient";
 import {Data} from "./api/hello";
 import styled from "styled-components";
+import {getBooks} from "../utils/rest/Book";
 
-interface Book {
+export interface Book {
     id: string;
     title: string;
 }
@@ -47,30 +48,6 @@ const DataDisplay: FC<Props> = ({data}) => {
 }
 
 export default DataDisplay;
-
-interface BookResponse {
-    docs: [{
-        _id: string;
-        name: string;
-    }]
-}
-
-const getBooks = async (): Promise<Book[]> => {
-    let result: BookResponse = await fetch('https://the-one-api.dev/v2/book')
-        .then((r) => {
-            return r.json() as Promise<BookResponse>
-        }).catch(() => {
-            console.log('Error retrieving books')
-            throw Error
-        });
-
-    return result.docs.map((br: { _id: string; name: string }) => {
-        return {
-            id: br._id,
-            title: br.name
-        }
-    })
-}
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const data = await getBooks();
