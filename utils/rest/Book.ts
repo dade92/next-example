@@ -16,7 +16,7 @@ const adaptBookResponse = (result: BookResponse): Book[] =>
     });
 
 export const getBooks = async (): Promise<Book[]> => {
-    let result: BookResponse = await fetch('https://the-one-api.dev/v2/book')
+    let result: BookResponse = await fetch('https://the-one-api.dev/v2/book', {headers: {"Authorization": "Bearer T9GT1GYa_3DluLcsGOog"}})
         .then((r) => {
             return r.json() as Promise<BookResponse>
         }).catch(() => {

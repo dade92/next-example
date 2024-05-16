@@ -63,4 +63,4 @@ export class RestClient {
     }
 }
 
-export const staticRestClient = new RestClient(host);
+export const frontendRestClient = new RestClient(host);

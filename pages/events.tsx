@@ -2,7 +2,7 @@ import React, {FC, useState} from "react";
 import {GetServerSideProps} from "next";
 import {getEvents, MyEvent} from "../utils/db/eventsProvider";
 import {Button} from "@mui/material";
-import {staticRestClient} from "../utils/rest/RestClient";
+import {frontendRestClient} from "../utils/rest/RestClient";
 import {Data} from "./api/hello";
 import styled from "styled-components";
 
@@ -21,7 +21,7 @@ const DataDisplay: FC<Props> = ({data}) => {
     const [restData, setRestData] = useState<Data | undefined>(undefined)
     const getHello = () => {
         console.log('GET hello called!')
-        staticRestClient.get<Data>('/hello').then((d: Data) => {
+        frontendRestClient.get<Data>('/hello').then((d: Data) => {
             setRestData(d)
         })
     }
