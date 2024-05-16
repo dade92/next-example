@@ -1,6 +1,6 @@
 import React, {FC, useState} from "react";
 import {GetServerSideProps} from "next";
-import {Button} from "@mui/material";
+import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import {frontendRestClient} from "../utils/rest/RestClient";
 import {Data} from "./api/hello";
 import styled from "styled-components";
@@ -19,6 +19,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 50%;
 `
 
 
@@ -33,14 +34,28 @@ const DataDisplay: FC<Props> = ({data}) => {
 
     return (
         <Wrapper>
-            <span>EVENTS</span>
-            <>
-                {data.map((b: Book) => {
-                    return <div key={b.id}>
-                        <span>{b.title}</span>
-                    </div>
-                })}
-            </>
+            <span>BOOKS</span>
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Book Title</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((b: Book) => (
+                            <TableRow
+                                key={b.id}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {b.title}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
             <Button variant="contained" onClick={getHello}>API call</Button>
             {restData && <span>{restData.name}</span>}
         </Wrapper>
