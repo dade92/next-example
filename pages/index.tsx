@@ -17,10 +17,11 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 50%;
 `
 
-const StyledButton = styled(Button)`
-    width: 50%;
+const StyledLink = styled(Link)`
+    align-self: center;
 `
 
 
@@ -30,7 +31,7 @@ const Index: FC<Props> = ({data}) => {
     return (
         <Wrapper>
             <span>INDEX</span>
-            <Link
+            <StyledLink
                 href={{
                     pathname: '/books',
                     query: {
@@ -40,8 +41,8 @@ const Index: FC<Props> = ({data}) => {
                 rel="noreferrer"
             >
                 Books
-            </Link>
-            <StyledButton onClick={() => router.push('/events')}>Events</StyledButton>
+            </StyledLink>
+            <Button variant={'contained'} onClick={() => router.push('/events')}>Events</Button>
         </Wrapper>
     );
 }
