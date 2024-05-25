@@ -4,12 +4,12 @@ import {Data} from "../hello";
 
 export default function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data>
+    res: NextApiResponse<Data | null>
 ) {
     switch(req.method) {
         case 'POST':
             return res.status(200).json({ name: 'John Doe' })
         default:
-            return res.status(405).json({name: 'Method not supported'})
+            return res.status(405).send(null)
     }
 }

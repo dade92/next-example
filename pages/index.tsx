@@ -1,6 +1,8 @@
-import {GetServerSideProps} from 'next';
 import React, {FC} from "react";
-import StyledSpan from "../components/Texts";
+import Link from "next/link";
+import {useRouter} from "next/router";
+import {Button} from "@mui/material";
+import styled from "styled-components";
 
 type Data = {
     name: string;
@@ -11,37 +13,38 @@ type Props = {
     data: Data[];
 }
 
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 50%;
+`
 
-const DataDisplay: FC<Props> = ({data}) =>
-    (
-        <>
-            {
-                data.map(d => {
-                    return <div key={d.name}>
-                        <StyledSpan>{d.age}</StyledSpan>
-                        <StyledSpan>{d.name}</StyledSpan>
-                    </div>
-                })
-            }
-        </>
-    )
+const StyledLink = styled(Link)`
+    align-self: center;
+`
 
-export default DataDisplay;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    console.log('Retrieving props on server side...')
-    return {
-        props: {
-            data: [
-                {
-                    age: 10,
-                    name: "ciccio"
-                },
-                {
-                    age: 12,
-                    name: "pasticcio"
-                }
-            ],
-        },
-    };
-};
+const Index: FC<Props> = ({data}) => {
+    const router = useRouter()
+
+    return (
+        <Wrapper>
+            <span>INDEX</span>
+            <StyledLink
+                href={{
+                    pathname: '/books',
+                    query: {
+                        message: 'from index with love'
+                    },
+                }}
+                rel="noreferrer"
+            >
+                Books
+            </StyledLink>
+            <Button variant={'contained'} onClick={() => router.push('/events')}>Events</Button>
+        </Wrapper>
+    );
+}
+
+export default Index;
