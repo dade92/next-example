@@ -8,7 +8,6 @@ RUN npm install
 
 COPY tsconfig.json ./
 COPY next.config.js ./
-COPY next-env.d.ts ./
 COPY .env.production .
 COPY public ./public
 COPY styles ./styles
