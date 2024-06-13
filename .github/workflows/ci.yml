@@ -25,7 +25,7 @@ jobs:
 
       - name: Get commit hash
         id: get-commit-hash
-        run: echo "::set-output name=commit-hash::$(git rev-parse --short HEAD)"
+        run: echo "commit-hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build, tag, and push the image to Amazon ECR
         id: build-image
