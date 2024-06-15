@@ -13,7 +13,7 @@ const Wrapper = styled.div`
     margin-top: 150px;
 `
 
-const DataDisplay: FC = () => {
+const Movies: FC = () => {
     const router = useRouter();
     const {data, error, isLoading} = useSWR('movies', getMovies);
 
@@ -32,4 +32,4 @@ const DataDisplay: FC = () => {
     );
 }
 
-export default DataDisplay;
+export default Movies;

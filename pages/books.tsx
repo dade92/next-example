@@ -31,7 +31,7 @@ const ButtonWrapper = styled.div`
 `
 
 
-const DataDisplay: FC<Props> = ({data}) => {
+const Books: FC<Props> = ({data}) => {
     const router = useRouter();
 
     const [restData, setRestData] = useState<Data | undefined>(undefined)
@@ -77,7 +77,7 @@ const DataDisplay: FC<Props> = ({data}) => {
     );
 }
 
-export default DataDisplay;
+export default Books;
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const data = await getBooks();
