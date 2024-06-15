@@ -1,22 +1,25 @@
 import React, {FC} from "react";
-import {CircularProgress} from "@mui/material";
+import {Button, CircularProgress} from "@mui/material";
 import styled from "styled-components";
 import useSWR from "swr";
-import {getBooks} from "../utils/rest/Book";
 import {Book} from "./books";
+import {getMovies} from "../utils/rest/Movies";
+import {useRouter} from "next/router";
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    margin-top: 150px;
 `
 
 const DataDisplay: FC = () => {
-    const {data, error, isLoading} = useSWR('books', getBooks)
+    const router = useRouter();
+    const {data, error, isLoading} = useSWR('movies', getMovies);
 
     return (
         <Wrapper>
-            <span>BOOKS CLIENT SIDE</span>
+            <span>MOVIES</span>
             {isLoading && <CircularProgress/>}
             {data && data.map((b: Book) => {
                 return <div key={b.id}>
@@ -24,6 +27,7 @@ const DataDisplay: FC = () => {
                 </div>
             })}
             {error && <span>BOOOM!! SOMETHING WENT WRONG</span>}
+            <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
         </Wrapper>
     );
 }
