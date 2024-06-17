@@ -26,21 +26,25 @@ const StyledLink = styled(Link)`
 
 
 const Index: FC<Props> = ({data}) => {
-    const router = useRouter()
+    const router = useRouter();
 
     return (
         <Wrapper>
-            <span>INDEX</span>
             <StyledLink
                 href={{
                     pathname: '/books',
-                    query: {
-                        message: 'from index with love'
-                    },
                 }}
                 rel="noreferrer"
             >
                 Books
+            </StyledLink>
+            <StyledLink
+                href={{
+                    pathname: '/movies',
+                }}
+                rel="noreferrer"
+            >
+                Movies
             </StyledLink>
             <Button variant={'contained'} onClick={() => router.push('/events')}>Events</Button>
         </Wrapper>

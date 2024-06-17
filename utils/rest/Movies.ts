@@ -1,8 +1,8 @@
 import {Book} from "../../pages/books";
 import {adaptGenericResponse, GenericResponse} from "./GenericResponse";
 
-export const getBooks = async (): Promise<Book[]> => {
-    let result: GenericResponse = await fetch('https://the-one-api.dev/v2/book', {headers: {"Authorization": "Bearer T9GT1GYa_3DluLcsGOog"}})
+export const getMovies = async (): Promise<Book[]> => {
+    let result: GenericResponse = await fetch('https://the-one-api.dev/v2/movie', {headers: {"Authorization": "Bearer T9GT1GYa_3DluLcsGOog"}})
         .then((r) => {
             return r.json() as Promise<GenericResponse>
         }).catch(() => {
