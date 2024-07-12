@@ -2,6 +2,7 @@ import React, {FC, useState} from "react";
 import {Alert, Button, Snackbar} from "@mui/material";
 import styled from "styled-components";
 import {useRouter} from "next/router";
+import {UploadButton} from "../components/UploadButton";
 
 const Wrapper = styled.div`
     display: flex;
@@ -14,6 +15,7 @@ const UploadWrapper = styled.div`
     flex-direction: row;
     gap: 16px;
 `
+
 
 const Documents: FC = () => {
     const router = useRouter();
@@ -51,9 +53,7 @@ const Documents: FC = () => {
                 type="file"
                 onChange={onFileChange}
             />
-            <Button variant={'contained'} onClick={onFileUpload} disabled={!buttonEnabled}>
-                Upload
-            </Button>
+            <UploadButton onFileUpload={onFileUpload} disabled={!buttonEnabled}/>
             {feedback &&
                 <Snackbar open={true} autoHideDuration={2000} onClose={() => setFeedback(false)}
                           data-testid={'snackbar'}>
