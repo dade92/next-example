@@ -3,10 +3,12 @@ import {Alert, Button, Snackbar} from "@mui/material";
 
 const Documents: FC = () => {
     const [file, setFile] = useState<File>();
+    const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
     const [feedback, setFeedback] = useState<boolean>();
 
     const onFileChange = (event) => {
         setFile(event.target.files[0]);
+        setButtonEnabled(true);
     };
 
     const onFileUpload = () => {
@@ -35,7 +37,7 @@ const Documents: FC = () => {
             type="file"
             onChange={onFileChange}
         />
-        <Button variant={'contained'} onClick={onFileUpload}>
+        <Button variant={'contained'} onClick={onFileUpload} disabled={!buttonEnabled}>
             Upload!
         </Button>
         {feedback &&
