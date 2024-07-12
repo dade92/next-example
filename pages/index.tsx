@@ -24,7 +24,6 @@ const StyledLink = styled(Link)`
     align-self: center;
 `
 
-
 const Index: FC<Props> = ({data}) => {
     const router = useRouter();
 
@@ -45,6 +44,14 @@ const Index: FC<Props> = ({data}) => {
                 rel="noreferrer"
             >
                 Movies
+            </StyledLink>
+            <StyledLink
+                href={{
+                    pathname: '/documents',
+                }}
+                rel="noreferrer"
+            >
+                Upload
             </StyledLink>
             <Button variant={'contained'} onClick={() => router.push('/events')}>Events</Button>
         </Wrapper>
