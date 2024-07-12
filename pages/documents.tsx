@@ -1,7 +1,22 @@
 import React, {FC, useState} from "react";
 import {Alert, Button, Snackbar} from "@mui/material";
+import styled from "styled-components";
+import {useRouter} from "next/router";
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+`
+
+const UploadWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+`
 
 const Documents: FC = () => {
+    const router = useRouter();
     const [file, setFile] = useState<File>();
     const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
     const [feedback, setFeedback] = useState<boolean>();
@@ -12,10 +27,8 @@ const Documents: FC = () => {
     };
 
     const onFileUpload = () => {
-        // Create an object of formData
         const formData = new FormData();
 
-        // Update the formData object
         formData.append(
             "file",
             file!,
@@ -32,21 +45,26 @@ const Documents: FC = () => {
     };
 
 
-    return <div>
-        <input
-            type="file"
-            onChange={onFileChange}
-        />
-        <Button variant={'contained'} onClick={onFileUpload} disabled={!buttonEnabled}>
-            Upload!
-        </Button>
-        {feedback &&
-            <Snackbar open={true} autoHideDuration={2000} onClose={() => setFeedback(false)} data-testid={'snackbar'}>
-                <Alert severity="success" sx={{width: '100%'}}>
-                    Document uploaded successfully
-                </Alert>
-            </Snackbar>}
-    </div>
+    return <Wrapper>
+        <UploadWrapper>
+            <input
+                type="file"
+                onChange={onFileChange}
+            />
+            <Button variant={'contained'} onClick={onFileUpload} disabled={!buttonEnabled}>
+                Upload
+            </Button>
+            {feedback &&
+                <Snackbar open={true} autoHideDuration={2000} onClose={() => setFeedback(false)}
+                          data-testid={'snackbar'}>
+                    <Alert severity="success" sx={{width: '100%'}}>
+                        Document uploaded successfully
+                    </Alert>
+                </Snackbar>
+            }
+        </UploadWrapper>
+        <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
+    </Wrapper>
 }
 
 export default Documents;
