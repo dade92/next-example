@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import {Alert, Snackbar} from "@mui/material";
+import {Alert, Button, Snackbar} from "@mui/material";
 
 const Documents: FC = () => {
     const [file, setFile] = useState<File>();
@@ -35,9 +35,9 @@ const Documents: FC = () => {
             type="file"
             onChange={onFileChange}
         />
-        <button onClick={onFileUpload}>
+        <Button variant={'contained'} onClick={onFileUpload}>
             Upload!
-        </button>
+        </Button>
         {feedback &&
             <Snackbar open={true} autoHideDuration={2000} onClose={() => setFeedback(false)} data-testid={'snackbar'}>
                 <Alert severity="success" sx={{width: '100%'}}>
