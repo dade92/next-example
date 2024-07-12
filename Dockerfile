@@ -3,19 +3,9 @@ FROM node:18
 WORKDIR /usr/src/app
 
 COPY package.json ./
-
-RUN npm install
-
-COPY tsconfig.json ./
-COPY next.config.js ./
-COPY .env.production .
-COPY public ./public
-COPY styles ./styles
-COPY pages ./pages
-COPY components ./components
-COPY utils ./utils
-
-RUN npm run build
+COPY .next ./.next
+COPY dist ./dist
+COPY node_modules ./node_modules
 
 EXPOSE 3000
 

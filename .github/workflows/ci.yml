@@ -26,6 +26,18 @@ jobs:
           mask-password: true
           registry-type: public
 
+      - name: Setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install
+        run: npm i
+
+      - name: Build
+        run: CI=false npm run build
+
       - name: Get commit hash
         id: get-commit-hash
         run: echo "commit-hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT

@@ -7,7 +7,12 @@ export type Data = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data | null>
 ) {
-  return res.status(200).json({ name: 'John Doe' })
+  switch(req.method) {
+    case 'GET':
+      return res.status(200).json({ name: 'Davide' })
+    default:
+      return res.status(405).send(null)
+  }
 }
