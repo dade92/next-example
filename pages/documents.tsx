@@ -10,16 +10,12 @@ const Wrapper = styled.div`
     gap: 16px;
 `
 
-const UploadWrapper = styled.div`
+const HorizontalWrapper = styled.div`
     display: flex;
     flex-direction: row;
     gap: 16px;
     justify-content: space-between;
 `
-
-export type Data = {
-    content: string
-}
 
 const Documents: FC = () => {
     const router = useRouter();
@@ -63,7 +59,7 @@ const Documents: FC = () => {
 
 
     return <Wrapper>
-        <UploadWrapper>
+        <HorizontalWrapper>
             <input
                 type="file"
                 onChange={onFileChange}
@@ -77,14 +73,14 @@ const Documents: FC = () => {
                     </Alert>
                 </Snackbar>
             }
-        </UploadWrapper>
-        <UploadWrapper>
+        </HorizontalWrapper>
+        <HorizontalWrapper>
             {<TextareaAutosize
                 minRows={3}
                 defaultValue={content}
             />}
             <Button disabled={!buttonEnabled} variant={"contained"} onClick={readFile}>Read</Button>
-        </UploadWrapper>
+        </HorizontalWrapper>
         <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
     </Wrapper>
 }
