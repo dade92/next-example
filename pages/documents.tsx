@@ -16,7 +16,6 @@ const UploadWrapper = styled.div`
     gap: 16px;
 `
 
-
 const Documents: FC = () => {
     const router = useRouter();
     const [file, setFile] = useState<File>();
