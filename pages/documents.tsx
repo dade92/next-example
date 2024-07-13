@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import {Alert, Button, Snackbar} from "@mui/material";
+import {Alert, Button, Snackbar, TextareaAutosize} from "@mui/material";
 import styled from "styled-components";
 import {useRouter} from "next/router";
 import {UploadButton} from "../components/UploadButton";
@@ -14,11 +14,17 @@ const UploadWrapper = styled.div`
     display: flex;
     flex-direction: row;
     gap: 16px;
+    justify-content: space-between;
 `
+
+export type Data = {
+    content: string
+}
 
 const Documents: FC = () => {
     const router = useRouter();
     const [file, setFile] = useState<File>();
+    const [content, setContent] = useState<string>('')
     const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
     const [feedback, setFeedback] = useState<boolean>();
 
@@ -36,7 +42,7 @@ const Documents: FC = () => {
             file!.name
         );
 
-        fetch('http://app-load-balancer-1008930926.eu-central-1.elb.amazonaws.com/api/upload', {
+        fetch('http://app-load-balancer-236466362.eu-central-1.elb.amazonaws.com/api/upload', {
             method: 'POST',
             body: formData,
             mode: 'no-cors' //very bad, just for presentation purposes!
@@ -44,6 +50,16 @@ const Documents: FC = () => {
             setFeedback(true);
         }).catch()
     };
+
+    const readFile = () => {
+        fetch(`http://app-load-balancer-236466362.eu-central-1.elb.amazonaws.com/api/read?fileName=${file?.name}`, {
+            method: 'GET',
+        })
+            .then(r => r.json())
+            .then(r => {
+                setContent(r.content)
+            })
+    }
 
 
     return <Wrapper>
@@ -61,6 +77,13 @@ const Documents: FC = () => {
                     </Alert>
                 </Snackbar>
             }
+        </UploadWrapper>
+        <UploadWrapper>
+            {<TextareaAutosize
+                minRows={3}
+                defaultValue={content}
+            />}
+            <Button disabled={!buttonEnabled} variant={"contained"} onClick={readFile}>Read</Button>
         </UploadWrapper>
         <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
     </Wrapper>
