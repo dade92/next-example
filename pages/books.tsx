@@ -36,7 +36,6 @@ const Books: FC<Props> = ({data}) => {
 
     const [restData, setRestData] = useState<Data | undefined>(undefined)
     const getHello = () => {
-        console.log('GET hello called!')
         frontendRestClient.get<Data>('/hello').then((d: Data) => {
             setRestData(d)
         })
