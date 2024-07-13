@@ -13,12 +13,10 @@ const Wrapper = styled.div`
     margin-top: 150px;
 `
 
-
 export interface Movie {
     id: string;
     title: string;
 }
-
 
 const Movies: FC = () => {
     const router = useRouter();
