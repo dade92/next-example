@@ -47,13 +47,16 @@ const Documents: FC = () => {
         }).catch()
     };
 
+    //TODO the host in the url must be changed
     const readFile = () => {
-        fetch(`http://app-load-balancer-236466362.eu-central-1.elb.amazonaws.com/api/read?fileName=${file?.name}`, {
+        fetch(`http://localhost:3000/api/read?fileName=${file?.name}`, {
             method: 'GET',
         })
             .then(r => r.json())
             .then(r => {
                 setContent(r.content)
+            }).catch(() => {
+                console.log('There was a problem reading that file')
             })
     }
 
