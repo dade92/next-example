@@ -37,7 +37,7 @@ const Documents: FC = () => {
             file!,
             file!.name
         );
-
+        //TODO when I have the public domain, change this!
         fetch('http://app-load-balancer-236466362.eu-central-1.elb.amazonaws.com/api/upload', {
             method: 'POST',
             body: formData,
