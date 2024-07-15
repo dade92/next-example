@@ -19,7 +19,7 @@ const HorizontalWrapper = styled.div`
 
 const Documents: FC = () => {
     const router = useRouter();
-    const [file, setFile] = useState<File>();
+    const [file, setFile] = useState<File | null>();
     const [content, setContent] = useState<string>('')
     const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
     const [feedback, setFeedback] = useState<boolean>();
@@ -32,19 +32,21 @@ const Documents: FC = () => {
     const onFileUpload = () => {
         const formData = new FormData();
 
-        formData.append(
-            "file",
-            file!,
-            file!.name
-        );
-        //TODO when I have the public domain, change this!
-        fetch('http://app-load-balancer-236466362.eu-central-1.elb.amazonaws.com/api/upload', {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors' //very bad, just for presentation purposes!
-        }).then(() => {
-            setFeedback(true);
-        }).catch()
+        if(file != null) {
+            formData.append(
+                "file",
+                file,
+                file.name
+            );
+            //TODO when I have the public domain, change this!
+            fetch('http://app-load-balancer-236466362.eu-central-1.elb.amazonaws.com/api/upload', {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' //very bad, just for presentation purposes!
+            }).then(() => {
+                setFeedback(true);
+            }).catch()
+        }
     };
 
     //TODO the host in the url must be changed
