@@ -2,7 +2,7 @@ import {Book} from "../../pages/books";
 import {adaptBooksGenericResponse, ApiResponse} from "./ApiResponse";
 
 export const getBooks = async (): Promise<Book[]> => {
-    let result: ApiResponse = await fetch('https://the-one-api.dev/v2/book', {headers: {"Authorization": "Bearer T9GT1GYa_3DluLcsGOog"}})
+    const result = await fetch('https://the-one-api.dev/v2/book', {headers: {"Authorization": "Bearer T9GT1GYa_3DluLcsGOog"}})
         .then((r) => {
             return r.json() as Promise<ApiResponse>
         }).catch(() => {
