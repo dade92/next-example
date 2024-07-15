@@ -8,15 +8,11 @@ export interface ApiResponse {
     }]
 }
 
-export const adaptBooksGenericResponse = (result: ApiResponse): Book[] =>
-    result.docs.map((br: { _id: string; name: string }) => {
-        return {
-            id: br._id,
-            title: br.name
-        }
-    });
+export const adaptBooksGenericResponse = (result: ApiResponse): Book[] => innerRetrieve(result);
 
-export const adaptMoviesGenericResponse = (result: ApiResponse): Movie[] =>
+export const adaptMoviesGenericResponse = (result: ApiResponse): Movie[] => innerRetrieve(result);
+
+const innerRetrieve = (result: ApiResponse) =>
     result.docs.map((br: { _id: string; name: string }) => {
         return {
             id: br._id,
