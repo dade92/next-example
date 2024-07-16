@@ -39,7 +39,7 @@ const Documents: FC = () => {
                 file.name
             );
             //TODO when I have the public domain, change this!
-            fetch('http://app-load-balancer-236466362.eu-central-1.elb.amazonaws.com/api/upload', {
+            fetch('http://app-load-balancer-703479439.eu-central-1.elb.amazonaws.com/api/upload', {
                 method: 'POST',
                 body: formData,
                 mode: 'no-cors' //very bad, just for presentation purposes!
@@ -51,7 +51,7 @@ const Documents: FC = () => {
 
     //TODO the host in the url must be changed
     const readFile = () => {
-        fetch(`http://localhost:3000/api/read?fileName=${file?.name}`, {
+        fetch(`http://app-load-balancer-703479439.eu-central-1.elb.amazonaws.com/api/read?fileName=${file?.name}`, {
             method: 'GET',
         })
             .then(r => r.json())
