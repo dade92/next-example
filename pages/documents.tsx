@@ -42,7 +42,6 @@ const Documents: FC = () => {
             fetch('http://app-load-balancer-703479439.eu-central-1.elb.amazonaws.com/api/upload', {
                 method: 'POST',
                 body: formData,
-                mode: 'no-cors' //very bad, just for presentation purposes!
             }).then(() => {
                 setFeedback(true);
             }).catch()
