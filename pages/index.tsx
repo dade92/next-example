@@ -1,7 +1,5 @@
 import React, {FC} from "react";
 import Link from "next/link";
-import {useRouter} from "next/router";
-import {Button} from "@mui/material";
 import styled from "styled-components";
 
 type Data = {
@@ -24,11 +22,7 @@ const StyledLink = styled(Link)`
     align-self: center;
 `
 
-
-const Index: FC<Props> = ({data}) => {
-    const router = useRouter();
-
-    return (
+const Index: FC<Props> = ({data}) => (
         <Wrapper>
             <StyledLink
                 href={{
@@ -46,9 +40,23 @@ const Index: FC<Props> = ({data}) => {
             >
                 Movies
             </StyledLink>
-            <Button variant={'contained'} onClick={() => router.push('/events')}>Events</Button>
+            <StyledLink
+                href={{
+                    pathname: '/documents',
+                }}
+                rel="noreferrer"
+            >
+                Upload
+            </StyledLink>
+            <StyledLink
+                href={{
+                    pathname: '/events',
+                }}
+                rel="noreferrer"
+            >
+                Events
+            </StyledLink>
         </Wrapper>
-    );
-}
+    )
 
 export default Index;
