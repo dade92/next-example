@@ -9,7 +9,7 @@ export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: () => 
         file.name
     );
     //TODO when I have the public domain, change this!
-    fetch('http://app-load-balancer-703479439.eu-central-1.elb.amazonaws.com/api/upload', {
+    fetch('http://app-load-balancer-754760737.eu-central-1.elb.amazonaws.com/api/upload', {
         method: 'POST',
         body: formData,
     }).then(() => {

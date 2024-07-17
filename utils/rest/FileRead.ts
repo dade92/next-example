@@ -2,7 +2,7 @@ export type FileRead = (filename: string, onFileReadCompleted: (content: string)
 
 export const RestFileRead: FileRead = (filename: string, onFileReadCompleted: (content: string) => void) => {
     //TODO the host in the url must be changed
-    fetch(`http://app-load-balancer-703479439.eu-central-1.elb.amazonaws.com/api/read?fileName=${filename}`, {
+    fetch(`http://app-load-balancer-754760737.eu-central-1.elb.amazonaws.com/api/read?fileName=${filename}`, {
         method: 'GET',
     })
         .then(r => r.json())
