@@ -3,6 +3,8 @@ import {Alert, Button, Snackbar, TextareaAutosize} from "@mui/material";
 import styled from "styled-components";
 import {useRouter} from "next/router";
 import {UploadButton} from "../components/UploadButton";
+import {FileUpload, RestFileUpload} from "../utils/rest/FileUpload";
+import {FileRead, RestFileRead} from "../utils/rest/FileRead";
 
 const Wrapper = styled.div`
     display: flex;
@@ -17,7 +19,12 @@ const HorizontalWrapper = styled.div`
     justify-content: space-between;
 `
 
-const Documents: FC = () => {
+interface Props {
+    fileUpload: FileUpload
+    fileRead: FileRead
+}
+
+const Documents: FC<Props> = ({fileUpload, fileRead}) => {
     const router = useRouter();
     const [file, setFile] = useState<File | null>();
     const [content, setContent] = useState<string>('')
@@ -30,37 +37,14 @@ const Documents: FC = () => {
     };
 
     const onFileUpload = () => {
-        const formData = new FormData();
-
-        if(file != null) {
-            formData.append(
-                "file",
-                file,
-                file.name
-            );
-            //TODO when I have the public domain, change this!
-            fetch('http://app-load-balancer-703479439.eu-central-1.elb.amazonaws.com/api/upload', {
-                method: 'POST',
-                body: formData,
-            }).then(() => {
-                setFeedback(true);
-            }).catch()
+        if (file != null) {
+            fileUpload(file, () => setFeedback(true));
         }
     };
 
-    //TODO the host in the url must be changed
-    const readFile = () => {
-        fetch(`http://app-load-balancer-703479439.eu-central-1.elb.amazonaws.com/api/read?fileName=${file?.name}`, {
-            method: 'GET',
-        })
-            .then(r => r.json())
-            .then(r => {
-                setContent(r.content)
-            }).catch(() => {
-                console.log('There was a problem reading that file')
-            })
-    }
-
+    const read = () => {
+        fileRead(file!.name, (content: string) => setContent(content));
+    };
 
     return <Wrapper>
         <HorizontalWrapper>
@@ -83,10 +67,12 @@ const Documents: FC = () => {
                 minRows={3}
                 defaultValue={content}
             />}
-            <Button disabled={!buttonEnabled} variant={"contained"} onClick={readFile}>Read</Button>
+            <Button disabled={!buttonEnabled} variant={"contained"} onClick={read}>Read</Button>
         </HorizontalWrapper>
         <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
     </Wrapper>
 }
 
-export default Documents;
+const MainDocuments: FC = () => <Documents fileUpload={RestFileUpload} fileRead={RestFileRead}/>
+
+export default MainDocuments;
