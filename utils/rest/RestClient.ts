@@ -4,6 +4,7 @@ if (process.env.NODE_ENV === 'development') {
     host = "http://localhost:3000/api";
 } else if (process.env.NODE_ENV === 'production') {
     //Modify the host here to deploy on a different "server"
+    //TODO modify this when we have the public domain
     host = "http://localhost:3000/api";
 }
 
