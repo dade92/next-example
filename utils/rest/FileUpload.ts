@@ -13,9 +13,10 @@ export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: (locat
         file.name
     );
     //TODO when I have the public domain, change this!
-    fetch('http://app-load-balancer-1556041158.eu-central-1.elb.amazonaws.com/api/upload', {
+    fetch('http://app-load-balancer-2384273.eu-central-1.elb.amazonaws.com/api/upload', {
         method: 'POST',
         body: formData,
+        mode: 'no-cors'
     }).then((r) =>
         r.json() as any as UploadResponse
     ).then(r => {
