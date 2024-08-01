@@ -29,6 +29,7 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
     const [file, setFile] = useState<File | null>();
     const [content, setContent] = useState<string>('')
     const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
+    const [imageLocation, setImageLocation] = useState<string | null>(null);
     const [feedback, setFeedback] = useState<boolean>();
 
     const onFileChange = (event) => {
@@ -36,9 +37,14 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
         setButtonEnabled(true);
     };
 
+    const onUploadCompleted = (location: string) => {
+        setFeedback(true);
+        setImageLocation(location);
+    };
+
     const onFileUpload = () => {
         if (file != null) {
-            fileUpload(file, () => setFeedback(true));
+            fileUpload(file, onUploadCompleted);
         }
     };
 
@@ -70,6 +76,9 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
             <Button disabled={!buttonEnabled} variant={"contained"} onClick={read}>Read</Button>
         </HorizontalWrapper>
         <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
+        {imageLocation && <div>
+            <img style={{maxWidth: '30px'}} src={imageLocation} alt=""/>
+        </div>}
     </Wrapper>
 }
 
