@@ -1,6 +1,10 @@
-export type FileUpload = (file: File, onUploadCompleted: () => void) => void;
+export type FileUpload = (file: File, onUploadCompleted: (location: string) => void) => void;
 
-export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: () => void) => {
+interface UploadResponse {
+    imageLocation: string;
+}
+
+export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: (location: string) => void) => {
     const formData = new FormData();
 
     formData.append(
@@ -9,10 +13,12 @@ export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: () => 
         file.name
     );
     //TODO when I have the public domain, change this!
-    fetch('http://app-load-balancer-754760737.eu-central-1.elb.amazonaws.com/api/upload', {
+    fetch('http://app-load-balancer-1556041158.eu-central-1.elb.amazonaws.com/api/upload', {
         method: 'POST',
         body: formData,
-    }).then(() => {
-        onUploadCompleted();
+    }).then((r) =>
+        r.json() as any as UploadResponse
+    ).then(r => {
+        onUploadCompleted(r.imageLocation);
     }).catch()
 }

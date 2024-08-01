@@ -5,6 +5,8 @@ import {useRouter} from "next/router";
 import {UploadButton} from "../components/UploadButton";
 import {FileUpload, RestFileUpload} from "../utils/rest/FileUpload";
 import {FileRead, RestFileRead} from "../utils/rest/FileRead";
+import Image from 'next/image'
+
 
 const Wrapper = styled.div`
     display: flex;
@@ -29,6 +31,7 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
     const [file, setFile] = useState<File | null>();
     const [content, setContent] = useState<string>('')
     const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
+    const [imageLocation, setImageLocation] = useState<string | null>(null);
     const [feedback, setFeedback] = useState<boolean>();
 
     const onFileChange = (event) => {
@@ -36,9 +39,14 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
         setButtonEnabled(true);
     };
 
+    const onUploadCompleted = (location: string) => {
+        setFeedback(true);
+        setImageLocation(location);
+    };
+
     const onFileUpload = () => {
         if (file != null) {
-            fileUpload(file, () => setFeedback(true));
+            fileUpload(file, onUploadCompleted);
         }
     };
 
@@ -70,6 +78,14 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
             <Button disabled={!buttonEnabled} variant={"contained"} onClick={read}>Read</Button>
         </HorizontalWrapper>
         <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
+        {imageLocation && <div>
+            <Image
+                src={imageLocation}
+                width={30}
+                height={30}
+                alt="Uploaded picture"
+            />
+        </div>}
     </Wrapper>
 }
 
