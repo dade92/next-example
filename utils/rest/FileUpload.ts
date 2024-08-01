@@ -1,5 +1,9 @@
 export type FileUpload = (file: File, onUploadCompleted: (location: string) => void) => void;
 
+interface UploadResponse {
+    imageLocation: string;
+}
+
 export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: (location: string) => void) => {
     const formData = new FormData();
 
@@ -13,8 +17,8 @@ export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: (locat
         method: 'POST',
         body: formData,
     }).then((r) =>
-        r.json()
+        r.json() as any as UploadResponse
     ).then(r => {
-        onUploadCompleted(r.location);
+        onUploadCompleted(r.imageLocation);
     }).catch()
 }

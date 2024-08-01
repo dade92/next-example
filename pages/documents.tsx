@@ -5,6 +5,8 @@ import {useRouter} from "next/router";
 import {UploadButton} from "../components/UploadButton";
 import {FileUpload, RestFileUpload} from "../utils/rest/FileUpload";
 import {FileRead, RestFileRead} from "../utils/rest/FileRead";
+import Image from 'next/image'
+
 
 const Wrapper = styled.div`
     display: flex;
@@ -77,7 +79,12 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
         </HorizontalWrapper>
         <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
         {imageLocation && <div>
-            <img style={{maxWidth: '30px'}} src={imageLocation} alt=""/>
+            <Image
+                src={imageLocation}
+                width={30}
+                height={30}
+                alt="Uploaded picture"
+            />
         </div>}
     </Wrapper>
 }
