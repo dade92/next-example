@@ -13,7 +13,7 @@ export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: (locat
         file.name
     );
     //TODO when I have the public domain, change this!
-    fetch('http://localhost:8080/api/upload', {
+    fetch('http://localhost:3000/api/upload', {
         method: 'POST',
         body: formData,
     }).then((r) =>

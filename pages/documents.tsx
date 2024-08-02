@@ -1,5 +1,5 @@
 import React, {FC, useState} from "react";
-import {Alert, Button, Snackbar, TextareaAutosize} from "@mui/material";
+import {Alert, Button, Snackbar} from "@mui/material";
 import styled from "styled-components";
 import {useRouter} from "next/router";
 import {UploadButton} from "../components/UploadButton";
@@ -29,15 +29,12 @@ interface Props {
 const Documents: FC<Props> = ({fileUpload, fileRead}) => {
     const router = useRouter();
     const [file, setFile] = useState<File | null>();
-    const [content, setContent] = useState<string>('')
-    const [buttonEnabled, setButtonEnabled] = useState<boolean>(false);
     const [imageLocation, setImageLocation] = useState<string | null>(null);
     const [successFeedback, setSuccessFeedback] = useState<boolean>();
     const [errorFeedback, setErrorFeedback] = useState<boolean>();
 
     const onFileChange = (event) => {
         setFile(event.target.files[0]);
-        setButtonEnabled(true);
     };
 
     const onUploadCompleted = (location: string) => {
@@ -53,10 +50,6 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
         if (file != null) {
             fileUpload(file, onUploadCompleted, onUploadError);
         }
-    };
-
-    const read = () => {
-        fileRead(file!.name, (content: string) => setContent(content));
     };
 
     return <Wrapper>
@@ -76,22 +69,15 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
                 </Snackbar>
             }
         </HorizontalWrapper>
-        <HorizontalWrapper>
-            {<TextareaAutosize
-                minRows={3}
-                defaultValue={content}
-            />}
-            <Button disabled={!buttonEnabled} variant={"contained"} onClick={read}>Read</Button>
-        </HorizontalWrapper>
-        <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
         {imageLocation && <div>
             <img
-                src={imageLocation}
+                src={'https://davide-s3-12345678900000.s3.eu-central-1.amazonaws.com/Dani.jpg'}
                 width={400}
                 height={400}
                 alt="Uploaded picture"
             />
         </div>}
+        <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
     </Wrapper>
 }
 
