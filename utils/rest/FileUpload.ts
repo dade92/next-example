@@ -9,8 +9,6 @@ const host = process.env.NEXT_PUBLIC_UPLOAD_HOST;
 export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: (location: string) => void, onUploadError: () => void) => {
     const formData = new FormData();
 
-    console.log(host);
-
     formData.append(
         "file",
         file,
