@@ -71,7 +71,7 @@ const Documents: FC<Props> = ({fileUpload, fileRead}) => {
         </HorizontalWrapper>
         {imageLocation && <div>
             <img
-                src={'https://davide-s3-12345678900000.s3.eu-central-1.amazonaws.com/Dani.jpg'}
+                src={imageLocation}
                 width={400}
                 height={400}
                 alt="Uploaded picture"
