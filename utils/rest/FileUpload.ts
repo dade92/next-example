@@ -17,6 +17,7 @@ export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: (locat
     //TODO when I have the public domain, change this! At the moment, it's something stubbed just to see the UI behaviour
     //it does not upload anything, just returns a fixed url from a bucket that should have been uploaded before!!
     //Basically I implementedin this project a sort of proxy to be able to validate locally without CORS problems
+    console.log('host is: ' + host);
     fetch(`http://${host}/api/upload`, {
         method: 'POST',
         body: formData,
