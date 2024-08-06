@@ -1,12 +1,4 @@
-let host = '';
-
-if (process.env.NODE_ENV === 'development') {
-    host = "http://localhost:3000/api";
-} else if (process.env.NODE_ENV === 'production') {
-    //Modify the host here to deploy on a different "server"
-    //TODO modify this when we have the public domain
-    host = "http://localhost:3000/api";
-}
+const host = process.env.NEXT_PUBLIC_UPLOAD_HOST;
 
 export class RestClient {
 
@@ -64,4 +56,4 @@ export class RestClient {
     }
 }
 
-export const frontendRestClient = new RestClient(host);
+export const frontendRestClient = new RestClient(host!);
