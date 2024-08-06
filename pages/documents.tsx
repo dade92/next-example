@@ -12,7 +12,6 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-top: 400px;
 `
 
 const HorizontalWrapper = styled.div`
@@ -86,20 +85,12 @@ const Documents: FC<Props> = ({fileUpload, fileRead, postsRetriever}) => {
                 return <img
                     src={p.imageLocation}
                     key={p.name}
-                    width={100}
-                    height={100}
+                    width={400}
+                    height={400}
                     alt="Uploaded picture"
                 />
             })
         }
-        {/*{imageLocation && <div>*/}
-        {/*    <img*/}
-        {/*        src={imageLocation}*/}
-        {/*        width={400}*/}
-        {/*        height={400}*/}
-        {/*        alt="Uploaded picture"*/}
-        {/*    />*/}
-        {/*</div>}*/}
         <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
     </Wrapper>
 }

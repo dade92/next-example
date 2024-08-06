@@ -14,7 +14,8 @@ export default function handler(
             return res.status(200).json({
                 posts: [
                     {name: 'ciccio', imageLocation: ''},
-                    {name: 'pasticcio', imageLocation: ''}
+                    {name: 'pasticcio', imageLocation: ''},
+                    {name: 'pasticcio', imageLocation: ''},
                 ]
             });
         default:
