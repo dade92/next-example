@@ -31,14 +31,19 @@ interface Props {
 const Documents: FC<Props> = ({fileUpload, fileRead, postsRetriever}) => {
     const router = useRouter();
     const [file, setFile] = useState<File | null>();
-    const [imageLocation, setImageLocation] = useState<string | null>(null);
     const [successFeedback, setSuccessFeedback] = useState<boolean>();
     const [errorFeedback, setErrorFeedback] = useState<boolean>();
     const [posts, setPosts] = useState<Post[]>([]);
 
+    const fetchPosts = () => {
+        postsRetriever()
+            .then(posts => setPosts(posts))
+            .catch(e => console.log('Error retrieving posts!'))
+    };
+
     useEffect(() => {
-        postsRetriever().then(posts => setPosts(posts))
-    })
+        fetchPosts();
+    }, [])
 
     const onFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -46,7 +51,7 @@ const Documents: FC<Props> = ({fileUpload, fileRead, postsRetriever}) => {
 
     const onUploadCompleted = (location: string) => {
         setSuccessFeedback(true);
-        setImageLocation(location);
+        fetchPosts();
     };
 
     const onUploadError = () => {
@@ -81,8 +86,8 @@ const Documents: FC<Props> = ({fileUpload, fileRead, postsRetriever}) => {
                 return <img
                     src={p.imageLocation}
                     key={p.name}
-                    width={400}
-                    height={400}
+                    width={100}
+                    height={100}
                     alt="Uploaded picture"
                 />
             })

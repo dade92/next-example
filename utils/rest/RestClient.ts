@@ -1,4 +1,4 @@
-const host = process.env.NEXT_PUBLIC_UPLOAD_HOST;
+const host = 'http://' + process.env.NEXT_PUBLIC_UPLOAD_HOST + '/api';
 
 export class RestClient {
 

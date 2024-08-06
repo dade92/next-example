@@ -10,7 +10,7 @@ export default function handler(
     res: NextApiResponse<PostsResponse>
 ) {
     switch (req.method) {
-        case 'POST':
+        case 'GET':
             return res.status(200).json({
                 posts: [
                     {name: 'ciccio', imageLocation: ''},
