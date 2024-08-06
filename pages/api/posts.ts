@@ -15,7 +15,7 @@ export default function handler(
                 posts: [
                     {name: 'ciccio', imageLocation: ''},
                     {name: 'pasticcio', imageLocation: ''},
-                    {name: 'pasticcio', imageLocation: ''},
+                    {name: 'roberto', imageLocation: ''},
                 ]
             });
         default:

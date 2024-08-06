@@ -14,7 +14,7 @@ export const RestFileUpload: FileUpload = (file: File, onUploadCompleted: (locat
         file,
         file.name
     );
-    fetch(`http://${host}/api/upload`, {
+    fetch(`${host}/upload`, {
         method: 'POST',
         body: formData,
     }).then((r) =>
