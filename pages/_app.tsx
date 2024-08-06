@@ -4,10 +4,10 @@ import type {AppProps} from 'next/app'
 import styled from "styled-components";
 
 const GeneralWrapper = styled.div`
-    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 24px;
 `
 
 export default function App({Component, pageProps}: AppProps) {
