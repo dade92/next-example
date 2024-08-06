@@ -4,7 +4,6 @@ import styled from "styled-components";
 import {useRouter} from "next/router";
 import {UploadButton} from "../components/UploadButton";
 import {FileUpload, RestFileUpload} from "../utils/rest/FileUpload";
-import {FileRead, RestFileRead} from "../utils/rest/FileRead";
 import {ErrorFeedback} from "../components/ErrorFeedback";
 import {Post, PostsRetriever, RestPostsRetriever} from "../utils/rest/PostsRetriever";
 
@@ -23,11 +22,10 @@ const HorizontalWrapper = styled.div`
 
 interface Props {
     fileUpload: FileUpload
-    fileRead: FileRead,
     postsRetriever: PostsRetriever
 }
 
-const Documents: FC<Props> = ({fileUpload, fileRead, postsRetriever}) => {
+const Documents: FC<Props> = ({fileUpload, postsRetriever}) => {
     const router = useRouter();
     const [file, setFile] = useState<File | null>();
     const [successFeedback, setSuccessFeedback] = useState<boolean>();
@@ -95,7 +93,6 @@ const Documents: FC<Props> = ({fileUpload, fileRead, postsRetriever}) => {
     </Wrapper>
 }
 
-const MainDocuments: FC = () => <Documents fileUpload={RestFileUpload} fileRead={RestFileRead}
-                                           postsRetriever={RestPostsRetriever}/>
+const MainDocuments: FC = () => <Documents fileUpload={RestFileUpload} postsRetriever={RestPostsRetriever}/>
 
 export default MainDocuments;

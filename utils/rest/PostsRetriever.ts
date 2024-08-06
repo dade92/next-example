@@ -12,6 +12,6 @@ export interface Post {
 }
 
 export const RestPostsRetriever: PostsRetriever = async (): Promise<Post[]> => {
-    let response: PostsResponse = await frontendRestClient.get<PostsResponse>(`/posts`);
+    const response = await frontendRestClient.get<PostsResponse>(`/posts`);
     return response.posts;
 }
