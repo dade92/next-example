@@ -13,9 +13,9 @@ export default function handler(
         case 'GET':
             return res.status(200).json({
                 posts: [
-                    {name: 'ciccio', imageLocation: ''},
-                    {name: 'pasticcio', imageLocation: ''},
-                    {name: 'roberto', imageLocation: ''},
+                    {name: 'AWS.png', imageLocation: 'https://davide-s3-12345678900000.s3.eu-central-1.amazonaws.com/AWS.png'},
+                    {name: 'docker.png', imageLocation: 'https://davide-s3-12345678900000.s3.eu-central-1.amazonaws.com/docker.png'},
+                    {name: 'Java.svg', imageLocation: 'https://davide-s3-12345678900000.s3.eu-central-1.amazonaws.com/Java.svg'},
                 ]
             });
         default:

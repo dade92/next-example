@@ -20,6 +20,10 @@ const HorizontalWrapper = styled.div`
     justify-content: space-between;
 `
 
+const ButtonWithMargin = styled(Button)`
+    margin-top: 16px;
+`
+
 interface Props {
     fileUpload: FileUpload
     postsRetriever: PostsRetriever
@@ -89,7 +93,7 @@ const Documents: FC<Props> = ({fileUpload, postsRetriever}) => {
                 />
             })
         }
-        <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
+        <ButtonWithMargin variant="outlined" onClick={() => router.push('/')}> Back </ButtonWithMargin>
     </Wrapper>
 }
 
