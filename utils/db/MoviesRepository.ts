@@ -4,13 +4,15 @@ import {Movie2} from "../../pages/movies2";
 interface MongoMovie {
     title: string;
     plot: string;
+    poster: string | undefined;
 }
 
 const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie2 => {
     return {
         id: mongoMovie._id.toString(),
         title: mongoMovie.title,
-        plot: mongoMovie.plot
+        plot: mongoMovie.plot,
+        posterUrl: mongoMovie.poster ?? ''
     }
 }
 
