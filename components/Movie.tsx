@@ -20,6 +20,10 @@ const InfoWrapper = styled.div`
     gap: 8px;
 `
 
+const PlotText = styled(Typography)`
+    max-width: 300px;
+`
+
 export const Movie: FC<Props> = ({movie}) => {
     return <CardWrapper>
         <InfoWrapper>
@@ -30,6 +34,7 @@ export const Movie: FC<Props> = ({movie}) => {
                 width={600}
                 height={400}
             />}
+            <PlotText>{movie.plot}</PlotText>
         </InfoWrapper>
     </CardWrapper>
 }
