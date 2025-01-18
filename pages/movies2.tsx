@@ -12,13 +12,14 @@ const Wrapper = styled.div`
     margin-top: 150px;
 `
 
-export interface Movie {
+export interface Movie2 {
     id: string;
     title: string;
+    plot: string;
 }
 
 type Props = {
-    data: Movie[];
+    data: Movie2[];
 }
 
 const Movies2: FC<Props> = ({data}) => {
@@ -27,7 +28,7 @@ const Movies2: FC<Props> = ({data}) => {
     return (
         <Wrapper>
             <span>MOVIES</span>
-            {data && data.map((movie: Movie) => {
+            {data && data.map((movie: Movie2) => {
                 return <div key={movie.id}>
                     <span>{movie.title}</span>
                 </div>

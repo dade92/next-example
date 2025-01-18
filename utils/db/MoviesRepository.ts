@@ -1,15 +1,28 @@
-import {Collection, MongoClient} from "mongodb";
-import {Movie} from "../../pages/movies2";
+import {Collection, MongoClient, WithId} from "mongodb";
+import {Movie2} from "../../pages/movies2";
+
+interface MongoMovie {
+    title: string;
+    plot: string;
+}
+
+const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie2 => {
+    return {
+        id: mongoMovie._id.toString(),
+        title: mongoMovie.title,
+        plot: mongoMovie.plot
+    }
+}
 
 export class MoviesRepository {
     private mongoClient: MongoClient;
-    private collection: Collection<Movie>;
+    private collection: Collection<MongoMovie>;
     private isConnected: boolean = false;
 
-    constructor(host: string, port: string, db: string, username: string, password: string) {
-        const uri = `mongodb+srv://${username}:${password}@${host}:${port}`;
+    constructor(host: string, db: string, username: string, password: string) {
+        const uri = `mongodb+srv://${username}:${password}@${host}`;
         this.mongoClient = new MongoClient(uri);
-        this.collection = this.mongoClient.db(db).collection<Movie>('movies');
+        this.collection = this.mongoClient.db(db).collection<MongoMovie>('movies');
     }
 
     private async connect(): Promise<void> {
@@ -26,7 +39,7 @@ export class MoviesRepository {
         }
     }
 
-    async query(name: string): Promise<Movie | null> {
+    async query(name: string): Promise<Movie2 | null> {
         try {
             await this.connect();
             const query = {name};
@@ -38,25 +51,27 @@ export class MoviesRepository {
                 console.log(`No movies found with name "${name}"`);
             }
 
-            return result;
+            return null;
         } catch (error) {
             console.error('Error querying movie:', error);
             throw error;
         }
     }
 
-    async findFirstTen(): Promise<Movie[]> {
+    async findFirstTen(): Promise<Movie2[]> {
         try {
             await this.connect();
             const movies = await this.collection.find().limit(10).toArray();
 
             if (movies.length > 0) {
-                console.log(`Found ${movies.length} movies:`, movies);
+                return movies.map(m => {
+                    return toDomainMovie(m)
+                })
             } else {
                 console.log('No movies found.');
             }
 
-            return movies;
+            return [];
         } catch (error) {
             console.error('Error retrieving first ten movies:', error);
             throw error;
@@ -67,7 +82,6 @@ export class MoviesRepository {
 
 export const moviesRepository = new MoviesRepository(
     'cluster0.0ehgf.mongodb.net',
-    '27017',
     'sample_mflix',
     'davidebotti92',
     ''
