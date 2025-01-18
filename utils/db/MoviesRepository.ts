@@ -1,10 +1,15 @@
-import {Collection, MongoClient, WithId} from "mongodb";
-import {Movie} from "../../pages/mflix";
+import {Collection, MongoClient, ObjectId, WithId} from "mongodb";
+import {Comment, Movie, MovieDetail} from "../../pages/mflix";
 
 interface MongoMovie {
     title: string;
     fullplot: string | undefined;
     poster: string | undefined;
+}
+
+interface MongoMovieDetail {
+    text: string;
+    email: string;
 }
 
 const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
@@ -16,15 +21,24 @@ const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
     }
 }
 
+const toDomainComment = (mongoMovieDetail: WithId<MongoMovieDetail>): Comment => {
+    return {
+        email: mongoMovieDetail.email,
+        text: mongoMovieDetail.text
+    }
+}
+
 export class MoviesRepository {
     private mongoClient: MongoClient;
-    private collection: Collection<MongoMovie>;
+    private mongoMovieCollection: Collection<MongoMovie>;
+    private mongoCommentsCollection: Collection<MongoMovieDetail>;
     private isConnected: boolean = false;
 
     constructor(host: string, db: string, username: string, password: string) {
         const uri = `mongodb+srv://${username}:${password}@${host}`;
         this.mongoClient = new MongoClient(uri);
-        this.collection = this.mongoClient.db(db).collection<MongoMovie>('movies');
+        this.mongoMovieCollection = this.mongoClient.db(db).collection<MongoMovie>('movies');
+        this.mongoCommentsCollection = this.mongoClient.db(db).collection<MongoMovieDetail>('comments');
     }
 
     private async connect(): Promise<void> {
@@ -45,7 +59,7 @@ export class MoviesRepository {
         try {
             await this.connect();
             const query = {name};
-            const result = await this.collection.findOne(query);
+            const result = await this.mongoCommentsCollection.find(query);
 
             if (result) {
                 console.log(`Found one movie with name "${name}":`, result);
@@ -60,10 +74,32 @@ export class MoviesRepository {
         }
     }
 
+    async findDetail(id: string): Promise<MovieDetail> {
+        try {
+            await this.connect();
+            const query = {movie_id: new ObjectId(id)};
+            const result = await this.mongoCommentsCollection.find(query).limit(10).toArray();
+
+            if (result) {
+                return {
+                    comments: result.map(comment => toDomainComment(comment))
+                }
+            } else {
+                console.log(`No movies found with name "${name}"`);
+                return {
+                    comments: []
+                };
+            }
+        } catch (error) {
+            console.error('Error querying movie:', error);
+            throw error;
+        }
+    }
+
     async findFirstTen(): Promise<Movie[]> {
         try {
             await this.connect();
-            const movies = await this.collection.find().limit(10).toArray();
+            const movies = await this.mongoMovieCollection.find().limit(10).toArray();
 
             if (movies.length > 0) {
                 return movies.map(m => {

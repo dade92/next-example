@@ -3,6 +3,7 @@ import {Movie} from "../pages/mflix";
 import Image from "next/image";
 import styled from "styled-components";
 import {Card, Typography} from "@mui/material";
+import { useRouter } from 'next/router';
 
 interface Props {
     movie: Movie
@@ -25,7 +26,9 @@ const PlotText = styled(Typography)`
 `
 
 export const MovieCard: FC<Props> = ({movie}) => {
-    return <CardWrapper>
+    const router = useRouter();
+
+    return <CardWrapper onClick={() => {router.push(`/movieDetails/${movie.id}`)}}>
         <InfoWrapper>
             <Typography>{movie.title}</Typography>
             {movie.posterUrl && <Image

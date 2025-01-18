@@ -19,6 +19,14 @@ export interface Movie {
     posterUrl: string;
 }
 
+export interface MovieDetail {
+    comments: Comment[];
+}
+export interface Comment {
+    email: string;
+    text: string;
+}
+
 type Props = {
     data: Movie[];
 }

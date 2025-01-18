@@ -1,6 +1,6 @@
 import {adaptMoviesGenericResponse, ApiResponse} from "./ApiResponse";
 import {LegacyMovie} from "../../pages/legacyMovies";
-import {Movie} from "../../pages/mflix";
+import {Movie, MovieDetail} from "../../pages/mflix";
 import {moviesRepository} from "../db/MoviesRepository";
 
 export const getLegacyMovies = async (): Promise<LegacyMovie[]> => {
@@ -17,4 +17,8 @@ export const getLegacyMovies = async (): Promise<LegacyMovie[]> => {
 
 export const getMovies = async (): Promise<Movie[]> => {
     return await moviesRepository.findFirstTen();
+}
+
+export const getMovieDetails = async (id: string): Promise<MovieDetail> => {
+    return await moviesRepository.findDetail(id);
 }
