@@ -1,10 +1,10 @@
 import React, {FC} from "react";
 import {Button} from "@mui/material";
 import styled from "styled-components";
-import {getMovies2} from "../utils/rest/Movies";
+import {getMovies} from "../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
-import {Movie} from "../components/Movie";
+import {MovieCard} from "../components/MovieCard";
 
 const Wrapper = styled.div`
     display: flex;
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
     gap: 16px;
 `
 
-export interface Movie2 {
+export interface Movie {
     id: string;
     title: string;
     plot: string;
@@ -20,7 +20,7 @@ export interface Movie2 {
 }
 
 type Props = {
-    data: Movie2[];
+    data: MovieCard[];
 }
 
 const Mflix: FC<Props> = ({data}) => {
@@ -28,9 +28,9 @@ const Mflix: FC<Props> = ({data}) => {
 
     return (
         <Wrapper>
-            {data && data.map((movie: Movie2) => {
+            {data && data.map((movie: MovieCard) => {
                 return <div key={movie.id}>
-                    <Movie movie={movie}/>
+                    <MovieCard movie={movie}/>
                 </div>
             })}
             <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
@@ -39,7 +39,7 @@ const Mflix: FC<Props> = ({data}) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const movies = await getMovies2();
+    const movies = await getMovies();
     return {
         props: {
             data: movies

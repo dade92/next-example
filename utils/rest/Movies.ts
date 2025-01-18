@@ -1,9 +1,9 @@
 import {adaptMoviesGenericResponse, ApiResponse} from "./ApiResponse";
-import {Movie} from "../../pages/movies";
-import {Movie2} from "../../pages/mflix";
+import {LegacyMovie} from "../../pages/legacyMovies";
+import {Movie} from "../../pages/mflix";
 import {moviesRepository} from "../db/MoviesRepository";
 
-export const getMovies = async (): Promise<Movie[]> => {
+export const getLegacyMovies = async (): Promise<LegacyMovie[]> => {
     const result = await fetch('https://the-one-api.dev/v2/movie', {headers: {"Authorization": "Bearer T9GT1GYa_3DluLcsGOog"}})
         .then((r) => {
             return r.json() as Promise<ApiResponse>
@@ -15,6 +15,6 @@ export const getMovies = async (): Promise<Movie[]> => {
     return adaptMoviesGenericResponse(result)
 }
 
-export const getMovies2 = async (): Promise<Movie2[]> => {
+export const getMovies = async (): Promise<Movie[]> => {
     return await moviesRepository.findFirstTen();
 }

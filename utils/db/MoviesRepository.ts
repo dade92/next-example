@@ -1,5 +1,5 @@
 import {Collection, MongoClient, WithId} from "mongodb";
-import {Movie2} from "../../pages/mflix";
+import {Movie} from "../../pages/mflix";
 
 interface MongoMovie {
     title: string;
@@ -7,7 +7,7 @@ interface MongoMovie {
     poster: string | undefined;
 }
 
-const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie2 => {
+const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
     return {
         id: mongoMovie._id.toString(),
         title: mongoMovie.title,
@@ -41,7 +41,7 @@ export class MoviesRepository {
         }
     }
 
-    async query(name: string): Promise<Movie2 | null> {
+    async query(name: string): Promise<Movie | null> {
         try {
             await this.connect();
             const query = {name};
@@ -60,7 +60,7 @@ export class MoviesRepository {
         }
     }
 
-    async findFirstTen(): Promise<Movie2[]> {
+    async findFirstTen(): Promise<Movie[]> {
         try {
             await this.connect();
             const movies = await this.collection.find().limit(10).toArray();

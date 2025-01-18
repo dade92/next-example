@@ -1,11 +1,11 @@
 import React, {FC} from "react";
-import {Movie2} from "../pages/mflix";
+import {Movie} from "../pages/mflix";
 import Image from "next/image";
 import styled from "styled-components";
 import {Card, Typography} from "@mui/material";
 
 interface Props {
-    movie: Movie2
+    movie: Movie
 }
 
 const CardWrapper = styled(Card)`
@@ -24,7 +24,7 @@ const PlotText = styled(Typography)`
     max-width: 300px;
 `
 
-export const Movie: FC<Props> = ({movie}) => {
+export const MovieCard: FC<Props> = ({movie}) => {
     return <CardWrapper>
         <InfoWrapper>
             <Typography>{movie.title}</Typography>
