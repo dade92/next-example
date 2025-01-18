@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {getMovies2} from "../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
-import Image from 'next/image';
+import {Movie} from "../components/Movie";
 
 const Wrapper = styled.div`
     display: flex;
@@ -32,13 +32,7 @@ const Movies2: FC<Props> = ({data}) => {
             <span>MOVIES</span>
             {data && data.map((movie: Movie2) => {
                 return <div key={movie.id}>
-                    <span>{movie.title}</span>
-                    <Image
-                        src={movie.posterUrl}
-                        alt="Description of the image"
-                        width={600}
-                        height={400}
-                    />
+                    <Movie movie={movie}/>
                 </div>
             })}
             <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
