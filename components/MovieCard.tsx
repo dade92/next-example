@@ -21,7 +21,7 @@ const InfoWrapper = styled.div`
 `
 
 const PlotText = styled(Typography)`
-    max-width: 300px;
+    max-width: 500px;
 `
 
 export const MovieCard: FC<Props> = ({movie}) => {

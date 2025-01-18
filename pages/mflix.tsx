@@ -20,7 +20,7 @@ export interface Movie {
 }
 
 type Props = {
-    data: MovieCard[];
+    data: Movie[];
 }
 
 const Mflix: FC<Props> = ({data}) => {
@@ -28,7 +28,7 @@ const Mflix: FC<Props> = ({data}) => {
 
     return (
         <Wrapper>
-            {data && data.map((movie: MovieCard) => {
+            {data && data.map((movie: Movie) => {
                 return <div key={movie.id}>
                     <MovieCard movie={movie}/>
                 </div>

@@ -3,7 +3,7 @@ import {Movie} from "../../pages/mflix";
 
 interface MongoMovie {
     title: string;
-    plot: string;
+    fullplot: string | undefined;
     poster: string | undefined;
 }
 
@@ -11,7 +11,7 @@ const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
     return {
         id: mongoMovie._id.toString(),
         title: mongoMovie.title,
-        plot: mongoMovie.plot,
+        plot: mongoMovie.fullplot ?? '',
         posterUrl: mongoMovie.poster ?? ''
     }
 }
