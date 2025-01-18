@@ -81,8 +81,8 @@ export class MoviesRepository {
 }
 
 export const moviesRepository = new MoviesRepository(
-    'cluster0.0ehgf.mongodb.net',
-    'sample_mflix',
-    'davidebotti92',
-    ''
+    process.env.MONGO_DB_HOST!,
+    process.env.MONGO_DB_DATABASE!,
+    process.env.MONGO_DB_USERNAME!,
+    process.env.MONGO_DB_PASSWORD!,
 );
