@@ -10,7 +10,6 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-top: 150px;
 `
 
 export interface Movie2 {
@@ -24,12 +23,11 @@ type Props = {
     data: Movie2[];
 }
 
-const Movies2: FC<Props> = ({data}) => {
+const Mflix: FC<Props> = ({data}) => {
     const router = useRouter();
 
     return (
         <Wrapper>
-            <span>MOVIES</span>
             {data && data.map((movie: Movie2) => {
                 return <div key={movie.id}>
                     <Movie movie={movie}/>
@@ -49,4 +47,4 @@ export const getServerSideProps: GetServerSideProps = async () => {
     };
 };
 
-export default Movies2;
+export default Mflix;

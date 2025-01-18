@@ -18,7 +18,7 @@ export interface Movie {
     title: string;
 }
 
-const Movies: FC = () => {
+const LegacyMovies: FC = () => {
     const router = useRouter();
     const {data, error, isLoading} = useSWR('movies', getMovies);
 
@@ -37,4 +37,4 @@ const Movies: FC = () => {
     );
 }
 
-export default Movies;
+export default LegacyMovies;

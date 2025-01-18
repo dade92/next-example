@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import {Movie2} from "../pages/movies2";
+import {Movie2} from "../pages/mflix";
 import Image from "next/image";
 import styled from "styled-components";
 import {Card, Typography} from "@mui/material";

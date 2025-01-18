@@ -1,6 +1,6 @@
 import {adaptMoviesGenericResponse, ApiResponse} from "./ApiResponse";
 import {Movie} from "../../pages/movies";
-import {Movie2} from "../../pages/movies2";
+import {Movie2} from "../../pages/mflix";
 import {moviesRepository} from "../db/MoviesRepository";
 
 export const getMovies = async (): Promise<Movie[]> => {

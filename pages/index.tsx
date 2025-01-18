@@ -39,11 +39,11 @@ const Index: FC<RepoInformation> = ({name, stargazers_count, owner}: RepoInforma
             </StyledLink>
             <StyledLink
                 href={{
-                    pathname: '/movies2',
+                    pathname: '/mflix',
                 }}
                 rel="noreferrer"
             >
-                Movies 2
+                Mflix
             </StyledLink>
             <StyledLink
                 href={{

@@ -1,5 +1,5 @@
 import {Collection, MongoClient, WithId} from "mongodb";
-import {Movie2} from "../../pages/movies2";
+import {Movie2} from "../../pages/mflix";
 
 interface MongoMovie {
     title: string;
