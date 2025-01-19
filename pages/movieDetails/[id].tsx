@@ -19,7 +19,7 @@ type Props = {
 
 const MovieDetail: FC<Props> = ({details}) => {
     const router = useRouter();
-    const [movie, setMovie] = useState<Movie>()
+    const [movie, setMovie] = useState<Movie>();
 
     useEffect(() => {
         const storedData = sessionStorage.getItem('movie');
@@ -28,17 +28,22 @@ const MovieDetail: FC<Props> = ({details}) => {
         }
     }, []);
 
+    const onBackClicked = () => {
+        const lastPage = sessionStorage.getItem('lastPage')
+        router.push(`/mflix?page=${lastPage}`)
+    };
+
     return (
         <Wrapper>
             {movie && <MovieDetailCard movie={movie} comments={details.comments}/>}
-            <Button variant="outlined" onClick={() => router.push('/mflix')}> Back </Button>
+            <Button variant="outlined" onClick={onBackClicked}> Back </Button>
         </Wrapper>
     );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
-    const { params } = context;
-    const { id } = params;
+    const {params} = context;
+    const {id} = params;
 
     const details = await getMovieDetails(id);
     return {

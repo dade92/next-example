@@ -23,7 +23,7 @@ export const FloatingPagination: FC<Props> = ({page, totalPages}) => {
                 transform: 'translateX(-50%)',
                 display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                backgroundColor: 'rgba(0, 0, 0, 0.3)',
                 padding: '10px 20px',
                 borderRadius: '20px',
                 boxShadow: 3,

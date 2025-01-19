@@ -7,6 +7,7 @@ import {Movie} from "../utils/movies/Movie";
 
 interface Props {
     movie: Movie
+    onCardClicked: () => void;
 }
 
 const StyledCard = styled(Card)`
@@ -15,7 +16,7 @@ const StyledCard = styled(Card)`
     gap: 8px;
     cursor: pointer;
     max-width: 700px;
-    padding: 32px 0 32px 32px;
+    padding: 32px;
 `
 
 const StyledImage = styled(Image)`
@@ -26,14 +27,14 @@ const PlotText = styled(Typography)`
     max-width: 500px;
 `
 
-export const MovieSummaryCard: FC<Props> = ({movie}) => {
+export const MovieSummaryCard: FC<Props> = ({movie, onCardClicked}) => {
+    const router = useRouter();
 
     const handleClick = () => {
         sessionStorage.setItem('movie', JSON.stringify(movie));
+        onCardClicked();
         router.push(`/movieDetails/${movie.id}`);
     }
-
-    const router = useRouter();
 
     return <StyledCard onClick={handleClick}>
         <Typography variant={'h5'} color={'textPrimary'} gutterBottom>{movie.title}</Typography>

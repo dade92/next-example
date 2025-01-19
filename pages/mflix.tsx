@@ -14,7 +14,7 @@ const Wrapper = styled.div`
     gap: 16px;
 `
 
-type Props = {
+interface Props {
     movies: Movie[];
     page: number;
     totalPages: number;
@@ -26,9 +26,9 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     return (
         <Wrapper>
             {movies && movies.map((movie: Movie) => {
-                return <div key={movie.id}>
-                    <MovieSummaryCard movie={movie}/>
-                </div>
+                return <MovieSummaryCard movie={movie} onCardClicked={() => {
+                    sessionStorage.setItem('lastPage', page.toString());
+                }}/>
             })}
             <FloatingPagination page={page} totalPages={totalPages}/>
             <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
