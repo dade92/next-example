@@ -1,9 +1,9 @@
 import React, {FC} from "react";
-import {Movie} from "../pages/mflix";
 import Image from "next/image";
 import styled from "styled-components";
 import {Card, Typography} from "@mui/material";
 import { useRouter } from 'next/router';
+import {Movie} from "../utils/movies/Movie";
 
 interface Props {
     movie: Movie
@@ -12,6 +12,7 @@ interface Props {
 const CardWrapper = styled(Card)`
     margin: 16px;
     gap: 8px;
+    cursor: pointer;
 `
 
 const InfoWrapper = styled.div`
@@ -26,9 +27,15 @@ const PlotText = styled(Typography)`
 `
 
 export const MovieCard: FC<Props> = ({movie}) => {
+
+    const handleClick = () => {
+        sessionStorage.setItem('movie', JSON.stringify(movie));
+        router.push(`/movieDetails/${movie.id}`);
+    }
+
     const router = useRouter();
 
-    return <CardWrapper onClick={() => {router.push(`/movieDetails/${movie.id}`)}}>
+    return <CardWrapper onClick={handleClick}>
         <InfoWrapper>
             <Typography>{movie.title}</Typography>
             {movie.posterUrl && <Image
