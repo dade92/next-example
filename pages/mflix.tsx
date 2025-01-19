@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../utils/movies/Movie";
+import {FloatingPagination} from "../components/FloatingPagination";
 
 const Wrapper = styled.div`
     display: flex;
@@ -15,9 +16,11 @@ const Wrapper = styled.div`
 
 type Props = {
     data: Movie[];
+    page: number;
+    totalPages: number;
 }
 
-const Mflix: FC<Props> = ({data}) => {
+const Mflix: FC<Props> = ({data, page, totalPages}) => {
     const router = useRouter();
 
     return (
@@ -27,16 +30,24 @@ const Mflix: FC<Props> = ({data}) => {
                     <MovieSummaryCard movie={movie}/>
                 </div>
             })}
+            <FloatingPagination page={page} totalPages={totalPages}/>
             <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
         </Wrapper>
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const movies = await getMovies();
+    const { query } = context;
+    const page = parseInt(query.page) || 1;
+    const pageSize = 10;
+    const totalPages = Math.ceil(1000 / pageSize);
+
     return {
         props: {
-            data: movies
+            data: movies,
+            page: page,
+            totalPages: totalPages,
         },
     };
 };
