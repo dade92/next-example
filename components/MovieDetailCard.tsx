@@ -3,18 +3,9 @@ import {FC} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Comment, Movie} from "../utils/movies/Movie";
 import {styled} from '@mui/material/styles';
-import {
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Collapse,
-    Divider,
-    IconButton,
-    IconButtonProps,
-    Typography
-} from "@mui/material";
+import {Card, CardActions, CardContent, CardMedia, Collapse, IconButton, IconButtonProps} from "@mui/material";
 import {CommentsSection} from "./CommentsSection";
+import {MovieDetailCardContent} from "./MovieDetailCardContent";
 
 interface Props {
     movie: Movie;
@@ -57,19 +48,7 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
             alt=""
         />
         <CardContent sx={{paddingTop: '16px', paddingLeft: '16px', paddingRight: '16px'}}>
-            <Typography gutterBottom variant="h5" component="div">
-                {movie.title}
-            </Typography>
-            <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                {movie.fullPlot}
-            </Typography>
-            <Divider sx={{marginTop: '16px', marginBottom: '16px'}}/>
-            <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>Year: {movie.year}</Typography>
-            <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>Rating: {movie.rating}</Typography>
-            <Typography variant="subtitle2"
-                        sx={{color: 'text.secondary'}}>Directors: {movie.directors.join(", ")}</Typography>
-            <Typography variant="subtitle2"
-                        sx={{color: 'text.secondary'}}>Genres: {movie.genres.join(", ")}</Typography>
+            <MovieDetailCardContent movie={movie}/>
         </CardContent>
         <CardActions disableSpacing>
             <ExpandMore
