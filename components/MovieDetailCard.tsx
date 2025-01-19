@@ -2,7 +2,6 @@ import * as React from 'react';
 import {FC} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Comment, Movie} from "../utils/movies/Movie";
-import {CommentCard} from "./CommentCard";
 import {styled} from '@mui/material/styles';
 import {
     Card,
@@ -15,6 +14,7 @@ import {
     IconButtonProps,
     Typography
 } from "@mui/material";
+import {CommentsSection} from "./CommentsSection";
 
 interface Props {
     movie: Movie;
@@ -82,11 +82,7 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
             </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-            {comments.length == 0 &&
-                <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>No comments yet</Typography>}
-            {comments.map((comment: Comment) => {
-                return <CommentCard comment={comment}/>
-            })}
+            <CommentsSection comments={comments}/>
         </Collapse>
     </Wrapper>
 }

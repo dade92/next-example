@@ -21,6 +21,7 @@ export interface MongoMovie {
 export interface MongoMovieDetail {
     text: string;
     email: string;
+    name: string;
 }
 
 export class MoviesRepository {

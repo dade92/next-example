@@ -11,7 +11,8 @@ interface Props {
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    margin: 16px;
+    margin
+    : 16px;
     max-width: 400px;
 `
 

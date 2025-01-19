@@ -14,6 +14,7 @@ export interface MovieDetail {
     comments: Comment[];
 }
 export interface Comment {
+    name: string;
     email: string;
     text: string;
 }
