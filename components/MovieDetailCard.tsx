@@ -43,7 +43,6 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
     return <Wrapper sx={{maxWidth: 800}}>
         <CardMedia
             component="img"
-            height="600"
             image={movie.posterUrl}
             alt=""
         />

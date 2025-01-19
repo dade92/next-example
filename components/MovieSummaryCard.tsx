@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import {Card, Typography} from "@mui/material";
+import {Box, Card, Typography} from "@mui/material";
 import {useRouter} from 'next/router';
 import {Movie} from "../utils/movies/Movie";
 
@@ -20,6 +20,7 @@ const StyledCard = styled(Card)`
 `
 
 const StyledImage = styled(Image)`
+    width: 100%;
     margin-bottom: 24px;
 `
 
@@ -36,15 +37,26 @@ export const MovieSummaryCard: FC<Props> = ({movie, onCardClicked}) => {
         router.push(`/movieDetails/${movie.id}`);
     }
 
-    return <StyledCard onClick={handleClick}>
-        <Typography variant={'h5'} color={'textPrimary'} gutterBottom>{movie.title}</Typography>
-        {movie.posterUrl && <StyledImage
-            src={movie.posterUrl}
-            alt={movie.title + '_image'}
-            width={600}
-            height={400}
-        />}
-        <Typography>Year: {movie.year}</Typography>
-        <PlotText>{movie.plot}</PlotText>
-    </StyledCard>
+    return <Box
+        sx={{
+            display: 'inline-block',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Smooth animation
+            '&:hover': {
+                transform: 'scale(1.05)', // Slight zoom effect
+                boxShadow: 6, // Elevate the card on hover
+            },
+        }}
+    >
+        <StyledCard onClick={handleClick}>
+            <Typography variant={'h5'} color={'textPrimary'} gutterBottom>{movie.title}</Typography>
+            {movie.posterUrl && <StyledImage
+                src={movie.posterUrl}
+                alt={movie.title + '_image'}
+                width={600}
+                height={400}
+            />}
+            <Typography>Year: {movie.year}</Typography>
+            <PlotText>{movie.plot}</PlotText>
+        </StyledCard>
+    </Box>
 }
