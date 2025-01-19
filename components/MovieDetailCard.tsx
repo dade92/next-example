@@ -61,7 +61,7 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
                 {movie.title}
             </Typography>
             <Typography variant="body2" sx={{color: 'text.secondary'}}>
-                {movie.plot}
+                {movie.fullPlot}
             </Typography>
             <Divider sx={{marginTop: '16px', marginBottom: '16px'}}/>
             <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>Year: {movie.year}</Typography>

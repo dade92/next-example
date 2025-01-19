@@ -10,9 +10,14 @@ interface Props {
 }
 
 const CardWrapper = styled(Card)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin: 16px;
     gap: 8px;
     cursor: pointer;
+    max-width: 700px;
 `
 
 const InfoWrapper = styled.div`
@@ -37,14 +42,14 @@ export const MovieSummaryCard: FC<Props> = ({movie}) => {
 
     return <CardWrapper onClick={handleClick}>
         <InfoWrapper>
-            <Typography>{movie.title}</Typography>
-            <Typography>Year: {movie.year}</Typography>
+            <Typography variant={'h5'} color={'textPrimary'} gutterBottom>{movie.title}</Typography>
             {movie.posterUrl && <Image
                 src={movie.posterUrl}
                 alt={movie.title + '_image'}
                 width={600}
                 height={400}
             />}
+            <Typography>Year: {movie.year}</Typography>
             <PlotText>{movie.plot}</PlotText>
         </InfoWrapper>
     </CardWrapper>

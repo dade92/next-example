@@ -2,6 +2,7 @@ export interface Movie {
     id: string;
     title: string;
     plot: string;
+    fullPlot: string | undefined;
     posterUrl: string;
     year: number;
     genres: string[];

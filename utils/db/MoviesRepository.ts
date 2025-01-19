@@ -9,6 +9,7 @@ interface Imdb {
 
 export interface MongoMovie {
     title: string;
+    plot: string;
     fullplot: string | undefined;
     poster: string | undefined;
     year: number;
