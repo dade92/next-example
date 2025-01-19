@@ -1,7 +1,7 @@
 import * as React from "react";
 import {FC} from "react";
 import {Comment} from "../utils/movies/Movie";
-import {Divider, List, ListItem, ListItemText, Typography} from "@mui/material";
+import {List, ListItem, ListItemText, Typography} from "@mui/material";
 
 interface Props {
     comments: Comment[];
@@ -25,12 +25,11 @@ export const CommentsSection: FC<Props> = ({comments}) => {
                                     >
                                         {comment.name}
                                     </Typography>
-                                    {' — '}  {comment.text}
+                                    {' — '} {comment.text}
                                 </React.Fragment>
                             }
                         />
                     </ListItem>
-                    <Divider/>
                 </>
             })}
         </List>
