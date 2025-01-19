@@ -3,6 +3,7 @@ export interface Movie {
     title: string;
     plot: string;
     posterUrl: string;
+    year: number;
 }
 
 export interface MovieDetail {

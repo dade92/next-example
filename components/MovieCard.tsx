@@ -38,6 +38,7 @@ export const MovieCard: FC<Props> = ({movie}) => {
     return <CardWrapper onClick={handleClick}>
         <InfoWrapper>
             <Typography>{movie.title}</Typography>
+            <Typography>Year: {movie.year}</Typography>
             {movie.posterUrl && <Image
                 src={movie.posterUrl}
                 alt={movie.title + '_image'}

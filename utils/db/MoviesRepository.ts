@@ -1,31 +1,18 @@
-import {Collection, MongoClient, ObjectId, WithId} from "mongodb";
-import {Comment, Movie, MovieDetail} from "../movies/Movie";
+import {Collection, MongoClient, ObjectId} from "mongodb";
+import {Movie, MovieDetail} from "../movies/Movie";
+import {toDomainMovie} from "./MoviesAdapter";
+import {toDomainComment} from "./MovieCommentAdapter";
 
-interface MongoMovie {
+export interface MongoMovie {
     title: string;
     fullplot: string | undefined;
     poster: string | undefined;
+    year: number;
 }
 
-interface MongoMovieDetail {
+export interface MongoMovieDetail {
     text: string;
     email: string;
-}
-
-const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
-    return {
-        id: mongoMovie._id.toString(),
-        title: mongoMovie.title,
-        plot: mongoMovie.fullplot ?? '',
-        posterUrl: mongoMovie.poster ?? ''
-    }
-}
-
-const toDomainComment = (mongoMovieDetail: WithId<MongoMovieDetail>): Comment => {
-    return {
-        email: mongoMovieDetail.email,
-        text: mongoMovieDetail.text
-    }
 }
 
 export class MoviesRepository {
@@ -74,7 +61,7 @@ export class MoviesRepository {
         }
     }
 
-    async findDetail(id: string): Promise<MovieDetail> {
+    async findMovieDetail(id: string): Promise<MovieDetail> {
         try {
             await this.connect();
             const query = {movie_id: new ObjectId(id)};
@@ -85,7 +72,7 @@ export class MoviesRepository {
                     comments: result.map(comment => toDomainComment(comment))
                 }
             } else {
-                console.log(`No movies found with name "${name}"`);
+                console.log(`No movies found with id "${id}"`);
                 return {
                     comments: []
                 };

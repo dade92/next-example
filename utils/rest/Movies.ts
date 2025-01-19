@@ -20,5 +20,5 @@ export const getMovies = async (): Promise<Movie[]> => {
 }
 
 export const getMovieDetails = async (id: string): Promise<MovieDetail> => {
-    return await moviesRepository.findDetail(id);
+    return await moviesRepository.findMovieDetail(id);
 }
