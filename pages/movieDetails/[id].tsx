@@ -1,10 +1,11 @@
 import React, {FC, useEffect, useState} from "react";
-import {Button, Typography} from "@mui/material";
+import {Button} from "@mui/material";
 import styled from "styled-components";
 import {getMovieDetails} from "../../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
-import {Movie, MovieDetail, Comment} from "../../utils/movies/Movie";
+import {Movie, MovieDetail} from "../../utils/movies/Movie";
+import {MovieDetailCard} from "../../components/MovieDetailCard";
 
 const Wrapper = styled.div`
     display: flex;
@@ -22,7 +23,6 @@ const MovieDetail: FC<Props> = ({data}) => {
 
     useEffect(() => {
         const storedData = sessionStorage.getItem('movie');
-        console.log(storedData);
         if (storedData) {
             setMovie(JSON.parse(storedData));
         }
@@ -30,12 +30,7 @@ const MovieDetail: FC<Props> = ({data}) => {
 
     return (
         <Wrapper>
-            <Typography>{movie?.title}</Typography>
-            {data && data.comments.map((comment: Comment) => {
-                return <div>
-                    <Typography>{comment.text}</Typography>
-                </div>
-            })}
+            {movie && <MovieDetailCard movie={movie} comments={data.comments}/>}
             <Button variant="outlined" onClick={() => router.push('/mflix')}> Back </Button>
         </Wrapper>
     );

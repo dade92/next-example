@@ -26,7 +26,7 @@ const PlotText = styled(Typography)`
     max-width: 500px;
 `
 
-export const MovieCard: FC<Props> = ({movie}) => {
+export const MovieSummaryCard: FC<Props> = ({movie}) => {
 
     const handleClick = () => {
         sessionStorage.setItem('movie', JSON.stringify(movie));

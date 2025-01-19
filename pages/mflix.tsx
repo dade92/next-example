@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {getMovies} from "../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
-import {MovieCard} from "../components/MovieCard";
+import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../utils/movies/Movie";
 
 const Wrapper = styled.div`
@@ -24,7 +24,7 @@ const Mflix: FC<Props> = ({data}) => {
         <Wrapper>
             {data && data.map((movie: Movie) => {
                 return <div key={movie.id}>
-                    <MovieCard movie={movie}/>
+                    <MovieSummaryCard movie={movie}/>
                 </div>
             })}
             <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
