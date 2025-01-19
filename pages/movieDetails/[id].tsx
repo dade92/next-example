@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {getMovieDetails} from "../../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
-import {Movie, MovieDetail} from "../../utils/movies/Movie";
+import {Movie, MovieDetail} from "../../data/movies/Movie";
 import {MovieDetailCard} from "../../components/MovieDetailCard";
 import {FloatingBackButton} from "../../components/FloatingBackButton";
 

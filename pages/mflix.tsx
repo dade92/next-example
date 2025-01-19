@@ -5,7 +5,7 @@ import {getMovies} from "../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
-import {Movie} from "../utils/movies/Movie";
+import {Movie} from "../data/movies/Movie";
 import {FloatingPagination} from "../components/FloatingPagination";
 
 const Wrapper = styled.div`

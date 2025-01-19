@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {FC, useState} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {Comment, Movie} from "../utils/movies/Movie";
+import {Comment, Movie} from "../data/movies/Movie";
 import {styled} from '@mui/material/styles';
 import {Card, CardActions, CardContent, CardMedia, Collapse, IconButton, IconButtonProps} from "@mui/material";
 import {CommentsSection} from "./CommentsSection";

@@ -1,5 +1,5 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
-import {Movie, MovieDetail} from "../movies/Movie";
+import {Movie, MovieDetail} from "../../data/movies/Movie";
 import {toDomainMovie} from "./MoviesAdapter";
 import {toDomainComment} from "./MovieCommentAdapter";
 

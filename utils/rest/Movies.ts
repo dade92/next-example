@@ -1,7 +1,7 @@
 import {adaptMoviesGenericResponse, ApiResponse} from "./ApiResponse";
 import {LegacyMovie} from "../../pages/legacyMovies";
 import {moviesRepository} from "../db/MoviesRepository";
-import {Movie, MovieDetail} from "../movies/Movie";
+import {Movie, MovieDetail} from "../../data/movies/Movie";
 
 export const PAGE_SIZE = 10;
 

@@ -1,7 +1,7 @@
 import {FC} from "react";
 import {Divider, Typography} from "@mui/material";
 import * as React from "react";
-import {Movie} from "../utils/movies/Movie";
+import {Movie} from "../data/movies/Movie";
 
 interface Props {
     movie: Movie

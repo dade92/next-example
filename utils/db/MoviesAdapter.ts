@@ -1,5 +1,5 @@
 import {WithId} from "mongodb";
-import {Movie} from "../movies/Movie";
+import {Movie} from "../../data/movies/Movie";
 import {MongoMovie} from "./MoviesRepository";
 
 export const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {

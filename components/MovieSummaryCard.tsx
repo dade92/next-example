@@ -3,7 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import {Box, Card, Typography} from "@mui/material";
 import {useRouter} from 'next/router';
-import {Movie} from "../utils/movies/Movie";
+import {Movie} from "../data/movies/Movie";
 
 interface Props {
     movie: Movie

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {FC} from "react";
-import {Comment} from "../utils/movies/Movie";
+import {Comment} from "../data/movies/Movie";
 import {List, ListItem, ListItemText, Typography} from "@mui/material";
 
 interface Props {
