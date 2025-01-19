@@ -1,4 +1,4 @@
-import {Box, Button} from '@mui/material';
+import {Box, Button, Typography} from '@mui/material';
 import {useRouter} from 'next/router';
 import {FC} from "react";
 
@@ -10,7 +10,7 @@ interface Props {
 export const FloatingPagination: FC<Props> = ({page, totalPages}) => {
     const router = useRouter();
 
-    const handlePageChange = (newPage) => {
+    const handlePageChange = (newPage: number) => {
         router.push(`/mflix?page=${newPage}`);
     };
 
@@ -23,7 +23,7 @@ export const FloatingPagination: FC<Props> = ({page, totalPages}) => {
                 transform: 'translateX(-50%)',
                 display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                backgroundColor: 'rgba(0, 0, 0, 0.2)',
                 padding: '10px 20px',
                 borderRadius: '20px',
                 boxShadow: 3,
@@ -37,9 +37,7 @@ export const FloatingPagination: FC<Props> = ({page, totalPages}) => {
             >
                 &lt;
             </Button>
-            <span style={{color: 'white', fontSize: '18px'}}>
-        Page {page} of {totalPages}
-      </span>
+            <Typography sx={{color: 'white'}}>Page {page} of {totalPages}</Typography>
             <Button
                 variant="contained"
                 onClick={() => handlePageChange(page < totalPages ? page + 1 : page)}
