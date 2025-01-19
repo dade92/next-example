@@ -13,8 +13,8 @@ export interface MongoMovie {
     fullplot: string | undefined;
     poster: string | undefined;
     year: number;
-    genres: string[];
-    directors: string[];
+    genres: string[] | undefined;
+    directors: string[] | undefined;
     imdb: Imdb;
 }
 
@@ -97,9 +97,9 @@ export class MoviesRepository {
             await this.connect();
             const movies = await this.mongoMovieCollection
                 .find()
+                .sort({year: -1})
                 .skip((page - 1) * pageSize)
                 .limit(pageSize)
-                .sort({_id: 1})
                 .toArray();
 
             if (movies.length > 0) {

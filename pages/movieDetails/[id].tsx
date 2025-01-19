@@ -1,11 +1,11 @@
 import React, {FC, useEffect, useState} from "react";
-import {Button} from "@mui/material";
 import styled from "styled-components";
 import {getMovieDetails} from "../../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
 import {Movie, MovieDetail} from "../../utils/movies/Movie";
 import {MovieDetailCard} from "../../components/MovieDetailCard";
+import {FloatingBackButton} from "../../components/FloatingBackButton";
 
 const Wrapper = styled.div`
     display: flex;
@@ -36,7 +36,7 @@ const MovieDetail: FC<Props> = ({details}) => {
     return (
         <Wrapper>
             {movie && <MovieDetailCard movie={movie} comments={details.comments}/>}
-            <Button variant="outlined" onClick={onBackClicked}> Back </Button>
+            <FloatingBackButton onBackClicked={onBackClicked}/>
         </Wrapper>
     );
 }
