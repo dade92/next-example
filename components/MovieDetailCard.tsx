@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FC} from 'react';
+import {FC, useState} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Comment, Movie} from "../utils/movies/Movie";
 import {styled} from '@mui/material/styles';
@@ -34,7 +34,7 @@ const ExpandMore = styled(({expand, ...other}: ExpandMoreProps) => (
 }));
 
 export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);

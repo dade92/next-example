@@ -29,8 +29,8 @@ const MovieDetail: FC<Props> = ({details}) => {
     }, []);
 
     const onBackClicked = () => {
-        const lastPage = sessionStorage.getItem('lastPage')
-        router.push(`/mflix?page=${lastPage}`)
+        const lastPage = sessionStorage.getItem('lastPage');
+        router.push(`/mflix?page=${lastPage}`);
     };
 
     return (
