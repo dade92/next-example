@@ -1,8 +1,20 @@
-import React, {FC} from "react";
+import * as React from 'react';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Comment, Movie} from "../utils/movies/Movie";
 import {CommentCard} from "./CommentCard";
-import styled from "styled-components";
-import {Card, CardContent, CardMedia, Divider, Typography} from "@mui/material";
+import { styled } from '@mui/material/styles';
+import {
+    Card,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Collapse,
+    Divider,
+    IconButton,
+    IconButtonProps,
+    Typography
+} from "@mui/material";
+import {FC} from "react";
 
 interface Props {
     movie: Movie;
@@ -16,7 +28,26 @@ const Wrapper = styled(Card)`
     padding: 8px;
 `
 
+interface ExpandMoreProps extends IconButtonProps {
+    expand: boolean;
+}
+
+const ExpandMore = styled(({ expand, ...other }: ExpandMoreProps) => (
+    <IconButton {...other} />
+))(({ theme, expand }: { theme: any; expand: boolean }) => ({
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+    }),
+    transform: expand ? 'rotate(180deg)' : 'rotate(0deg)', // Conditionally apply rotation
+}));
+
 export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
+    const [expanded, setExpanded] = React.useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     return <Wrapper sx={{maxWidth: 700}}>
         <CardMedia
@@ -38,10 +69,21 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
             <Typography variant="subtitle2"
                         sx={{color: 'text.secondary'}}>Directors: {movie.directors.join(", ")}</Typography>
         </CardContent>
-        {/*TODO put in the expand section*/}
-        {comments.length == 0 && <Typography>No comments yet</Typography>}
-        {comments.map((comment: Comment) => {
-            return <CommentCard comment={comment}/>
-        })}
+        <CardActions disableSpacing>
+            <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+            >
+                <ExpandMoreIcon />
+            </ExpandMore>
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+            {comments.length == 0 && <Typography>No comments yet</Typography>}
+            {comments.map((comment: Comment) => {
+                return <CommentCard comment={comment}/>
+            })}
+        </Collapse>
     </Wrapper>
 }
