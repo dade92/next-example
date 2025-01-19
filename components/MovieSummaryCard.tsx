@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import {Card, Divider, Typography} from "@mui/material";
+import {Card, Typography} from "@mui/material";
 import {useRouter} from 'next/router';
 import {Movie} from "../utils/movies/Movie";
 
