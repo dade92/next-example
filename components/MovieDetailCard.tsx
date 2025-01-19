@@ -1,8 +1,9 @@
 import * as React from 'react';
+import {FC} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Comment, Movie} from "../utils/movies/Movie";
 import {CommentCard} from "./CommentCard";
-import { styled } from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 import {
     Card,
     CardActions,
@@ -14,7 +15,6 @@ import {
     IconButtonProps,
     Typography
 } from "@mui/material";
-import {FC} from "react";
 
 interface Props {
     movie: Movie;
@@ -32,9 +32,9 @@ interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
 }
 
-const ExpandMore = styled(({ expand, ...other }: ExpandMoreProps) => (
+const ExpandMore = styled(({expand, ...other}: ExpandMoreProps) => (
     <IconButton {...other} />
-))(({ theme, expand }: { theme: any; expand: boolean }) => ({
+))(({theme, expand}: { theme: any; expand: boolean }) => ({
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
         duration: theme.transitions.duration.shortest,
@@ -49,14 +49,14 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
         setExpanded(!expanded);
     };
 
-    return <Wrapper sx={{maxWidth: 700}}>
+    return <Wrapper sx={{maxWidth: 800}}>
         <CardMedia
             component="img"
             height="600"
             image={movie.posterUrl}
             alt=""
         />
-        <CardContent>
+        <CardContent sx={{paddingTop: '16px', paddingLeft: '16px', paddingRight: '16px'}}>
             <Typography gutterBottom variant="h5" component="div">
                 {movie.title}
             </Typography>
@@ -68,6 +68,8 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
             <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>Rating: {movie.rating}</Typography>
             <Typography variant="subtitle2"
                         sx={{color: 'text.secondary'}}>Directors: {movie.directors.join(", ")}</Typography>
+            <Typography variant="subtitle2"
+                        sx={{color: 'text.secondary'}}>Genres: {movie.genres.join(", ")}</Typography>
         </CardContent>
         <CardActions disableSpacing>
             <ExpandMore
@@ -76,11 +78,12 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
                 aria-expanded={expanded}
                 aria-label="show more"
             >
-                <ExpandMoreIcon />
+                <ExpandMoreIcon/>
             </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-            {comments.length == 0 && <Typography>No comments yet</Typography>}
+            {comments.length == 0 &&
+                <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>No comments yet</Typography>}
             {comments.map((comment: Comment) => {
                 return <CommentCard comment={comment}/>
             })}
