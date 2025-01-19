@@ -15,17 +15,17 @@ const Wrapper = styled.div`
 `
 
 type Props = {
-    data: Movie[];
+    movies: Movie[];
     page: number;
     totalPages: number;
 }
 
-const Mflix: FC<Props> = ({data, page, totalPages}) => {
+const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     const router = useRouter();
 
     return (
         <Wrapper>
-            {data && data.map((movie: Movie) => {
+            {movies && movies.map((movie: Movie) => {
                 return <div key={movie.id}>
                     <MovieSummaryCard movie={movie}/>
                 </div>
@@ -37,15 +37,15 @@ const Mflix: FC<Props> = ({data, page, totalPages}) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const movies = await getMovies();
-    const { query } = context;
-    const page = parseInt(query.page) || 1;
-    const pageSize = 10;
+    const {query} = context;
+    const page = parseInt(query.page as string) || 1;
+    const {movies, pageSize} = await getMovies(page);
+    //TODO still needed the total number of pages
     const totalPages = Math.ceil(1000 / pageSize);
 
     return {
         props: {
-            data: movies,
+            movies: movies,
             page: page,
             totalPages: totalPages,
         },

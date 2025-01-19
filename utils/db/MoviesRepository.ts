@@ -92,10 +92,15 @@ export class MoviesRepository {
         }
     }
 
-    async findFirstTen(): Promise<Movie[]> {
+    async findBy(page: number, pageSize: number): Promise<Movie[]> {
         try {
             await this.connect();
-            const movies = await this.mongoMovieCollection.find().limit(10).toArray();
+            const movies = await this.mongoMovieCollection
+                .find()
+                .skip((page - 1) * pageSize)
+                .limit(pageSize)
+                .sort({_id: 1})
+                .toArray();
 
             if (movies.length > 0) {
                 return movies.map(m => {

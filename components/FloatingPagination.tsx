@@ -1,7 +1,13 @@
-import { Box, Button } from '@mui/material';
-import { useRouter } from 'next/router';
+import {Box, Button} from '@mui/material';
+import {useRouter} from 'next/router';
+import {FC} from "react";
 
-export const FloatingPagination = ({ page, totalPages }) => {
+interface Props {
+    page: number;
+    totalPages: number;
+}
+
+export const FloatingPagination: FC<Props> = ({page, totalPages}) => {
     const router = useRouter();
 
     const handlePageChange = (newPage) => {
@@ -27,18 +33,18 @@ export const FloatingPagination = ({ page, totalPages }) => {
                 variant="contained"
                 onClick={() => handlePageChange(page > 1 ? page - 1 : page)}
                 disabled={page <= 1}
-                sx={{ marginRight: 2 }}
+                sx={{marginRight: 2}}
             >
                 &lt;
             </Button>
-            <span style={{ color: 'white', fontSize: '18px' }}>
+            <span style={{color: 'white', fontSize: '18px'}}>
         Page {page} of {totalPages}
       </span>
             <Button
                 variant="contained"
                 onClick={() => handlePageChange(page < totalPages ? page + 1 : page)}
                 disabled={page >= totalPages}
-                sx={{ marginLeft: 2 }}
+                sx={{marginLeft: 2}}
             >
                 &gt;
             </Button>
