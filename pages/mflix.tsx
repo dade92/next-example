@@ -5,27 +5,13 @@ import {getMovies} from "../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
 import {MovieCard} from "../components/MovieCard";
+import {Movie} from "../utils/movies/Movie";
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
 `
-
-export interface Movie {
-    id: string;
-    title: string;
-    plot: string;
-    posterUrl: string;
-}
-
-export interface MovieDetail {
-    comments: Comment[];
-}
-export interface Comment {
-    email: string;
-    text: string;
-}
 
 type Props = {
     data: Movie[];

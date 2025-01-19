@@ -1,7 +1,7 @@
 import {adaptMoviesGenericResponse, ApiResponse} from "./ApiResponse";
 import {LegacyMovie} from "../../pages/legacyMovies";
-import {Movie, MovieDetail} from "../../pages/mflix";
 import {moviesRepository} from "../db/MoviesRepository";
+import {Movie, MovieDetail} from "../movies/Movie";
 
 export const getLegacyMovies = async (): Promise<LegacyMovie[]> => {
     const result = await fetch('https://the-one-api.dev/v2/movie', {headers: {"Authorization": "Bearer T9GT1GYa_3DluLcsGOog"}})
