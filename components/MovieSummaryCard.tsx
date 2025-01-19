@@ -1,30 +1,25 @@
 import React, {FC} from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import {Card, Typography} from "@mui/material";
-import { useRouter } from 'next/router';
+import {Card, Divider, Typography} from "@mui/material";
+import {useRouter} from 'next/router';
 import {Movie} from "../utils/movies/Movie";
 
 interface Props {
     movie: Movie
 }
 
-const CardWrapper = styled(Card)`
+const StyledCard = styled(Card)`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 16px;
     gap: 8px;
     cursor: pointer;
     max-width: 700px;
+    padding: 32px 0 32px 32px;
 `
 
-const InfoWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 16px;
-    gap: 8px;
+const StyledImage = styled(Image)`
+    margin-bottom: 24px;
 `
 
 const PlotText = styled(Typography)`
@@ -40,17 +35,15 @@ export const MovieSummaryCard: FC<Props> = ({movie}) => {
 
     const router = useRouter();
 
-    return <CardWrapper onClick={handleClick}>
-        <InfoWrapper>
-            <Typography variant={'h5'} color={'textPrimary'} gutterBottom>{movie.title}</Typography>
-            {movie.posterUrl && <Image
-                src={movie.posterUrl}
-                alt={movie.title + '_image'}
-                width={600}
-                height={400}
-            />}
-            <Typography>Year: {movie.year}</Typography>
-            <PlotText>{movie.plot}</PlotText>
-        </InfoWrapper>
-    </CardWrapper>
+    return <StyledCard onClick={handleClick}>
+        <Typography variant={'h5'} color={'textPrimary'} gutterBottom>{movie.title}</Typography>
+        {movie.posterUrl && <StyledImage
+            src={movie.posterUrl}
+            alt={movie.title + '_image'}
+            width={600}
+            height={400}
+        />}
+        <Typography>Year: {movie.year}</Typography>
+        <PlotText>{movie.plot}</PlotText>
+    </StyledCard>
 }
