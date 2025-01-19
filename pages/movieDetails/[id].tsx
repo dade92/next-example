@@ -14,10 +14,10 @@ const Wrapper = styled.div`
 `
 
 type Props = {
-    data: MovieDetail;
+    details: MovieDetail;
 }
 
-const MovieDetail: FC<Props> = ({data}) => {
+const MovieDetail: FC<Props> = ({details}) => {
     const router = useRouter();
     const [movie, setMovie] = useState<Movie>()
 
@@ -30,7 +30,7 @@ const MovieDetail: FC<Props> = ({data}) => {
 
     return (
         <Wrapper>
-            {movie && <MovieDetailCard movie={movie} comments={data.comments}/>}
+            {movie && <MovieDetailCard movie={movie} comments={details.comments}/>}
             <Button variant="outlined" onClick={() => router.push('/mflix')}> Back </Button>
         </Wrapper>
     );
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     const details = await getMovieDetails(id);
     return {
         props: {
-            data: details
+            details
         },
     };
 };

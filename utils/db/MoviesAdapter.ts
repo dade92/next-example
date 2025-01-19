@@ -9,5 +9,8 @@ export const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
         plot: mongoMovie.fullplot ?? '',
         posterUrl: mongoMovie.poster ?? '',
         year: mongoMovie.year,
+        genres: mongoMovie.genres,
+        directors: mongoMovie.directors,
+        rating: mongoMovie.imdb.rating
     }
 }

@@ -3,11 +3,18 @@ import {Movie, MovieDetail} from "../movies/Movie";
 import {toDomainMovie} from "./MoviesAdapter";
 import {toDomainComment} from "./MovieCommentAdapter";
 
+interface Imdb {
+    rating: number;
+}
+
 export interface MongoMovie {
     title: string;
     fullplot: string | undefined;
     poster: string | undefined;
     year: number;
+    genres: string[];
+    directors: string[];
+    imdb: Imdb;
 }
 
 export interface MongoMovieDetail {
