@@ -40,10 +40,10 @@ export const MovieSummaryCard: FC<Props> = ({movie, onCardClicked}) => {
     return <Box
         sx={{
             display: 'inline-block',
-            transition: 'transform 0.3s ease, box-shadow 0.3s ease', // Smooth animation
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
             '&:hover': {
-                transform: 'scale(1.05)', // Slight zoom effect
-                boxShadow: 6, // Elevate the card on hover
+                transform: 'scale(1.05)',
+                boxShadow: 6,
             },
         }}
     >

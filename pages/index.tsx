@@ -29,14 +29,6 @@ const Index: FC<RepoInformation> = ({name, stargazers_count, owner}: RepoInforma
             >
                 Books
             </StyledLink>
-            {/*<StyledLink*/}
-            {/*    href={{*/}
-            {/*        pathname: '/legacyMovies',*/}
-            {/*    }}*/}
-            {/*    rel="noreferrer"*/}
-            {/*>*/}
-            {/*    Movies*/}
-            {/*</StyledLink>*/}
             <StyledLink
                 href={{
                     pathname: '/mflix',
