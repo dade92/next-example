@@ -3,7 +3,7 @@ import {Button, CircularProgress} from "@mui/material";
 import styled from "styled-components";
 import useSWR from "swr";
 import {Book} from "./books";
-import {getMovies} from "../utils/rest/Movies";
+import {getLegacyMovies} from "../utils/rest/Movies";
 import {useRouter} from "next/router";
 
 const Wrapper = styled.div`
@@ -13,14 +13,14 @@ const Wrapper = styled.div`
     margin-top: 150px;
 `
 
-export interface Movie {
+export interface LegacyMovie {
     id: string;
     title: string;
 }
 
-const Movies: FC = () => {
+const LegacyMovies: FC = () => {
     const router = useRouter();
-    const {data, error, isLoading} = useSWR('movies', getMovies);
+    const {data, error, isLoading} = useSWR('movies', getLegacyMovies);
 
     return (
         <Wrapper>
@@ -37,4 +37,4 @@ const Movies: FC = () => {
     );
 }
 
-export default Movies;
+export default LegacyMovies;
