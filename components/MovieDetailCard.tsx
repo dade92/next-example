@@ -36,10 +36,6 @@ const ExpandMore = styled(({expand, ...other}: ExpandMoreProps) => (
 export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
     const [expanded, setExpanded] = useState(false);
 
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
-
     return <Wrapper sx={{maxWidth: 800}}>
         <CardMedia
             component="img"
@@ -52,7 +48,9 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
         <CardActions disableSpacing>
             <ExpandMore
                 expand={expanded}
-                onClick={handleExpandClick}
+                onClick={() => {
+                    setExpanded(!expanded);
+                }}
                 aria-expanded={expanded}
                 aria-label="show more"
             >
