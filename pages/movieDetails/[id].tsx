@@ -1,11 +1,11 @@
 import React, {FC, useEffect, useState} from "react";
 import styled from "styled-components";
-import {getMovieDetailsUseCase} from "../../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
 import {Movie, MovieDetail} from "../../data/movies/Movie";
 import {MovieDetailCard} from "../../components/MovieDetailCard";
 import {FloatingBackButton} from "../../components/FloatingBackButton";
+import {getMovieDetailsUseCase} from "../../utils/MovieDetailUseCase";
 
 const Wrapper = styled.div`
     display: flex;

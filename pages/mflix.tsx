@@ -1,10 +1,10 @@
 import React, {FC} from "react";
 import styled from "styled-components";
-import {getMoviesUseCase} from "../utils/rest/Movies";
 import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../data/movies/Movie";
 import {FloatingPagination} from "../components/FloatingPagination";
+import {getMoviesUseCase} from "../utils/MovieUseCase";
 
 const Wrapper = styled.div`
     display: flex;
