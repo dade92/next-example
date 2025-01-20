@@ -58,7 +58,7 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
                 <ExpandMoreIcon/>
             </ExpandMore>
         </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expanded} timeout="auto">
             <CommentsSection comments={comments}/>
         </Collapse>
     </Wrapper>

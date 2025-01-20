@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import styled from "styled-components";
-import {getMovies} from "../utils/rest/Movies";
+import {getMoviesUseCase} from "../utils/rest/Movies";
 import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../data/movies/Movie";
@@ -33,7 +33,7 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) =>
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query} = context;
     const page = parseInt(query.page as string) || 1;
-    const {movies, pageSize} = await getMovies(page);
+    const {movies, pageSize} = await getMoviesUseCase(page);
     //TODO still needed the total number of pages
     const totalPages = Math.ceil(1000 / pageSize);
 

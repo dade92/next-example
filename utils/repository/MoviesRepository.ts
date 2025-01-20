@@ -1,7 +1,7 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
 import {Movie, MovieDetail} from "../../data/movies/Movie";
-import {toDomainMovie} from "./MoviesAdapter";
-import {toDomainComment} from "./MovieCommentAdapter";
+import {toDomainMovie} from "./adapters/MoviesAdapter";
+import {toDomainComment} from "./adapters/MovieCommentAdapter";
 
 interface Imdb {
     rating: number;
@@ -48,25 +48,6 @@ export class MoviesRepository {
         if (this.isConnected) {
             await this.mongoClient.close();
             this.isConnected = false;
-        }
-    }
-
-    async query(name: string): Promise<Movie | null> {
-        try {
-            await this.connect();
-            const query = {name};
-            const result = await this.mongoCommentsCollection.find(query);
-
-            if (result) {
-                console.log(`Found one movie with name "${name}":`, result);
-            } else {
-                console.log(`No movies found with name "${name}"`);
-            }
-
-            return null;
-        } catch (error) {
-            console.error('Error querying movie:', error);
-            throw error;
         }
     }
 

@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from "react";
 import styled from "styled-components";
-import {getMovieDetails} from "../../utils/rest/Movies";
+import {getMovieDetailsUseCase} from "../../utils/rest/Movies";
 import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
 import {Movie, MovieDetail} from "../../data/movies/Movie";
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     const {params} = context;
     const {id} = params;
 
-    const details = await getMovieDetails(id);
+    const details = await getMovieDetailsUseCase(id);
     return {
         props: {
             details

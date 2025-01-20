@@ -1,6 +1,6 @@
 import {adaptMoviesGenericResponse, ApiResponse} from "./ApiResponse";
 import {LegacyMovie} from "../../pages/legacyMovies";
-import {moviesRepository} from "../db/MoviesRepository";
+import {moviesRepository} from "../repository/MoviesRepository";
 import {Movie, MovieDetail} from "../../data/movies/Movie";
 
 export const PAGE_SIZE = 10;
@@ -22,7 +22,7 @@ export interface MovieResponse {
     pageSize: number;
 }
 
-export const getMovies = async (page: number): Promise<MovieResponse> => {
+export const getMoviesUseCase = async (page: number): Promise<MovieResponse> => {
     const movies = await moviesRepository.findBy(page, PAGE_SIZE);
     return {
         movies,
@@ -30,6 +30,6 @@ export const getMovies = async (page: number): Promise<MovieResponse> => {
     };
 }
 
-export const getMovieDetails = async (id: string): Promise<MovieDetail> => {
+export const getMovieDetailsUseCase = async (id: string): Promise<MovieDetail> => {
     return await moviesRepository.findMovieDetail(id);
 }
