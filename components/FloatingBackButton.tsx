@@ -15,10 +15,10 @@ export const FloatingBackButton: FC<Props> = ({onBackClicked}) => {
                 transform: 'translateX(-50%)',
                 display: 'flex',
                 alignItems: 'center',
-                backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                backgroundColor: 'rgba(0, 0, 0, 0)',
                 padding: '10px 20px',
-                borderRadius: '20px',
-                boxShadow: 3,
+                borderRadius: '5px',
+                boxShadow: 0,
             }}
         >
             <Button

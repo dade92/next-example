@@ -1,8 +1,6 @@
 import React, {FC} from "react";
-import {Button} from "@mui/material";
 import styled from "styled-components";
 import {getMovies} from "../utils/rest/Movies";
-import {useRouter} from "next/router";
 import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../data/movies/Movie";
@@ -20,21 +18,17 @@ interface Props {
     totalPages: number;
 }
 
-const Mflix: FC<Props> = ({movies, page, totalPages}) => {
-    const router = useRouter();
-
-    return (
+const Mflix: FC<Props> = ({movies, page, totalPages}) =>
+    (
         <Wrapper>
             {movies && movies.map((movie: Movie) => {
-                return <MovieSummaryCard movie={movie} onCardClicked={() => {
+                return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={() => {
                     sessionStorage.setItem('lastPage', page.toString());
                 }}/>
             })}
             <FloatingPagination page={page} totalPages={totalPages}/>
-            <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
         </Wrapper>
-    );
-}
+    )
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query} = context;
