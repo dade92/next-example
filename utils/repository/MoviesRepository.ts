@@ -77,7 +77,7 @@ export class MoviesRepository {
         try {
             await this.connect();
             const movies = await this.mongoMovieCollection
-                .find()
+                .find({ year: { $type: "int" } })
                 .sort({year: -1})
                 .skip((page - 1) * pageSize)
                 .limit(pageSize)
