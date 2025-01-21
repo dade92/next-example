@@ -2,7 +2,9 @@ import {FC, useState} from "react";
 import {Box, IconButton, InputAdornment, TextField} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-export const SearchField: FC = () => {
+
+
+export const Search: FC = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearch = () => {
@@ -13,7 +15,7 @@ export const SearchField: FC = () => {
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <TextField
                 variant="outlined"
-                placeholder="Search..."
+                placeholder="Search a movie"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 slotProps={{

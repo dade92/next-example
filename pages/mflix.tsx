@@ -5,7 +5,7 @@ import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../data/movies/Movie";
 import {FloatingPagination} from "../components/FloatingPagination";
 import {getMoviesUseCase} from "../utils/MovieUseCase";
-import {SearchField} from "../components/SearchField";
+import {Search} from "../components/Search";
 
 const Wrapper = styled.div`
     display: flex;
@@ -22,7 +22,7 @@ interface Props {
 const Mflix: FC<Props> = ({movies, page, totalPages}) =>
     (
         <Wrapper>
-            <SearchField />
+            <Search />
             {movies && movies.map((movie: Movie) => {
                 return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={() => {
                     sessionStorage.setItem('lastPage', page.toString());
