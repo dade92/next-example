@@ -77,7 +77,7 @@ export class MoviesRepository {
         try {
             await this.connect();
             const movies = await this.mongoMovieCollection
-                .find({ year: { $type: "int" } })
+                .find({year: {$type: "int"}})
                 .sort({year: -1})
                 .skip((page - 1) * pageSize)
                 .limit(pageSize)
@@ -92,6 +92,27 @@ export class MoviesRepository {
             }
 
             return [];
+        } catch (error) {
+            console.error('Error retrieving first ten movies:', error);
+            throw error;
+        }
+    }
+
+    async findByTitle(title: string): Promise<Movie> {
+        try {
+            await this.connect();
+            const movies = await this.mongoMovieCollection
+                .find({title: title})
+                .limit(1)
+                .toArray();
+
+            if (movies.length > 0) {
+                return toDomainMovie(movies[0])
+            } else {
+                console.log('No movies found.');
+            }
+
+            return Promise.reject();
         } catch (error) {
             console.error('Error retrieving first ten movies:', error);
             throw error;

@@ -30,14 +30,10 @@ const fetcher = (url: string): Promise<SearchMovieResponse> =>
 
 const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     const [search, setSearch] = useState<string>("")
-    const {data, error, isLoading} = useSWR<SearchMovieResponse>(
+    const {data} = useSWR<SearchMovieResponse>(
         search ? `api/search?query=${search}` : null,
         fetcher
     );
-
-    const searchMovie = (query: string) =>{
-        setSearch(query);
-    }
 
     const onCardClicked = () => {
         sessionStorage.setItem('lastPage', page.toString());
@@ -45,7 +41,7 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
 
     return (
         <Wrapper>
-            <Search onSearch={(search: string) => searchMovie(search)}/>
+            <Search onSearch={(search: string) => setSearch(search)}/>
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
             {data == null && movies && movies.map((movie: Movie) => {
                 return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={onCardClicked}/>
