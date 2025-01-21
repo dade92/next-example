@@ -30,7 +30,7 @@ const fetcher = (url: string): Promise<SearchMovieResponse> =>
 
 
 const Mflix: FC<Props> = ({movies, page, totalPages}) => {
-    const [search, setSearch] = useState<string>("")
+    const [search, setSearch] = useState<string | null>("")
     const {data, isLoading} = useSWR<SearchMovieResponse>(
         search ? `api/search?query=${search}` : null,
         fetcher
@@ -49,7 +49,7 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
                 return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={onCardClicked}/>
             })}
             <FloatingPagination page={page} totalPages={totalPages}
-                                onPageChanged={() => console.log('Page is changed')}/>
+                                onPageChanged={() => setSearch(null)}/>
         </Wrapper>
     );
 }
