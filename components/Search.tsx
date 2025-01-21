@@ -2,13 +2,15 @@ import {FC, useState} from "react";
 import {Box, IconButton, InputAdornment, TextField} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
+interface Props {
+    onSearch: (query: string) => void;
+}
 
-
-export const Search: FC = () => {
+export const Search: FC<Props> = ({onSearch}) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearch = () => {
-        console.log("Searching for:", searchQuery);
+        onSearch(searchQuery);
     };
 
     return (

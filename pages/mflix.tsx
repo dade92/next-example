@@ -1,4 +1,4 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import styled from "styled-components";
 import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
@@ -6,6 +6,8 @@ import {Movie} from "../data/movies/Movie";
 import {FloatingPagination} from "../components/FloatingPagination";
 import {getMoviesUseCase} from "../utils/MovieUseCase";
 import {Search} from "../components/Search";
+import useSWR from "swr";
+import {SearchMovieResponse} from "./api/search";
 
 const Wrapper = styled.div`
     display: flex;
@@ -19,18 +21,39 @@ interface Props {
     totalPages: number;
 }
 
-const Mflix: FC<Props> = ({movies, page, totalPages}) =>
-    (
+const fetcher = (url: string): Promise<SearchMovieResponse> =>
+    fetch(url).then((res) => {
+        if (!res.ok) throw new Error(`Error: ${res.statusText}`);
+        return res.json();
+    });
+
+
+const Mflix: FC<Props> = ({movies, page, totalPages}) => {
+    const [search, setSearch] = useState<string>("")
+    const {data, error, isLoading} = useSWR<SearchMovieResponse>(
+        search ? `api/search?query=${search}` : null,
+        fetcher
+    );
+
+    const searchMovie = (query: string) =>{
+        setSearch(query);
+    }
+
+    const onCardClicked = () => {
+        sessionStorage.setItem('lastPage', page.toString());
+    };
+
+    return (
         <Wrapper>
-            <Search />
-            {movies && movies.map((movie: Movie) => {
-                return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={() => {
-                    sessionStorage.setItem('lastPage', page.toString());
-                }}/>
+            <Search onSearch={(search: string) => searchMovie(search)}/>
+            {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
+            {data == null && movies && movies.map((movie: Movie) => {
+                return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={onCardClicked}/>
             })}
             <FloatingPagination page={page} totalPages={totalPages}/>
         </Wrapper>
-    )
+    );
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query} = context;
