@@ -8,6 +8,7 @@ import {getMoviesUseCase} from "../utils/MovieUseCase";
 import {Search} from "../components/Search";
 import useSWR from "swr";
 import {SearchMovieResponse} from "./api/search";
+import {CircularProgress} from "@mui/material";
 
 const Wrapper = styled.div`
     display: flex;
@@ -30,7 +31,7 @@ const fetcher = (url: string): Promise<SearchMovieResponse> =>
 
 const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     const [search, setSearch] = useState<string>("")
-    const {data} = useSWR<SearchMovieResponse>(
+    const {data, isLoading} = useSWR<SearchMovieResponse>(
         search ? `api/search?query=${search}` : null,
         fetcher
     );
@@ -42,11 +43,13 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     return (
         <Wrapper>
             <Search onSearch={(search: string) => setSearch(search)}/>
+            {isLoading && <CircularProgress/>}
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
             {data == null && movies && movies.map((movie: Movie) => {
                 return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={onCardClicked}/>
             })}
-            <FloatingPagination page={page} totalPages={totalPages}/>
+            <FloatingPagination page={page} totalPages={totalPages}
+                                onPageChanged={() => console.log('Page is changed')}/>
         </Wrapper>
     );
 }

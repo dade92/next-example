@@ -98,7 +98,7 @@ export class MoviesRepository {
         }
     }
 
-    async findByTitle(title: string): Promise<Movie> {
+    async findByTitle(title: string): Promise<Movie | null> {
         try {
             await this.connect();
             const movies = await this.mongoMovieCollection
@@ -110,12 +110,11 @@ export class MoviesRepository {
                 return toDomainMovie(movies[0])
             } else {
                 console.log('No movies found.');
+                return null;
             }
-
-            return Promise.reject();
         } catch (error) {
             console.error('Error retrieving first ten movies:', error);
-            throw error;
+            return Promise.reject();
         }
     }
 

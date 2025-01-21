@@ -5,12 +5,14 @@ import {FC} from "react";
 interface Props {
     page: number;
     totalPages: number;
+    onPageChanged: () => void;
 }
 
-export const FloatingPagination: FC<Props> = ({page, totalPages}) => {
+export const FloatingPagination: FC<Props> = ({page, totalPages, onPageChanged}) => {
     const router = useRouter();
 
     const handlePageChange = (newPage: number) => {
+        onPageChanged();
         router.push(`/mflix?page=${newPage}`);
     };
 
