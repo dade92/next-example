@@ -14,8 +14,7 @@ export default async function handler(
         case 'GET':
             try {
                 const search = req.query.query as string;
-                console.log(`Query is ${search}`)
-                const result = await searchMovies(search);
+                const result = await searchMovieUseCase(search);
 
                 if (!result) {
                     return res.status(404).end();
@@ -24,16 +23,12 @@ export default async function handler(
                 // Return the found movie
                 return res.status(200).json({movie: result});
             } catch (error) {
-                // If any error occurs (e.g., promise rejection), return 404
-                console.error('Error searching for movie:', error);
                 return res.status(404).end();
             }
-            break;
         default:
             return res.status(405).send(null)
     }
 }
 
-async function searchMovies(query: string): Promise<Movie | null> {
-    return moviesRepository.findByTitle(query)
-}
+const searchMovieUseCase = async (query: string): Promise<Movie | null> =>
+    moviesRepository.findByTitle(query)
