@@ -14,6 +14,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 500px;
 `
 
 interface Props {
@@ -40,12 +41,17 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
         sessionStorage.setItem('lastPage', page.toString());
     };
 
+    const shouldShowList =
+        data == null &&
+        error == undefined
+        && !isLoading;
+
     return (
         <Wrapper>
             <Search onSearch={(search: string) => setSearch(search)}/>
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
-            {error && <Typography>No results found</Typography>}
-            {data == null && error == undefined && !isLoading && movies && movies.map((movie: Movie) => {
+            {error && <Typography variant={'body2'}>No results found</Typography>}
+            {shouldShowList && movies && movies.map((movie: Movie) => {
                 return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={onCardClicked}/>
             })}
             <FloatingPagination page={page} totalPages={totalPages}
