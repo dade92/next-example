@@ -30,5 +30,5 @@ export default async function handler(
     }
 }
 
-const searchMovieUseCase = async (query: string): Promise<Movie | null> =>
-    moviesRepository.findByTitle(query)
+const searchMovieUseCase = async (title: string): Promise<Movie | null> =>
+    moviesRepository.findByTitle(title)
