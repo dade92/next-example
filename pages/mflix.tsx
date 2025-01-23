@@ -8,7 +8,8 @@ import {getMoviesUseCase} from "../utils/MovieUseCase";
 import {Search} from "../components/Search";
 import useSWR from "swr";
 import {SearchMovieResponse} from "./api/search";
-import {Box, LinearProgress, Typography} from "@mui/material";
+import {Box, LinearProgress} from "@mui/material";
+import {Paragraph} from "../components/typography/Paragraph";
 
 const Wrapper = styled.div`
     display: flex;
@@ -49,11 +50,13 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     return (
         <Wrapper>
             <Search onSearch={(search: string) => setSearch(search)}/>
-            {isLoading && <Box sx={{ width: '100%' }}>
-                <LinearProgress />
-            </Box>}
+            {isLoading &&
+                <Box sx={{width: '100%'}}>
+                    <LinearProgress/>
+                </Box>
+            }
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
-            {error && <Typography variant={'body2'}>No results found</Typography>}
+            {error && <Paragraph text={'No results found'}/>}
             {shouldShowList && movies && movies.map((movie: Movie) => {
                 return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={onCardClicked}/>
             })}

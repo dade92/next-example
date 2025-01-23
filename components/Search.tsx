@@ -1,4 +1,4 @@
-import {FC, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import {Box, IconButton, InputAdornment, TextField} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -9,12 +9,12 @@ interface Props {
 export const Search: FC<Props> = ({onSearch}) => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    const handleSearch = () => {
-        onSearch(searchQuery);
-    };
+    useEffect(() => {
+        setSearchQuery("");
+    }, [])
 
     return (
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
             <TextField
                 variant="outlined"
                 placeholder="Search a movie"
@@ -24,19 +24,35 @@ export const Search: FC<Props> = ({onSearch}) => {
                     input: {
                         startAdornment: (
                             <InputAdornment position="start">
-                                <SearchIcon />
+                                <SearchIcon/>
                             </InputAdornment>
                         ),
                     },
                 }}
                 fullWidth
+                sx={{
+                    "& .MuiInputBase-input": {
+                        color: "gray",
+                    },
+                    "&:hover fieldset": {
+                        borderColor: "darkgray",
+                    },
+                    "&.Mui-focused fieldset": {
+                        borderColor: "darkgray",
+                    },
+                    "& .MuiOutlinedInput-root": {
+                        borderRadius: "16px",
+                    },
+                }}
             />
             <IconButton
                 color="primary"
-                onClick={handleSearch}
+                onClick={() => {
+                    onSearch(searchQuery);
+                }}
                 aria-label="search"
                 sx={{
-                    borderRadius: "8px",
+                    borderRadius: "16px",
                     height: "56px",
                     width: "56px",
                     backgroundColor: "primary.main",
@@ -46,7 +62,7 @@ export const Search: FC<Props> = ({onSearch}) => {
                     },
                 }}
             >
-                <SearchIcon />
+                <SearchIcon/>
             </IconButton>
         </Box>
     );
