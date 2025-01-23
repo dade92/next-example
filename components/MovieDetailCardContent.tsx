@@ -3,6 +3,8 @@ import {FC} from "react";
 import {Divider, Typography} from "@mui/material";
 import {Movie} from "../data/movies/Movie";
 import styled from "styled-components";
+import {Paragraph} from "./typography/Paragraph";
+import {CardTitle} from "./typography/CardTitle";
 
 interface Props {
     movie: Movie
@@ -13,19 +15,16 @@ const Wrapper = styled.div`
     flex-direction: column;
 `
 
+const Subtitle: FC<{ text: string }> = ({text}) =>
+    <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>{text}</Typography>
+
 export const MovieDetailCardContent: FC<Props> = ({movie}) =>
     <Wrapper>
-        <Typography gutterBottom variant="h5" component="div">
-            {movie.title}
-        </Typography>
-        <Typography variant="body2" sx={{color: 'text.secondary'}}>
-            {movie.fullPlot}
-        </Typography>
+        <CardTitle title={movie.title}/>
+        <Paragraph text={movie.fullPlot}/>
         <Divider sx={{marginTop: '16px', marginBottom: '16px'}}/>
-        <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>Year: {movie.year}</Typography>
-        <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>Rating: {movie.rating}</Typography>
-        <Typography variant="subtitle2"
-                    sx={{color: 'text.secondary'}}>Directors: {movie.directors.join(", ")}</Typography>
-        <Typography variant="subtitle2"
-                    sx={{color: 'text.secondary'}}>Genres: {movie.genres.join(", ")}</Typography>
+        <Subtitle text={`Year: ${movie.year}`}/>
+        <Subtitle text={`Rating: ${movie.rating}`}/>
+        <Subtitle text={`Directors: ${movie.directors.join(", ")}`}/>
+        <Subtitle text={`Genres: ${movie.genres.join(", ")}`}/>
     </Wrapper>
