@@ -42,6 +42,7 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
             height={"800px"}
             image={movie.posterUrl}
             alt=""
+            sx={{ objectFit: "contain" }}
         />
         <CardContent sx={{paddingTop: '16px', paddingLeft: '16px', paddingRight: '16px'}}>
             <MovieDetailCardContent movie={movie}/>
