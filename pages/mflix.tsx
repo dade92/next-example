@@ -8,7 +8,7 @@ import {getMoviesUseCase} from "../utils/MovieUseCase";
 import {Search} from "../components/Search";
 import useSWR from "swr";
 import {SearchMovieResponse} from "./api/search";
-import {Typography} from "@mui/material";
+import {Box, LinearProgress, Typography} from "@mui/material";
 
 const Wrapper = styled.div`
     display: flex;
@@ -49,6 +49,9 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     return (
         <Wrapper>
             <Search onSearch={(search: string) => setSearch(search)}/>
+            {isLoading && <Box sx={{ width: '100%' }}>
+                <LinearProgress />
+            </Box>}
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
             {error && <Typography variant={'body2'}>No results found</Typography>}
             {shouldShowList && movies && movies.map((movie: Movie) => {
