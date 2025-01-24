@@ -27,12 +27,6 @@ export const SearchTextField: FC<Props> = ({searchQuery, onChange}) =>
             "& .MuiInputBase-input": {
                 color: "gray",
             },
-            "&:hover fieldset": {
-                borderColor: "darkgray",
-            },
-            "&.Mui-focused fieldset": {
-                borderColor: "darkgray",
-            },
             "& .MuiOutlinedInput-root": {
                 borderRadius: "16px",
             },
