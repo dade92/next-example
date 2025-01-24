@@ -1,9 +1,11 @@
 import React, {FC} from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import {Box, Card, Typography} from "@mui/material";
+import {Box, Card} from "@mui/material";
 import {useRouter} from 'next/router';
 import {Movie} from "../data/movies/Movie";
+import {Paragraph} from "./typography/Paragraph";
+import {CardTitle} from "./typography/CardTitle";
 
 interface Props {
     movie: Movie
@@ -22,10 +24,6 @@ const StyledCard = styled(Card)`
 const StyledImage = styled(Image)`
     width: 100%;
     margin-bottom: 24px;
-`
-
-const PlotText = styled(Typography)`
-    max-width: 500px;
 `
 
 export const MovieSummaryCard: FC<Props> = ({movie, onCardClicked}) => {
@@ -48,15 +46,15 @@ export const MovieSummaryCard: FC<Props> = ({movie, onCardClicked}) => {
         }}
     >
         <StyledCard onClick={handleClick}>
-            <Typography variant={'h5'} color={'textPrimary'} gutterBottom>{movie.title}</Typography>
+            <CardTitle title={movie.title}/>
             {movie.posterUrl && <StyledImage
                 src={movie.posterUrl}
                 alt={movie.title + '_image'}
                 width={600}
                 height={400}
             />}
-            <Typography>Year: {movie.year}</Typography>
-            <PlotText>{movie.plot}</PlotText>
+            <Paragraph text={`Year: ${movie.year}`}/>
+            <Paragraph text={movie.plot}/>
         </StyledCard>
     </Box>
 }

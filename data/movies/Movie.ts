@@ -8,6 +8,7 @@ export interface Movie {
     genres: string[];
     directors: string[];
     rating: number;
+    googleLink: string;
 }
 
 export interface MovieDetail {

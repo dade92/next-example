@@ -1,15 +1,22 @@
-import React, {FC} from "react";
+import React, {FC, useState} from "react";
 import styled from "styled-components";
 import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../data/movies/Movie";
 import {FloatingPagination} from "../components/FloatingPagination";
 import {getMoviesUseCase} from "../utils/MovieUseCase";
+import {Search} from "../components/Search";
+import useSWR from "swr";
+import {SearchMovieResponse} from "./api/search";
+import {Box, LinearProgress} from "@mui/material";
+import {Paragraph} from "../components/typography/Paragraph";
+import {MoviesCarousel} from "../components/MoviesCarousel";
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 500px;
 `
 
 interface Props {
@@ -18,24 +25,50 @@ interface Props {
     totalPages: number;
 }
 
-const Mflix: FC<Props> = ({movies, page, totalPages}) =>
-    (
+const fetcher = (url: string): Promise<SearchMovieResponse> =>
+    fetch(url).then((res) => {
+        if (!res.ok) throw new Error(`Error: ${res.statusText}`);
+        return res.json();
+    });
+
+const Mflix: FC<Props> = ({movies, page, totalPages}) => {
+    const [search, setSearch] = useState<string | null>("")
+    const {data, isLoading, error} = useSWR<SearchMovieResponse>(
+        search ? `api/search?query=${search}` : null,
+        fetcher
+    );
+
+    const onCardClicked = () => {
+        sessionStorage.setItem('lastPage', page.toString());
+    };
+
+    const shouldShowList =
+        data == null &&
+        error == undefined
+        && !isLoading;
+
+    return (
         <Wrapper>
-            {movies && movies.map((movie: Movie) => {
-                return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={() => {
-                    sessionStorage.setItem('lastPage', page.toString());
-                }}/>
-            })}
-            <FloatingPagination page={page} totalPages={totalPages}/>
+            <Search onSearch={(search: string) => setSearch(search)}/>
+            {isLoading &&
+                <Box sx={{width: '100%'}}>
+                    <LinearProgress/>
+                </Box>
+            }
+            {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
+            {error && <Paragraph text={'No results found'}/>}
+            {shouldShowList && <MoviesCarousel movies={movies} onCardClicked={onCardClicked}/>}
+            <FloatingPagination page={page} totalPages={totalPages}
+                                onPageChanged={() => setSearch(null)}/>
         </Wrapper>
-    )
+    );
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query} = context;
     const page = parseInt(query.page as string) || 1;
-    const {movies, pageSize} = await getMoviesUseCase(page);
-    //TODO still needed the total number of pages
-    const totalPages = Math.ceil(1000 / pageSize);
+    const {movies, pageSize, documentsCount} = await getMoviesUseCase(page);
+    const totalPages = Math.ceil(documentsCount / pageSize);
 
     return {
         props: {
