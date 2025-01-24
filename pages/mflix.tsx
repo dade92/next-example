@@ -67,9 +67,8 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query} = context;
     const page = parseInt(query.page as string) || 1;
-    const {movies, pageSize} = await getMoviesUseCase(page);
-    //TODO still needed the total number of pages
-    const totalPages = Math.ceil(1000 / pageSize);
+    const {movies, pageSize, documentsCount} = await getMoviesUseCase(page);
+    const totalPages = Math.ceil(documentsCount / pageSize);
 
     return {
         props: {

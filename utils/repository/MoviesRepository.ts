@@ -29,6 +29,7 @@ export class MoviesRepository {
     private mongoMovieCollection: Collection<MongoMovie>;
     private mongoCommentsCollection: Collection<MongoMovieDetail>;
     private isConnected: boolean = false;
+    private movieCountCache: number | null = null;
 
     constructor(host: string, db: string, username: string, password: string) {
         const uri = `mongodb+srv://${username}:${password}@${host}`;
@@ -49,6 +50,17 @@ export class MoviesRepository {
             await this.mongoClient.close();
             this.isConnected = false;
         }
+    }
+
+    async countMovies(): Promise<number> {
+        await this.connect();
+        if (this.movieCountCache !== null) {
+            console.log('Returning cached movie count');
+            return this.movieCountCache;
+        }
+        const count = await this.mongoMovieCollection.countDocuments();
+        this.movieCountCache = count;
+        return count;
     }
 
     async findMovieDetail(id: string): Promise<MovieDetail> {
