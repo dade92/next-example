@@ -9,6 +9,7 @@ export interface Movie {
     directors: string[];
     rating: number;
     googleLink: string;
+    releaseDate: String | null;
 }
 
 export interface MovieDetail {

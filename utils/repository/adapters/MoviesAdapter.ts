@@ -1,6 +1,7 @@
 import {WithId} from "mongodb";
 import {Movie} from "../../../data/movies/Movie";
 import {MongoMovie} from "../MoviesRepository";
+import {format} from "date-fns";
 
 export const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
     return {
@@ -13,10 +14,18 @@ export const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
         genres: mongoMovie.genres ?? [],
         directors: mongoMovie.directors ?? [],
         rating: mongoMovie.imdb.rating,
-        googleLink: adaptGoogleLink(mongoMovie.title)
+        googleLink: adaptGoogleLink(mongoMovie.title),
+        releaseDate: adaptDate(mongoMovie.released)
     }
 }
 
 const adaptGoogleLink = (title: string) => {
     return `https://google.com/search?q=${title.split(" ").join("+")}`
+}
+
+const adaptDate = (date: Date | undefined): string | null => {
+    if (date != undefined)
+        return format(date, 'dd/MM/yyyy')
+    else
+        return null
 }

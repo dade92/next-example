@@ -11,13 +11,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
-    "@mui/material": "^6.4.0",
     "@mui/icons-material": "^6.4.0",
+    "@mui/material": "^6.4.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
+    "date-fns": "^4.1.0",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.4",
+    "mongodb": "^6.12.0",
     "mysql2": "^3.9.7",
     "next": "^14.2.5",
     "nextjs-progressbar": "^0.0.16",
@@ -25,8 +27,7 @@
     "react-dom": "18.2.0",
     "styled-components": "^5.3.3",
     "swr": "^2.2.5",
-    "typescript": "4.9.3",
-    "mongodb": "^6.12.0"
+    "typescript": "4.9.3"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.34"

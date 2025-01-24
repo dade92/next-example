@@ -16,6 +16,7 @@ export interface MongoMovie {
     genres: string[] | undefined;
     directors: string[] | undefined;
     imdb: Imdb;
+    released: Date | undefined;
 }
 
 export interface MongoMovieDetail {
