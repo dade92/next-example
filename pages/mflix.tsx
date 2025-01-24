@@ -10,7 +10,7 @@ import useSWR from "swr";
 import {SearchMovieResponse} from "./api/search";
 import {Box, LinearProgress} from "@mui/material";
 import {Paragraph} from "../components/typography/Paragraph";
-import {Movies} from "../components/Movies";
+import {MoviesCarousel} from "../components/MoviesCarousel";
 
 const Wrapper = styled.div`
     display: flex;
@@ -57,7 +57,7 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
             }
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
             {error && <Paragraph text={'No results found'}/>}
-            {shouldShowList && <Movies movies={movies} onCardClicked={onCardClicked}/>}
+            {shouldShowList && <MoviesCarousel movies={movies} onCardClicked={onCardClicked}/>}
             <FloatingPagination page={page} totalPages={totalPages}
                                 onPageChanged={() => setSearch(null)}/>
         </Wrapper>
