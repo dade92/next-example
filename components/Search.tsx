@@ -1,6 +1,7 @@
-import {FC, useEffect, useState} from "react";
-import {Box, IconButton, InputAdornment, TextField} from "@mui/material";
+import {FC, useState} from "react";
+import {Box, IconButton} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import {SearchTextField} from "./SearchTextField";
 
 interface Props {
     onSearch: (query: string) => void;
@@ -9,42 +10,9 @@ interface Props {
 export const Search: FC<Props> = ({onSearch}) => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    useEffect(() => {
-        setSearchQuery("");
-    }, [])
-
     return (
         <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
-            <TextField
-                variant="outlined"
-                placeholder="Search a movie"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                slotProps={{
-                    input: {
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon/>
-                            </InputAdornment>
-                        ),
-                    },
-                }}
-                fullWidth
-                sx={{
-                    "& .MuiInputBase-input": {
-                        color: "gray",
-                    },
-                    "&:hover fieldset": {
-                        borderColor: "darkgray",
-                    },
-                    "&.Mui-focused fieldset": {
-                        borderColor: "darkgray",
-                    },
-                    "& .MuiOutlinedInput-root": {
-                        borderRadius: "16px",
-                    },
-                }}
-            />
+            <SearchTextField searchQuery={searchQuery} onChange={(text: string) => setSearchQuery(text)}/>
             <IconButton
                 color="primary"
                 onClick={() => {
