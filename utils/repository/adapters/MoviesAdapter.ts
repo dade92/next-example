@@ -12,6 +12,11 @@ export const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => {
         year: mongoMovie.year,
         genres: mongoMovie.genres ?? [],
         directors: mongoMovie.directors ?? [],
-        rating: mongoMovie.imdb.rating
+        rating: mongoMovie.imdb.rating,
+        googleLink: adaptGoogleLink(mongoMovie.title)
     }
+}
+
+const adaptGoogleLink = (title: string) => {
+    return `https://google.com/search?q=${title.split(" ").join("+")}`
 }

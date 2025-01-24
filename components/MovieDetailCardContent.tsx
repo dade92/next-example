@@ -5,6 +5,7 @@ import {Movie} from "../data/movies/Movie";
 import styled from "styled-components";
 import {Paragraph} from "./typography/Paragraph";
 import {CardTitle} from "./typography/CardTitle";
+import Link from "next/link";
 
 interface Props {
     movie: Movie
@@ -13,7 +14,14 @@ interface Props {
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 4px;
 `
+
+const StyledLink = styled(Link)`
+    color: grey;
+    text-decoration: underline;
+    font-family: 'Roboto', sans-serif;
+`;
 
 const Subtitle: FC<{ text: string }> = ({text}) =>
     <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>{text}</Typography>
@@ -27,4 +35,11 @@ export const MovieDetailCardContent: FC<Props> = ({movie}) =>
         <Subtitle text={`Rating: ${movie.rating}`}/>
         <Subtitle text={`Directors: ${movie.directors.join(", ")}`}/>
         <Subtitle text={`Genres: ${movie.genres.join(", ")}`}/>
+        <StyledLink
+            href={movie.googleLink}
+            target="_blank"
+            rel={"noreferrer"}
+        >
+            {'Google link'}
+        </StyledLink>
     </Wrapper>
