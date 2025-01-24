@@ -10,6 +10,7 @@ import useSWR from "swr";
 import {SearchMovieResponse} from "./api/search";
 import {Box, LinearProgress} from "@mui/material";
 import {Paragraph} from "../components/typography/Paragraph";
+import {Movies} from "../components/Movies";
 
 const Wrapper = styled.div`
     display: flex;
@@ -29,7 +30,6 @@ const fetcher = (url: string): Promise<SearchMovieResponse> =>
         if (!res.ok) throw new Error(`Error: ${res.statusText}`);
         return res.json();
     });
-
 
 const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     const [search, setSearch] = useState<string | null>("")
@@ -57,9 +57,7 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
             }
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
             {error && <Paragraph text={'No results found'}/>}
-            {shouldShowList && movies && movies.map((movie: Movie) => {
-                return <MovieSummaryCard key={movie.id} movie={movie} onCardClicked={onCardClicked}/>
-            })}
+            {shouldShowList && <Movies movies={movies} onCardClicked={onCardClicked}/>}
             <FloatingPagination page={page} totalPages={totalPages}
                                 onPageChanged={() => setSearch(null)}/>
         </Wrapper>
