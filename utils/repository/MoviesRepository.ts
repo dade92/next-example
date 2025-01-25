@@ -115,7 +115,7 @@ export class MoviesRepository {
         try {
             await this.connect();
             const movies = await this.mongoMovieCollection
-                .find({title: title})
+                .find({title: { $regex: new RegExp(`^${title}$`, 'i') }})
                 .limit(1)
                 .toArray();
 
