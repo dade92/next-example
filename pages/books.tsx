@@ -1,8 +1,6 @@
-import React, {FC, useState} from "react";
+import React, {FC} from "react";
 import {GetServerSideProps} from "next";
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {frontendRestClient} from "../utils/rest/RestClient";
-import {Data} from "./api/hello";
 import styled from "styled-components";
 import {getBooks} from "../utils/rest/Book";
 import {useRouter} from "next/router";
@@ -33,13 +31,6 @@ const ButtonWrapper = styled.div`
 const Books: FC<Props> = ({data}) => {
     const router = useRouter();
 
-    const [restData, setRestData] = useState<Data | undefined>(undefined)
-    const getHello = () => {
-        frontendRestClient.get<Data>('/hello').then((d: Data) => {
-            setRestData(d)
-        })
-    }
-
     return (
         <Wrapper>
             <span>BOOKS</span>
@@ -66,9 +57,7 @@ const Books: FC<Props> = ({data}) => {
             </TableContainer>
             <ButtonWrapper>
                 <Button variant="outlined" onClick={() => router.push('/')}> Back </Button>
-                <Button variant="contained" onClick={getHello}>API call</Button>
             </ButtonWrapper>
-            {restData && <span>{restData.name}</span>}
         </Wrapper>
     );
 }

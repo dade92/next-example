@@ -16,6 +16,7 @@ export interface MongoMovie {
     genres: string[] | undefined;
     directors: string[] | undefined;
     imdb: Imdb;
+    released: Date | undefined;
 }
 
 export interface MongoMovieDetail {
@@ -114,7 +115,7 @@ export class MoviesRepository {
         try {
             await this.connect();
             const movies = await this.mongoMovieCollection
-                .find({title: title})
+                .find({title: { $regex: new RegExp(`^${title}$`, 'i') }})
                 .limit(1)
                 .toArray();
 
