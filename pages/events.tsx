@@ -1,9 +1,6 @@
-import React, {FC, useState} from "react";
+import React, {FC} from "react";
 import {GetServerSideProps} from "next";
 import {getEvents, MyEvent} from "../utils/db/eventsProvider";
-import {Button} from "@mui/material";
-import {frontendRestClient} from "../utils/rest/RestClient";
-import {Data} from "./api/hello";
 import styled from "styled-components";
 
 type Props = {
@@ -18,14 +15,6 @@ const Wrapper = styled.div`
 
 
 const DataDisplay: FC<Props> = ({data}) => {
-    const [restData, setRestData] = useState<Data | undefined>(undefined)
-    const getHello = () => {
-        console.log('GET hello called!')
-        frontendRestClient.get<Data>('/hello').then((d: Data) => {
-            setRestData(d)
-        })
-    }
-
     return (
         <Wrapper>
             <span>EVENTS</span>
@@ -36,8 +25,6 @@ const DataDisplay: FC<Props> = ({data}) => {
                     </div>
                 })}
             </>
-            <Button variant="contained" onClick={getHello}>API call</Button>
-            {restData && <span>{restData.name}</span>}
         </Wrapper>
     );
 }
