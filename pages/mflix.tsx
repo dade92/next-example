@@ -58,8 +58,11 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
             {error && <Paragraph text={'No results found'}/>}
             {shouldShowList && <MoviesCarousel movies={movies} onCardClicked={onCardClicked}/>}
-            <FloatingPagination page={page} totalPages={totalPages}
-                                onPageChanged={() => setSearch(null)}/>
+            <FloatingPagination
+                page={page}
+                totalPages={totalPages}
+                onPageChanged={() => setSearch(null)}
+            />
         </Wrapper>
     );
 }
