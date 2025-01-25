@@ -11,6 +11,7 @@ import {SearchMovieResponse} from "./api/search";
 import {Box, LinearProgress} from "@mui/material";
 import {Paragraph} from "../components/typography/Paragraph";
 import {MoviesCarousel} from "../components/MoviesCarousel";
+import {moviesFetcher} from "../utils/rest/MovieListFetcher";
 
 const Wrapper = styled.div`
     display: flex;
@@ -25,17 +26,11 @@ interface Props {
     totalPages: number;
 }
 
-const fetcher = (url: string): Promise<SearchMovieResponse> =>
-    fetch(url).then((res) => {
-        if (!res.ok) throw new Error(`Error: ${res.statusText}`);
-        return res.json();
-    });
-
 const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     const [search, setSearch] = useState<string | null>("")
     const {data, isLoading, error} = useSWR<SearchMovieResponse>(
         search ? `api/search?query=${search}` : null,
-        fetcher
+        moviesFetcher
     );
 
     const onCardClicked = () => {
