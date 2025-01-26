@@ -22,8 +22,8 @@ const StyledCard = styled(Card)`
 `
 
 const StyledImage = styled(Image)`
-    width: 100%;
     margin-bottom: 24px;
+    object-fit: cover;
 `
 
 export const MovieSummaryCard: FC<Props> = ({movie, onCardClicked}) => {
@@ -52,6 +52,7 @@ export const MovieSummaryCard: FC<Props> = ({movie, onCardClicked}) => {
                 alt={movie.title + '_image'}
                 width={600}
                 height={400}
+                layout="intrinsic"
             />}
             <Paragraph text={`Year: ${movie.year}`}/>
             <Paragraph text={movie.plot}/>

@@ -3,9 +3,10 @@ import {FC, useState} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Comment, Movie} from "../data/movies/Movie";
 import {styled} from '@mui/material/styles';
-import {Card, CardActions, CardContent, CardMedia, Collapse, IconButton, IconButtonProps} from "@mui/material";
+import {Card, CardActions, CardContent, Collapse, IconButton, IconButtonProps} from "@mui/material";
 import {CommentsSection} from "./CommentsSection";
 import {MovieDetailCardContent} from "./MovieDetailCardContent";
+import Image from "next/image";
 
 interface Props {
     movie: Movie;
@@ -17,6 +18,7 @@ const Wrapper = styled(Card)`
     flex-direction: column;
     gap: 16px;
     padding: 8px;
+    align-items: center;
 `
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -33,21 +35,26 @@ const ExpandMore = styled(({expand, ...other}: ExpandMoreProps) => (
     transform: expand ? 'rotate(180deg)' : 'rotate(0deg)', // Conditionally apply rotation
 }));
 
+const StyledImage = styled(Image)`
+    margin-bottom: 24px;
+    object-fit: cover;
+`
+
 export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
     const [expanded, setExpanded] = useState(false);
 
     return <Wrapper sx={{maxWidth: 800}}>
-        <CardMedia
-            component="img"
-            height={"800px"}
-            image={movie.posterUrl}
+        <StyledImage
+            width={600}
+            height={400}
+            layout="intrinsic"
+            src={movie.posterUrl}
             alt=""
-            sx={{ objectFit: "contain" }}
         />
         <CardContent sx={{paddingTop: '16px', paddingLeft: '16px', paddingRight: '16px'}}>
             <MovieDetailCardContent movie={movie}/>
         </CardContent>
-        <CardActions disableSpacing>
+        <CardActions disableSpacing sx={{alignSelf: 'end'}}>
             <ExpandMore
                 expand={expanded}
                 onClick={() => {
@@ -56,10 +63,10 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
                 aria-expanded={expanded}
                 aria-label="show more"
             >
-                <ExpandMoreIcon/>
+                <ExpandMoreIcon />
             </ExpandMore>
         </CardActions>
-        <Collapse in={expanded} timeout="auto">
+        <Collapse in={expanded} timeout="auto" sx={{alignSelf: 'start'}}>
             <CommentsSection comments={comments}/>
         </Collapse>
     </Wrapper>
