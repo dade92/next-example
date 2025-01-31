@@ -51,7 +51,8 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
                 </Box>
             }
             {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
-            {error && <Paragraph text={'No results found'}/>}
+            {error?.status == 404 && <Paragraph text={'No results found'}/>}
+            {error?.status == 500 && <Paragraph text={'Ops.. Unexpected error!'}/>}
             {shouldShowList && <MoviesCarousel movies={movies} onCardClicked={onCardClicked}/>}
             <FloatingPagination
                 page={page}
