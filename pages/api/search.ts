@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {Movie} from "../../data/movies/Movie";
-import {moviesRepository} from "../../utils/repository/MoviesRepository";
+import {moviesRepository} from "../../src/main/repository/MoviesRepository";
 
 export type SearchMovieResponse = {
     movie: Movie

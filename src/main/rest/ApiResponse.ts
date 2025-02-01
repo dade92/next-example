@@ -1,5 +1,5 @@
-import {Book} from "../../pages/books";
-import {LegacyMovie} from "../../pages/legacyMovies";
+import {Book} from "../../../pages/books";
+import {LegacyMovie} from "../../../pages/legacyMovies";
 
 export interface ApiResponse {
     docs: [{

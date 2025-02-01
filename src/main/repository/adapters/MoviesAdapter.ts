@@ -1,5 +1,5 @@
 import {WithId} from "mongodb";
-import {Movie} from "../../../data/movies/Movie";
+import {Movie} from "../../../../data/movies/Movie";
 import {MongoMovie} from "../MoviesRepository";
 import {format} from "date-fns";
 

@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import Link from "next/link";
 import styled from "styled-components";
-import {RepoInformation} from "../utils/repository/Data";
+import {RepoInformation} from "../src/main/repository/Data";
 
 const Wrapper = styled.div`
     display: flex;
