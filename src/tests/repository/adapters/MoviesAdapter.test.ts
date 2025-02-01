@@ -8,29 +8,29 @@ describe('movieAdapter', () => {
             _id: ObjectId.createFromTime(1),
             title: 'title',
             plot: 'plot',
-            fullplot: undefined,
-            poster: undefined,
+            fullplot: 'fullPlot',
+            poster: 'posterUrl',
             year: 1999,
-            genres: undefined,
-            directors: undefined,
+            genres: ['drama', 'comedy'],
+            directors: ['Nolan'],
             imdb: {
                 rating: 6.5
             },
-            released: new Date(2025, 2, 1),
+            released: new Date(2025, 0, 1),
         });
 
         expect(result).toEqual({
             id: '000000010000000000000000',
             title: 'title',
             plot: 'plot',
-            fullPlot: '',
-            posterUrl: '',
+            fullPlot: 'fullPlot',
+            posterUrl: 'posterUrl',
             year: 1999,
-            genres: [],
-            directors: [],
+            genres: ['drama', 'comedy'],
+            directors: ['Nolan'],
             rating: 6.5,
             googleLink: 'https://google.com/search?q=title+movie+year:1999',
-            releaseDate: '01 Mar 2025',
+            releaseDate: '01 Jan 2025',
         });
     });
 });
