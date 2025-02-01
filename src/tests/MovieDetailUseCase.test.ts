@@ -2,7 +2,6 @@ import {moviesRepository} from "../repository/MoviesRepository";
 import {getMovieDetailsUseCase} from "../MovieDetailUseCase";
 import {MovieDetail} from "../../data/movies/Movie";
 
-
 jest.mock('../repository/moviesRepository');
 
 describe('getMovieDetailsUseCase', () => {
