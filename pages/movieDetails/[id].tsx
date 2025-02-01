@@ -35,7 +35,7 @@ const MovieDetail: FC<Props> = ({details}) => {
 
     return (
         <Wrapper>
-            {movie && <MovieDetailCard movie={movie} comments={details.comments}/>}
+            {movie && <MovieDetailCard movie={movie} initialComments={details.comments}/>}
             <FloatingBackButton onBackClicked={onBackClicked}/>
         </Wrapper>
     );

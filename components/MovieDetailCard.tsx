@@ -10,7 +10,7 @@ import Image from "next/image";
 
 interface Props {
     movie: Movie;
-    comments: Comment[];
+    initialComments: Comment[];
 }
 
 const Wrapper = styled(Card)`
@@ -40,8 +40,20 @@ const StyledImage = styled(Image)`
     object-fit: cover;
 `
 
-export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
+export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
     const [expanded, setExpanded] = useState(false);
+    const [comments, setComments] = useState(initialComments);
+
+    const addComment = (comment: string) => {
+        setComments([
+            ...comments,
+            {
+                name: 'Davide',
+                email: 'davidebotti92@gmail.com',
+                text: comment
+            }
+        ])
+    }
 
     return <Wrapper sx={{maxWidth: 800}}>
         <StyledImage
@@ -67,7 +79,7 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
             </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" sx={{alignSelf: 'start'}}>
-            <CommentsSection comments={comments}/>
+            <CommentsSection comments={comments} onCommentAdded={(comment: string) => addComment(comment)}/>
         </Collapse>
     </Wrapper>
 }
