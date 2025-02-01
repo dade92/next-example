@@ -5,7 +5,7 @@ describe('movieAdapter', () => {
     it('should adapt correctly', async () => {
 
         const result = toDomainMovie({
-            _id: ObjectId.createFromTime(1),
+            _id: ObjectId.createFromHexString('573a1390f29313caabcd63d6'),
             title: 'title',
             plot: 'plot',
             fullplot: 'fullPlot',
@@ -20,7 +20,7 @@ describe('movieAdapter', () => {
         });
 
         expect(result).toEqual({
-            id: '000000010000000000000000',
+            id: '573a1390f29313caabcd63d6',
             title: 'title',
             plot: 'plot',
             fullPlot: 'fullPlot',
