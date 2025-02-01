@@ -1,10 +1,9 @@
 import {toDomainMovie} from "../../../main/repository/adapters/MoviesAdapter";
 import {ObjectId} from "mongodb";
 
-describe('movieAdapter', () => {
+describe('moviesAdapter', () => {
     it('should adapt correctly', async () => {
-
-        const result = toDomainMovie({
+        const mongoMovie = toDomainMovie({
             _id: ObjectId.createFromHexString('573a1390f29313caabcd63d6'),
             title: 'title',
             plot: 'plot',
@@ -19,7 +18,7 @@ describe('movieAdapter', () => {
             released: new Date(2025, 0, 1),
         });
 
-        expect(result).toEqual({
+        expect(mongoMovie).toEqual({
             id: '573a1390f29313caabcd63d6',
             title: 'title',
             plot: 'plot',
