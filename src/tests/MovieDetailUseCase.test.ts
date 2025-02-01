@@ -8,7 +8,13 @@ describe('getMovieDetailsUseCase', () => {
     it('should return movie details for the given id', async () => {
         const movieId = '123';
         const response: MovieDetail = {
-            comments: []
+            comments: [
+                {
+                    name: 'name',
+                    email: 'email',
+                    text: 'comment'
+                }
+            ]
         };
 
         (moviesRepository.findMovieDetail as jest.Mock).mockResolvedValue(response);
