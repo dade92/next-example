@@ -135,13 +135,12 @@ export class MoviesRepository {
         try {
             await this.connect();
 
-            //TODO check the structure
             const newComment = {
                 movie_id: new ObjectId(movieId),
                 name: comment.name,
                 email: comment.email,
                 text: comment.text,
-                createdAt: new Date()
+                date: new Date()
             };
 
             const result = await this.mongoCommentsCollection.insertOne(newComment);
