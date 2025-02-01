@@ -12,9 +12,6 @@ export default async function handler(
                 const comment = req.body as Comment;
                 const {movieId} = req.query;
 
-                console.log(comment);
-                console.log(movieId);
-
                 await addCommentUseCase(comment, movieId as string);
 
                 res.status(204).end();

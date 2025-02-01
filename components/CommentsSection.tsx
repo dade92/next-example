@@ -20,15 +20,6 @@ export const CommentsSection: FC<Props> = ({comments, onCommentAdded}) => {
     const [comment, setComment] = useState<string>('');
 
     return <>
-        <CommentAddWrapper>
-            <TextField
-                variant="outlined"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                label={'Write your comment'}>
-            </TextField>
-            <Button onClick={() => onCommentAdded(comment!)}>Add</Button>
-        </CommentAddWrapper>
         {comments.length == 0 &&
             <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>No comments yet</Typography>}
         <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
@@ -53,5 +44,17 @@ export const CommentsSection: FC<Props> = ({comments, onCommentAdded}) => {
                 </>
             })}
         </List>
+        <CommentAddWrapper>
+            <TextField
+                variant="outlined"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                label={'Write your comment'}>
+            </TextField>
+            <Button onClick={() => {
+                setComment('');
+                onCommentAdded(comment!)
+            }}>Add</Button>
+        </CommentAddWrapper>
     </>
 }
