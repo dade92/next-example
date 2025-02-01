@@ -1,4 +1,4 @@
-import {SearchMovieResponse} from "../../pages/api/search";
+import {SearchMovieResponse} from "../../../pages/api/search";
 
 export const moviesFetcher = async (url: string): Promise<SearchMovieResponse> =>
     fetch(url)

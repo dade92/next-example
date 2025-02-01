@@ -1,8 +1,8 @@
-import {moviesRepository} from "../repository/MoviesRepository";
-import {getMovieDetailsUseCase} from "../MovieDetailUseCase";
+import {moviesRepository} from "../main/repository/MoviesRepository";
+import {getMovieDetailsUseCase} from "../main/usecases/MovieDetailUseCase";
 import {MovieDetail} from "../../data/movies/Movie";
 
-jest.mock('../repository/moviesRepository');
+jest.mock('../main/repository/moviesRepository');
 
 describe('getMovieDetailsUseCase', () => {
     it('should return movie details for the given id', async () => {

@@ -5,7 +5,7 @@ import {GetServerSideProps} from "next";
 import {Movie, MovieDetail} from "../../data/movies/Movie";
 import {MovieDetailCard} from "../../components/MovieDetailCard";
 import {FloatingBackButton} from "../../components/FloatingBackButton";
-import {getMovieDetailsUseCase} from "../../src/MovieDetailUseCase";
+import {getMovieDetailsUseCase} from "../../src/main/usecases/MovieDetailUseCase";
 
 const Wrapper = styled.div`
     display: flex;

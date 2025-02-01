@@ -1,4 +1,4 @@
-import {Book} from "../../pages/books";
+import {Book} from "../../../pages/books";
 import {adaptBooksGenericResponse, ApiResponse} from "./ApiResponse";
 
 export const getBooks = async (): Promise<Book[]> => {
