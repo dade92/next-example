@@ -21,5 +21,8 @@ jobs:
       - name: Install
         run: npm i
 
+      - name: Test
+        run: npm test
+
       - name: Build
         run: CI=false npm run build
