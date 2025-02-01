@@ -1,5 +1,5 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
-import {Movie, MovieDetail} from "../../../data/movies/Movie";
+import {Comment, Movie, MovieDetail} from "../../../data/movies/Movie";
 import {toDomainMovie} from "./adapters/MoviesAdapter";
 import {toDomainComment} from "./adapters/MovieCommentAdapter";
 
@@ -115,7 +115,7 @@ export class MoviesRepository {
         try {
             await this.connect();
             const movies = await this.mongoMovieCollection
-                .find({title: { $regex: new RegExp(`^${title}$`, 'i') }})
+                .find({title: {$regex: new RegExp(`^${title}$`, 'i')}})
                 .limit(1)
                 .toArray();
 
@@ -128,6 +128,30 @@ export class MoviesRepository {
         } catch (error) {
             console.error('Error retrieving first ten movies:', error);
             return Promise.reject();
+        }
+    }
+
+    async addComment(comment: Comment, movieId: string): Promise<any> {
+        try {
+            await this.connect();
+
+            //TODO check the structure
+            const newComment = {
+                movie_id: new ObjectId(movieId),
+                name: comment.name,
+                email: comment.email,
+                text: comment.text,
+                createdAt: new Date()
+            };
+
+            const result = await this.mongoCommentsCollection.insertOne(newComment);
+
+            if (!result.acknowledged) {
+                throw new Error("Failed to insert comment into database.");
+            }
+        } catch (error) {
+            console.error('Error adding comment:', error);
+            throw error;
         }
     }
 

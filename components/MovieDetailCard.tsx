@@ -52,7 +52,7 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
             email: 'davidebotti92@gmail.com',
             text: comment
         };
-        addCommentCall(newComment)
+        addCommentCall(newComment, movie.id)
             .then(() => setComments([
                     ...comments,
                     newComment
