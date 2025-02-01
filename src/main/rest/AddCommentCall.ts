@@ -1,7 +1,7 @@
 import {Comment} from "../../../data/movies/Movie";
 
 export const addCommentCall = async (comment: Comment, movieId: string): Promise<any> => {
-    return fetch(`api/addComment/${movieId}`, {
+    return fetch(`/api/addComment/${movieId}`, {
         method: "POST",
         body: JSON.stringify(comment),
         headers: {"Content-Type": "application/json"}

@@ -29,7 +29,7 @@ interface Props {
 const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     const [search, setSearch] = useState<string | null>("")
     const {data, isLoading, error} = useSWR<SearchMovieResponse>(
-        search ? `api/search?query=${search}` : null,
+        search ? `/api/search?query=${search}` : null,
         moviesFetcher
     );
 
