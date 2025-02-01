@@ -7,6 +7,7 @@ import {Card, CardActions, CardContent, Collapse, IconButton, IconButtonProps} f
 import {CommentsSection} from "./CommentsSection";
 import {MovieDetailCardContent} from "./MovieDetailCardContent";
 import Image from "next/image";
+import {addCommentCall} from "../src/main/rest/AddCommentCall";
 
 interface Props {
     movie: Movie;
@@ -45,14 +46,19 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
     const [comments, setComments] = useState(initialComments);
 
     const addComment = (comment: string) => {
-        setComments([
-            ...comments,
-            {
-                name: 'Davide',
-                email: 'davidebotti92@gmail.com',
-                text: comment
-            }
-        ])
+        const newComment = {
+            //TODO how to retrieve the username at the moment?
+            name: 'Davide',
+            email: 'davidebotti92@gmail.com',
+            text: comment
+        };
+        addCommentCall(newComment)
+            .then(() => setComments([
+                    ...comments,
+                    newComment
+                ])
+            )
+            .catch((error) => console.error("Error adding comment:", error));
     }
 
     return <Wrapper sx={{maxWidth: 800}}>
@@ -75,7 +81,7 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
                 aria-expanded={expanded}
                 aria-label="show more"
             >
-                <ExpandMoreIcon />
+                <ExpandMoreIcon/>
             </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" sx={{alignSelf: 'start'}}>
