@@ -3,7 +3,7 @@ import {Button, CircularProgress} from "@mui/material";
 import styled from "styled-components";
 import useSWR from "swr";
 import {Book} from "./books";
-import {getLegacyMovies} from "../utils/rest/Movies";
+import {getLegacyMovies} from "../src/rest/Movies";
 import {useRouter} from "next/router";
 
 const Wrapper = styled.div`

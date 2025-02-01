@@ -39,8 +39,6 @@
     ".storybook/**/*",
     "**/*.spec.ts",
     "**/*.spec.tsx",
-    "**/*.test.ts",
-    "**/*.test.tsx",
     "**/*.stories.tsx",
     "node_modules",
     "./dist/**/*",

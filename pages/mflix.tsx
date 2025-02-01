@@ -4,14 +4,14 @@ import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../data/movies/Movie";
 import {FloatingPagination} from "../components/FloatingPagination";
-import {getMoviesUseCase} from "../utils/MovieUseCase";
+import {getMoviesUseCase} from "../src/MovieUseCase";
 import {Search} from "../components/Search";
 import useSWR from "swr";
 import {SearchMovieResponse} from "./api/search";
 import {Box, LinearProgress} from "@mui/material";
 import {Paragraph} from "../components/typography/Paragraph";
 import {MoviesCarousel} from "../components/MoviesCarousel";
-import {moviesFetcher} from "../utils/rest/MovieListFetcher";
+import {moviesFetcher} from "../src/rest/MovieListFetcher";
 
 const Wrapper = styled.div`
     display: flex;

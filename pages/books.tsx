@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import {GetServerSideProps} from "next";
 import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import styled from "styled-components";
-import {getBooks} from "../utils/rest/Book";
+import {getBooks} from "../src/rest/Book";
 import {useRouter} from "next/router";
 
 export interface Book {
