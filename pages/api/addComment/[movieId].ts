@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
-import {moviesRepository} from "../../../src/main/repository/MoviesRepository";
 import {Comment} from "../../../data/movies/Movie";
+import {addCommentUseCase} from "../../../src/main/usecases/AddCommentUseCase";
 
 export default async function handler(
     req: NextApiRequest,
@@ -23,6 +23,3 @@ export default async function handler(
             return res.status(405).send(null)
     }
 }
-
-const addCommentUseCase = async (comment: Comment, movieId: string): Promise<any> =>
-    moviesRepository.addComment(comment, movieId);

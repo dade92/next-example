@@ -1,5 +1,5 @@
 import {moviesRepository} from "../../main/repository/MoviesRepository";
-import {getMovieDetailsUseCase} from "../../main/usecases/MovieDetailUseCase";
+import {retrieveMovieDetailsUseCase} from "../../main/usecases/RetrieveMovieDetailUseCase";
 import {MovieDetail} from "../../../data/movies/Movie";
 
 jest.mock('../../main/repository/MoviesRepository');
@@ -19,7 +19,7 @@ describe('getMovieDetailsUseCase', () => {
 
         (moviesRepository.findMovieDetail as jest.Mock).mockResolvedValue(response);
 
-        const result = await getMovieDetailsUseCase(movieId);
+        const result = await retrieveMovieDetailsUseCase(movieId);
 
         expect(moviesRepository.findMovieDetail).toHaveBeenCalledWith(movieId);
         expect(result).toEqual(response);

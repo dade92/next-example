@@ -5,7 +5,7 @@ import {GetServerSideProps} from "next";
 import {Movie, MovieDetail} from "../../data/movies/Movie";
 import {MovieDetailCard} from "../../components/MovieDetailCard";
 import {FloatingBackButton} from "../../components/FloatingBackButton";
-import {getMovieDetailsUseCase} from "../../src/main/usecases/MovieDetailUseCase";
+import {retrieveMovieDetailsUseCase} from "../../src/main/usecases/RetrieveMovieDetailUseCase";
 
 const Wrapper = styled.div`
     display: flex;
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     const {params} = context;
     const {id} = params;
 
-    const details = await getMovieDetailsUseCase(id);
+    const details = await retrieveMovieDetailsUseCase(id);
     return {
         props: {
             details

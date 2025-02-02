@@ -1,6 +1,6 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {Movie} from "../../data/movies/Movie";
-import {moviesRepository} from "../../src/main/repository/MoviesRepository";
+import {searchMovieUseCase} from "../../src/main/usecases/SearchMovieUseCase";
 
 export type SearchMovieResponse = {
     movie: Movie
@@ -20,7 +20,6 @@ export default async function handler(
                     return res.status(404).end();
                 }
 
-                // Return the found movie
                 return res.status(200).json({movie: result});
             } catch (error) {
                 return res.status(404).end();
@@ -29,6 +28,3 @@ export default async function handler(
             return res.status(405).send(null)
     }
 }
-
-const searchMovieUseCase = async (title: string): Promise<Movie | null> =>
-    moviesRepository.findByTitle(title)

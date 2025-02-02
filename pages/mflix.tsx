@@ -4,7 +4,7 @@ import {GetServerSideProps} from "next";
 import {MovieSummaryCard} from "../components/MovieSummaryCard";
 import {Movie} from "../data/movies/Movie";
 import {FloatingPagination} from "../components/FloatingPagination";
-import {getMoviesUseCase} from "../src/main/usecases/MovieUseCase";
+import {retrieveMoviesUseCase} from "../src/main/usecases/RetrieveMoviesUseCase";
 import {Search} from "../components/Search";
 import useSWR from "swr";
 import {SearchMovieResponse} from "./api/search";
@@ -66,7 +66,7 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query} = context;
     const page = parseInt(query.page as string) || 1;
-    const {movies, pageSize, documentsCount} = await getMoviesUseCase(page);
+    const {movies, pageSize, documentsCount} = await retrieveMoviesUseCase(page);
     const totalPages = Math.ceil(documentsCount / pageSize);
 
     return {
