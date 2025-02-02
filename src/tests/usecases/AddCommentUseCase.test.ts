@@ -5,7 +5,7 @@ import {addCommentUseCase} from "../../main/usecases/AddCommentUseCase";
 
 jest.mock('../../main/repository/MoviesRepository');
 
-describe('searchMovieUseCase', () => {
+describe('addCommentUseCase', () => {
     it('should add the comment properly', async () => {
         const comment = Builder<Comment>().build();
         const movieId = '123';
