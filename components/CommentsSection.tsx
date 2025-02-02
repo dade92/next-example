@@ -48,13 +48,16 @@ export const CommentsSection: FC<Props> = ({comments, onCommentAdded}) => {
             <TextField
                 variant="outlined"
                 value={comment}
+                size={"small"}
                 onChange={(e) => setComment(e.target.value)}
                 label={'Write your comment'}>
             </TextField>
-            <Button onClick={() => {
-                setComment('');
-                onCommentAdded(comment!)
-            }}>Add</Button>
+            <Button
+                size={"small"}
+                onClick={() => {
+                    setComment('');
+                    onCommentAdded(comment!)
+                }}>Add</Button>
         </CommentAddWrapper>
     </>
 }
