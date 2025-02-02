@@ -17,4 +17,14 @@ describe('searchMovieUseCase', () => {
         expect(moviesRepository.findByTitle).toHaveBeenCalledWith(title);
         expect(result).toEqual(response);
     });
+
+    it('should throw an error when the repository fails', async () => {
+        const title = 'title';
+        const error = new Error('Repository failure');
+
+        (moviesRepository.findByTitle as jest.Mock).mockRejectedValue(error);
+
+        await expect(searchMovieUseCase(title)).rejects.toThrow(error);
+        expect(moviesRepository.findByTitle).toHaveBeenCalledWith(title);
+    });
 });
