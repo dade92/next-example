@@ -55,8 +55,10 @@ export const CommentsSection: FC<Props> = ({comments, onCommentAdded}) => {
             <Button
                 size={"small"}
                 onClick={() => {
-                    setComment('');
-                    onCommentAdded(comment!)
+                    if(comment) {
+                        setComment('');
+                        onCommentAdded(comment)
+                    }
                 }}>Add</Button>
         </CommentAddWrapper>
     </>
