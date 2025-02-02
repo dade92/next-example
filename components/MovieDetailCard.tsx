@@ -18,7 +18,7 @@ const Wrapper = styled(Card)`
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 8px;
+    padding: 16px;
     align-items: center;
 `
 
@@ -69,7 +69,7 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
             src={movie.posterUrl}
             alt=""
         />
-        <CardContent sx={{paddingTop: '16px', paddingLeft: '16px', paddingRight: '16px'}}>
+        <CardContent sx={{width: '100%', paddingTop: '16px', paddingLeft: '16px', paddingRight: '16px'}}>
             <MovieDetailCardContent movie={movie}/>
         </CardContent>
         <CardActions disableSpacing sx={{alignSelf: 'end'}}>
