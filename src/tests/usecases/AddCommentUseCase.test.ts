@@ -10,7 +10,7 @@ describe('addCommentUseCase', () => {
         const comment = Builder<Comment>().build();
         const movieId = '123';
 
-        const expected = Promise.resolve();
+        const expected = {};
         (moviesRepository.addComment as jest.Mock).mockResolvedValue(expected);
         const actual = await addCommentUseCase(comment, movieId);
 
