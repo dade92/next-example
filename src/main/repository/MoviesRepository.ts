@@ -2,6 +2,7 @@ import {Collection, MongoClient, ObjectId} from "mongodb";
 import {Comment, Movie, MovieDetail} from "../../../data/movies/Movie";
 import {toDomainMovie} from "./adapters/MoviesAdapter";
 import {toDomainComment} from "./adapters/MovieCommentAdapter";
+import {nowProvider} from "../utils/NowProvider";
 
 interface Imdb {
     rating: number;
@@ -140,7 +141,7 @@ export class MoviesRepository {
                 name: comment.name,
                 email: comment.email,
                 text: comment.text,
-                date: new Date()
+                date: nowProvider()
             };
 
             const result = await this.mongoCommentsCollection.insertOne(newComment);
