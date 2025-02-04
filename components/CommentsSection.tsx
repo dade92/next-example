@@ -1,13 +1,24 @@
 import * as React from "react";
-import {FC} from "react";
+import {FC, useState} from "react";
 import {Comment} from "../data/movies/Movie";
-import {List, ListItem, ListItemText, Typography} from "@mui/material";
+import {Button, List, ListItem, ListItemText, TextField, Typography} from "@mui/material";
+import styled from "styled-components";
 
 interface Props {
     comments: Comment[];
+    onCommentAdded: (comment: string) => void;
 }
 
-export const CommentsSection: FC<Props> = ({comments}) => {
+const CommentAddWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+`
+
+
+export const CommentsSection: FC<Props> = ({comments, onCommentAdded}) => {
+    const [comment, setComment] = useState<string>('');
+
     return <>
         {comments.length == 0 &&
             <Typography variant="subtitle2" sx={{color: 'text.secondary'}}>No comments yet</Typography>}
@@ -33,5 +44,22 @@ export const CommentsSection: FC<Props> = ({comments}) => {
                 </>
             })}
         </List>
+        <CommentAddWrapper>
+            <TextField
+                variant="outlined"
+                value={comment}
+                size={"small"}
+                onChange={(e) => setComment(e.target.value)}
+                label={'Write your comment'}>
+            </TextField>
+            <Button
+                size={"small"}
+                onClick={() => {
+                    if(comment) {
+                        setComment('');
+                        onCommentAdded(comment)
+                    }
+                }}>Add</Button>
+        </CommentAddWrapper>
     </>
 }

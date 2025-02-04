@@ -7,17 +7,18 @@ import {Card, CardActions, CardContent, Collapse, IconButton, IconButtonProps} f
 import {CommentsSection} from "./CommentsSection";
 import {MovieDetailCardContent} from "./MovieDetailCardContent";
 import Image from "next/image";
+import {addCommentCall} from "../src/main/rest/AddCommentCall";
 
 interface Props {
     movie: Movie;
-    comments: Comment[];
+    initialComments: Comment[];
 }
 
 const Wrapper = styled(Card)`
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 8px;
+    padding: 16px;
     align-items: center;
 `
 
@@ -40,8 +41,25 @@ const StyledImage = styled(Image)`
     object-fit: cover;
 `
 
-export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
+export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
     const [expanded, setExpanded] = useState(false);
+    const [comments, setComments] = useState(initialComments);
+
+    const addComment = (comment: string) => {
+        const newComment = {
+            //TODO how to retrieve the username at the moment?
+            name: 'Davide',
+            email: 'davidebotti92@gmail.com',
+            text: comment
+        };
+        addCommentCall(newComment, movie.id)
+            .then(() => setComments([
+                    ...comments,
+                    newComment
+                ])
+            )
+            .catch((error) => console.error("Error adding comment:", error));
+    }
 
     return <Wrapper sx={{maxWidth: 800}}>
         <StyledImage
@@ -51,7 +69,7 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
             src={movie.posterUrl}
             alt=""
         />
-        <CardContent sx={{paddingTop: '16px', paddingLeft: '16px', paddingRight: '16px'}}>
+        <CardContent sx={{width: '100%', paddingTop: '16px', paddingLeft: '16px', paddingRight: '16px'}}>
             <MovieDetailCardContent movie={movie}/>
         </CardContent>
         <CardActions disableSpacing sx={{alignSelf: 'end'}}>
@@ -63,11 +81,11 @@ export const MovieDetailCard: FC<Props> = ({movie, comments}) => {
                 aria-expanded={expanded}
                 aria-label="show more"
             >
-                <ExpandMoreIcon />
+                <ExpandMoreIcon/>
             </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" sx={{alignSelf: 'start'}}>
-            <CommentsSection comments={comments}/>
+            <CommentsSection comments={comments} onCommentAdded={(comment: string) => addComment(comment)}/>
         </Collapse>
     </Wrapper>
 }

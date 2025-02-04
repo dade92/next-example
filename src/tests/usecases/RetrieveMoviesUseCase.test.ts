@@ -1,5 +1,5 @@
 import {moviesRepository} from "../../main/repository/MoviesRepository";
-import {getMoviesUseCase, PAGE_SIZE} from "../../main/usecases/MovieUseCase";
+import {retrieveMoviesUseCase, PAGE_SIZE} from "../../main/usecases/RetrieveMoviesUseCase";
 
 jest.mock('../../main/repository/MoviesRepository');
 
@@ -13,7 +13,7 @@ describe('getMoviesUseCase', () => {
 
         const page = 2;
 
-        const result = await getMoviesUseCase(page);
+        const result = await retrieveMoviesUseCase(page);
 
         expect(moviesRepository.findBy).toHaveBeenCalledWith(page, PAGE_SIZE);
         expect(moviesRepository.countMovies).toHaveBeenCalled();
