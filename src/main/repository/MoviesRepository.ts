@@ -87,6 +87,26 @@ export class MoviesRepository {
         }
     }
 
+    async findById(id: string): Promise<Movie> {
+        try {
+            await this.connect();
+            const movies = await this.mongoMovieCollection
+                .find({_id: new ObjectId(id)})
+                .toArray();
+
+            if (movies.length > 0) {
+                return toDomainMovie(movies[0])
+            } else {
+                console.log('No movies found.');
+            }
+
+            return Promise.reject();
+        } catch (error) {
+            console.error('Error retrieving first ten movies:', error);
+            throw error;
+        }
+    }
+
     async findBy(page: number, pageSize: number): Promise<Movie[]> {
         try {
             await this.connect();
