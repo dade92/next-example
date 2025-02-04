@@ -17,6 +17,10 @@ type Props = {
     details: MovieDetail;
 }
 
+interface MovieData {
+    movie: Movie;
+}
+
 const MovieDetail: FC<Props> = ({details}) => {
     const router = useRouter();
     const [movie, setMovie] = useState<Movie>();
@@ -25,6 +29,18 @@ const MovieDetail: FC<Props> = ({details}) => {
         const storedData = sessionStorage.getItem('movie');
         if (storedData) {
             setMovie(JSON.parse(storedData));
+        } else {
+            const {id} = router.query;
+            fetch(`/api/movie/${id}`)
+                .then((res) => {
+                    if (res.status == 200) {
+                        return res.json();
+                    } else {
+                        throw new Error()
+                    }
+                }).then((data: MovieData) => {
+                setMovie(data.movie)
+            });
         }
     }, []);
 
