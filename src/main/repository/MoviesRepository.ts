@@ -1,7 +1,8 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
-import {Movie, MovieDetail} from "../../../data/movies/Movie";
+import {Comment, Movie, MovieDetail} from "../../../data/movies/Movie";
 import {toDomainMovie} from "./adapters/MoviesAdapter";
 import {toDomainComment} from "./adapters/MovieCommentAdapter";
+import {nowProvider} from "../utils/NowProvider";
 
 interface Imdb {
     rating: number;
@@ -86,6 +87,26 @@ export class MoviesRepository {
         }
     }
 
+    async findById(id: string): Promise<Movie> {
+        try {
+            await this.connect();
+            const movies = await this.mongoMovieCollection
+                .find({_id: new ObjectId(id)})
+                .toArray();
+
+            if (movies.length > 0) {
+                return toDomainMovie(movies[0])
+            } else {
+                console.log('No movies found.');
+            }
+
+            return Promise.reject();
+        } catch (error) {
+            console.error('Error retrieving first ten movies:', error);
+            throw error;
+        }
+    }
+
     async findBy(page: number, pageSize: number): Promise<Movie[]> {
         try {
             await this.connect();
@@ -115,7 +136,7 @@ export class MoviesRepository {
         try {
             await this.connect();
             const movies = await this.mongoMovieCollection
-                .find({title: { $regex: new RegExp(`^${title}$`, 'i') }})
+                .find({title: {$regex: new RegExp(`^${title}$`, 'i')}})
                 .limit(1)
                 .toArray();
 
@@ -128,6 +149,29 @@ export class MoviesRepository {
         } catch (error) {
             console.error('Error retrieving first ten movies:', error);
             return Promise.reject();
+        }
+    }
+
+    async addComment(comment: Comment, movieId: string): Promise<any> {
+        try {
+            await this.connect();
+
+            const newComment = {
+                movie_id: new ObjectId(movieId),
+                name: comment.name,
+                email: comment.email,
+                text: comment.text,
+                date: nowProvider()
+            };
+
+            const result = await this.mongoCommentsCollection.insertOne(newComment);
+
+            if (!result.acknowledged) {
+                throw new Error("Failed to insert comment into database.");
+            }
+        } catch (error) {
+            console.error('Error adding comment:', error);
+            throw error;
         }
     }
 

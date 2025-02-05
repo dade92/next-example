@@ -5,7 +5,7 @@ import {GetServerSideProps} from "next";
 import {Movie, MovieDetail} from "../../data/movies/Movie";
 import {MovieDetailCard} from "../../components/MovieDetailCard";
 import {FloatingBackButton} from "../../components/FloatingBackButton";
-import {getMovieDetailsUseCase} from "../../src/main/usecases/MovieDetailUseCase";
+import {retrieveMovieDetailsUseCase} from "../../src/main/usecases/RetrieveMovieDetailUseCase";
 
 const Wrapper = styled.div`
     display: flex;
@@ -17,6 +17,10 @@ type Props = {
     details: MovieDetail;
 }
 
+interface MovieResponse {
+    movie: Movie;
+}
+
 const MovieDetail: FC<Props> = ({details}) => {
     const router = useRouter();
     const [movie, setMovie] = useState<Movie>();
@@ -25,6 +29,18 @@ const MovieDetail: FC<Props> = ({details}) => {
         const storedData = sessionStorage.getItem('movie');
         if (storedData) {
             setMovie(JSON.parse(storedData));
+        } else {
+            const {id} = router.query;
+            fetch(`/api/movie/${id}`)
+                .then((res) => {
+                    if (res.status == 200) {
+                        return res.json();
+                    } else {
+                        throw new Error()
+                    }
+                }).then((data: MovieResponse) => {
+                setMovie(data.movie)
+            });
         }
     }, []);
 
@@ -35,7 +51,7 @@ const MovieDetail: FC<Props> = ({details}) => {
 
     return (
         <Wrapper>
-            {movie && <MovieDetailCard movie={movie} comments={details.comments}/>}
+            {movie && <MovieDetailCard movie={movie} initialComments={details.comments}/>}
             <FloatingBackButton onBackClicked={onBackClicked}/>
         </Wrapper>
     );
@@ -45,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
     const {params} = context;
     const {id} = params;
 
-    const details = await getMovieDetailsUseCase(id);
+    const details = await retrieveMovieDetailsUseCase(id);
     return {
         props: {
             details
