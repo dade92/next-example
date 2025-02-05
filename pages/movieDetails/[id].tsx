@@ -17,7 +17,7 @@ type Props = {
     details: MovieDetail;
 }
 
-interface MovieData {
+interface MovieResponse {
     movie: Movie;
 }
 
@@ -38,7 +38,7 @@ const MovieDetail: FC<Props> = ({details}) => {
                     } else {
                         throw new Error()
                     }
-                }).then((data: MovieData) => {
+                }).then((data: MovieResponse) => {
                 setMovie(data.movie)
             });
         }
