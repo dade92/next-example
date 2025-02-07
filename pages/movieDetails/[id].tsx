@@ -6,6 +6,8 @@ import {Movie, MovieDetail} from "../../data/movies/Movie";
 import {MovieDetailCard} from "../../components/MovieDetailCard";
 import {FloatingBackButton} from "../../components/FloatingBackButton";
 import {retrieveMovieDetailsUseCase} from "../../src/main/usecases/RetrieveMovieDetailUseCase";
+import {movieDetailFetcher} from "../../src/main/rest/MovieDetailFetcher";
+import {SearchMovieResponse} from "../api/search";
 
 const Wrapper = styled.div`
     display: flex;
@@ -15,10 +17,6 @@ const Wrapper = styled.div`
 
 type Props = {
     details: MovieDetail;
-}
-
-interface MovieResponse {
-    movie: Movie;
 }
 
 const MovieDetail: FC<Props> = ({details}) => {
@@ -31,16 +29,9 @@ const MovieDetail: FC<Props> = ({details}) => {
             setMovie(JSON.parse(storedData));
         } else {
             const {id} = router.query;
-            fetch(`/api/movie/${id}`)
-                .then((res) => {
-                    if (res.status == 200) {
-                        return res.json();
-                    } else {
-                        throw new Error()
-                    }
-                }).then((data: MovieResponse) => {
-                setMovie(data.movie)
-            });
+            movieDetailFetcher(
+                id as string,
+                (m: SearchMovieResponse) => setMovie(m.movie));
         }
     }, []);
 
