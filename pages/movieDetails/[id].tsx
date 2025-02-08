@@ -31,7 +31,8 @@ const MovieDetail: FC<Props> = ({details}) => {
             const {id} = router.query;
             movieDetailFetcher(
                 id as string,
-                (m: SearchMovieResponse) => setMovie(m.movie));
+                (movieResponse: SearchMovieResponse) => setMovie(movieResponse.movie)
+            );
         }
     }, []);
 
