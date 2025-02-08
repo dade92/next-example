@@ -1,10 +1,11 @@
 import {moviesFetcher} from "../../main/rest/MovieListFetcher";
 
 describe("moviesFetcher", () => {
-    // Clear mocks before each test
     beforeEach(() => {
         jest.resetAllMocks();
     });
+
+    const url = "http://an_url.com";
 
     it("should return JSON data when the fetch response is OK", async () => {
         const mockData = {results: [{id: 1, title: "Test Movie"}]};
@@ -13,8 +14,6 @@ describe("moviesFetcher", () => {
             json: jest.fn().mockResolvedValue(mockData),
         };
         global.fetch = jest.fn().mockResolvedValue(mockResponse);
-
-        const url = "http://example.com/movies";
 
         const data = await moviesFetcher(url);
 
@@ -28,8 +27,6 @@ describe("moviesFetcher", () => {
             status: 404,
         };
         global.fetch = jest.fn().mockResolvedValue(mockResponse);
-
-        const url = "http://example.com/movies";
 
         await expect(moviesFetcher(url)).rejects.toEqual({status: 404});
         expect(global.fetch).toHaveBeenCalledWith(url);
