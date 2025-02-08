@@ -18,12 +18,6 @@ export interface MongoMovie {
     released: Date | undefined;
 }
 
-export interface MongoMovieDetail {
-    text: string;
-    email: string;
-    name: string;
-}
-
 export class MoviesRepository {
     private mongoClient: MongoClient;
     private mongoMovieCollection: Collection<MongoMovie>;

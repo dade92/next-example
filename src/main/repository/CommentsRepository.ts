@@ -1,8 +1,13 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
-import {MongoMovieDetail} from "./MoviesRepository";
 import {Comment, MovieDetail} from "../../../data/movies/Movie";
 import {toDomainComment} from "./adapters/MovieCommentAdapter";
 import {nowProvider} from "../utils/NowProvider";
+
+export interface MongoMovieDetail {
+    text: string;
+    email: string;
+    name: string;
+}
 
 export class CommentsRepository {
     private mongoClient: MongoClient;
