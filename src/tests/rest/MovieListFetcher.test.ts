@@ -7,7 +7,7 @@ describe("moviesFetcher", () => {
 
     const url = "http://an_url.com";
 
-    it("should return JSON data when the fetch response is OK", async () => {
+    it("should return data when the fetch response is OK", async () => {
         const mockData = {results: [{id: 1, title: "Test Movie"}]};
         const mockResponse = {
             ok: true,
@@ -21,7 +21,7 @@ describe("moviesFetcher", () => {
         expect(global.fetch).toHaveBeenCalledWith(url);
     });
 
-    it("should throw an error object with a status property when the fetch response is not OK", async () => {
+    it("should throw an error object when the fetch response is an error", async () => {
         const mockResponse = {
             ok: false,
             status: 404,
