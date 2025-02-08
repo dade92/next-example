@@ -1,7 +1,6 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
-import {Movie, MovieDetail} from "../../../data/movies/Movie";
+import {Movie} from "../../../data/movies/Movie";
 import {toDomainMovie} from "./adapters/MoviesAdapter";
-import {toDomainComment} from "./adapters/MovieCommentAdapter";
 
 interface Imdb {
     rating: number;
@@ -28,7 +27,6 @@ export interface MongoMovieDetail {
 export class MoviesRepository {
     private mongoClient: MongoClient;
     private mongoMovieCollection: Collection<MongoMovie>;
-    private mongoCommentsCollection: Collection<MongoMovieDetail>;
     private isConnected: boolean = false;
     private movieCountCache: number | null = null;
 
@@ -36,7 +34,6 @@ export class MoviesRepository {
         const uri = `mongodb+srv://${username}:${password}@${host}`;
         this.mongoClient = new MongoClient(uri);
         this.mongoMovieCollection = this.mongoClient.db(db).collection<MongoMovie>('movies');
-        this.mongoCommentsCollection = this.mongoClient.db(db).collection<MongoMovieDetail>('comments');
     }
 
     private async connect(): Promise<void> {
@@ -62,28 +59,6 @@ export class MoviesRepository {
         const count = await this.mongoMovieCollection.countDocuments();
         this.movieCountCache = count;
         return count;
-    }
-
-    async findMovieDetail(id: string): Promise<MovieDetail> {
-        try {
-            await this.connect();
-            const query = {movie_id: new ObjectId(id)};
-            const result = await this.mongoCommentsCollection.find(query).limit(10).toArray();
-
-            if (result) {
-                return {
-                    comments: result.map(comment => toDomainComment(comment))
-                }
-            } else {
-                console.log(`No movies found with id "${id}"`);
-                return {
-                    comments: []
-                };
-            }
-        } catch (error) {
-            console.error('Error querying movie:', error);
-            throw error;
-        }
     }
 
     async findById(id: string): Promise<Movie> {
