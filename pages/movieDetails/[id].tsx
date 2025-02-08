@@ -7,7 +7,6 @@ import {MovieDetailCard} from "../../components/MovieDetailCard";
 import {FloatingBackButton} from "../../components/FloatingBackButton";
 import {retrieveMovieDetailsUseCase} from "../../src/main/usecases/RetrieveMovieDetailUseCase";
 import {movieDetailFetcher} from "../../src/main/rest/MovieDetailFetcher";
-import {SearchMovieResponse} from "../api/search";
 
 const Wrapper = styled.div`
     display: flex;
@@ -31,8 +30,9 @@ const MovieDetail: FC<Props> = ({details}) => {
             const {id} = router.query;
             movieDetailFetcher(
                 id as string,
-                (movieResponse: SearchMovieResponse) => setMovie(movieResponse.movie)
-            );
+            ).then((m) => {
+                setMovie(m.movie)
+            });
         }
     }, []);
 

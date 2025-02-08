@@ -1,17 +1,16 @@
 import {movieDetailFetcher} from "../../main/rest/MovieDetailFetcher";
+import {Builder} from "builder-pattern";
+import {Movie} from "../../../data/movies/Movie";
 
 describe("movieDetailFetcher", () => {
     beforeEach(() => {
         jest.resetAllMocks();
     });
 
-    const wait = async () => {
-        await new Promise(resolve => setTimeout(resolve, 0));
-    }
+    const movieId = "123";
 
     it("should call onRetrieve with movie data when fetch is successful", async () => {
-        const mockResponse = {title: "Inception", year: 2010};
-        const movieId = "123";
+        const mockResponse = {movie: Builder<Movie>().title('inception').build()};
 
         global.fetch = jest.fn(() =>
             Promise.resolve({
@@ -20,25 +19,19 @@ describe("movieDetailFetcher", () => {
             })
         ) as jest.Mock;
 
-        const onRetrieveMock = jest.fn();
-        movieDetailFetcher(movieId, onRetrieveMock);
+        const result = await movieDetailFetcher(movieId);
 
-        await wait();
         expect(fetch).toHaveBeenCalledWith("/api/movie/123");
-        expect(onRetrieveMock).toHaveBeenCalledWith(mockResponse);
+        expect(result).toEqual({movie: {title: 'inception'}})
     });
 
     it("should throw an error when fetch returns an error", async () => {
         global.fetch = jest.fn(() =>
             Promise.resolve({status: 404})
         ) as jest.Mock;
-        const onRetrieveMock = jest.fn();
 
-        const movieId = "123";
-
-        await expect(movieDetailFetcher(movieId, onRetrieveMock)).rejects.toThrow();
+        await expect(movieDetailFetcher(movieId)).rejects.toThrow();
 
         expect(fetch).toHaveBeenCalledWith("/api/movie/123");
-        expect(onRetrieveMock).not.toHaveBeenCalled();
     });
 })
