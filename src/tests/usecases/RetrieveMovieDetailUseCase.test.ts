@@ -1,9 +1,9 @@
 import {retrieveMovieDetailsUseCase} from "../../main/usecases/RetrieveMovieDetailUseCase";
 import {MovieDetail} from "../../../data/movies/Movie";
 import {Builder} from "builder-pattern";
-import {commentsRepository} from "../../main/repository/CommentsRepository";
+import {commentsRepository} from "../../main/repository/Configuration";
 
-jest.mock('../../main/repository/CommentsRepository');
+jest.mock('../../main/repository/Configuration');
 
 describe('getMovieDetailsUseCase', () => {
     it('should return movie details for the given id', async () => {

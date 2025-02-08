@@ -1,9 +1,9 @@
 import {Comment} from "../../../data/movies/Movie";
 import {Builder} from "builder-pattern";
 import {addCommentUseCase} from "../../main/usecases/AddCommentUseCase";
-import {commentsRepository} from "../../main/repository/CommentsRepository";
+import {commentsRepository} from "../../main/repository/Configuration";
 
-jest.mock('../../main/repository/CommentsRepository');
+jest.mock('../../main/repository/Configuration');
 
 describe('addCommentUseCase', () => {
     it('should add the comment properly', async () => {
