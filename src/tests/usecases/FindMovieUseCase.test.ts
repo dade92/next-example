@@ -1,9 +1,9 @@
-import {moviesRepository} from "../../main/repository/MoviesRepository";
 import {Movie} from "../../../data/movies/Movie";
 import {Builder} from "builder-pattern";
 import {findMovieUseCase} from "../../main/usecases/FindMovieUseCase";
+import {moviesRepository} from "../../main/repository/Configuration";
 
-jest.mock('../../main/repository/MoviesRepository');
+jest.mock('../../main/repository/Configuration');
 
 describe('findMovieUseCase', () => {
     it('should find the movie', async () => {

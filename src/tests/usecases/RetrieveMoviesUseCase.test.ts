@@ -1,7 +1,7 @@
-import {moviesRepository} from "../../main/repository/MoviesRepository";
 import {retrieveMoviesUseCase, PAGE_SIZE} from "../../main/usecases/RetrieveMoviesUseCase";
+import {moviesRepository} from "../../main/repository/Configuration";
 
-jest.mock('../../main/repository/MoviesRepository');
+jest.mock('../../main/repository/Configuration');
 
 describe('getMoviesUseCase', () => {
     it('should return movies correctly', async () => {

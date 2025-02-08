@@ -1,5 +1,5 @@
-import {moviesRepository} from "../repository/MoviesRepository";
 import {Movie} from "../../../data/movies/Movie";
+import {moviesRepository} from "../repository/Configuration";
 
 export const PAGE_SIZE = 10;
 
