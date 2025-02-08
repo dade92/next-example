@@ -1,8 +1,7 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
-import {Comment, Movie, MovieDetail} from "../../../data/movies/Movie";
+import {Movie, MovieDetail} from "../../../data/movies/Movie";
 import {toDomainMovie} from "./adapters/MoviesAdapter";
 import {toDomainComment} from "./adapters/MovieCommentAdapter";
-import {nowProvider} from "../utils/NowProvider";
 
 interface Imdb {
     rating: number;
@@ -151,30 +150,6 @@ export class MoviesRepository {
             return Promise.reject();
         }
     }
-
-    async addComment(comment: Comment, movieId: string): Promise<any> {
-        try {
-            await this.connect();
-
-            const newComment = {
-                movie_id: new ObjectId(movieId),
-                name: comment.name,
-                email: comment.email,
-                text: comment.text,
-                date: nowProvider()
-            };
-
-            const result = await this.mongoCommentsCollection.insertOne(newComment);
-
-            if (!result.acknowledged) {
-                throw new Error("Failed to insert comment into database.");
-            }
-        } catch (error) {
-            console.error('Error adding comment:', error);
-            throw error;
-        }
-    }
-
 }
 
 export const moviesRepository = new MoviesRepository(

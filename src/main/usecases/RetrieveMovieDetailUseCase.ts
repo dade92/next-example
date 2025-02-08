@@ -1,5 +1,5 @@
 import {MovieDetail} from "../../../data/movies/Movie";
-import {moviesRepository} from "../repository/MoviesRepository";
+import {commentsRepository} from "../repository/CommentsRepository";
 
 export const retrieveMovieDetailsUseCase = async (id: string): Promise<MovieDetail> =>
-    await moviesRepository.findMovieDetail(id)
+    await commentsRepository.findMovieDetail(id)
