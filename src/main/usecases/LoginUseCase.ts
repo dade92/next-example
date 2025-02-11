@@ -1,5 +1,7 @@
 import {usersRepository} from "../repository/Configuration";
 
-export const loginUseCase = (username: string, password: string) => {
-    usersRepository.findUserByUsername(username)
+export const loginUseCase = async (username: string, password: string): Promise<boolean> => {
+    const user = await usersRepository.findUserByUsername(username);
+    //TODO handle the hash
+    return user?.password == password
 }

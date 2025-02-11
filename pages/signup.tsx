@@ -1,31 +1,31 @@
 import {useState} from "react";
-import {Alert, Box, Button, CircularProgress, Container, TextField, Typography} from "@mui/material";
-import Link from "next/link";
+import {Alert, Box, Button, CircularProgress, Container, Link, TextField, Typography} from "@mui/material";
 
-const Login = () => {
+const SignupForm = () => {
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const handleLogin = async () => {
+    const handleSignup = async () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("/api/login", {
+            const response = await fetch("/api/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({username, password}),
+                body: JSON.stringify({username, email, password}),
             });
 
             if (!response.ok) {
-                throw new Error("Invalid credentials");
+                throw new Error("Signup failed");
             }
 
             const data = await response.json();
-            alert("Login successful: " + JSON.stringify(data));
+            alert("Signup successful: " + JSON.stringify(data));
         } catch (err) {
             setError(err.message);
         } finally {
@@ -48,7 +48,7 @@ const Login = () => {
                 }}
             >
                 <Typography variant="h5" gutterBottom>
-                    Login
+                    Sign Up
                 </Typography>
 
                 {error && <Alert severity="error">{error}</Alert>}
@@ -64,6 +64,15 @@ const Login = () => {
                 <TextField
                     fullWidth
                     margin="normal"
+                    label="Email"
+                    variant="outlined"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <TextField
+                    fullWidth
+                    margin="normal"
                     label="Password"
                     variant="outlined"
                     type="password"
@@ -74,16 +83,17 @@ const Login = () => {
                     fullWidth
                     variant="contained"
                     sx={{mt: 2}}
-                    onClick={handleLogin}
+                    onClick={handleSignup}
                     disabled={loading}
                 >
-                    {loading ? <CircularProgress size={24}/> : "Login"}
+                    {loading ? <CircularProgress size={24}/> : "Sign Up"}
                 </Button>
-                <Typography variant="body2" sx={{mt: 2}}>Don&apos t have an account? <Link href="/signup">Sign Up</Link>
+                <Typography variant="body2" sx={{mt: 2}}>
+                    Already have an account? <Link href="/login">Login</Link>
                 </Typography>
             </Box>
         </Container>
     );
-}
+};
 
-export default Login;
+export default SignupForm;

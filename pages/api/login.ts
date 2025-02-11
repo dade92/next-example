@@ -1,4 +1,5 @@
 import type {NextApiRequest, NextApiResponse} from "next";
+import {loginUseCase} from "../../src/main/usecases/LoginUseCase";
 
 interface LoginResponse {
     result: string;
@@ -11,7 +12,13 @@ export default async function handler(
     switch (req.method) {
         case 'POST':
             console.log('login API called')
-            return res.status(200).send({result: ''})
+            const result = await loginUseCase(req.body.username as string, req.body.password as string);
+
+            if (result) {
+                return res.status(204).end()
+            } else {
+                return res.status(401).end()
+            }
         default:
             return res.status(405).send(null)
     }
