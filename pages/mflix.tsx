@@ -12,6 +12,8 @@ import {Box, LinearProgress} from "@mui/material";
 import {Paragraph} from "../components/typography/Paragraph";
 import {MoviesCarousel} from "../components/MoviesCarousel";
 import {moviesFetcher} from "../src/main/rest/MovieListFetcher";
+import {getCookie} from "cookies-next";
+
 
 const Wrapper = styled.div`
     display: flex;
@@ -64,7 +66,17 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const {query} = context;
+    const {query, req, res} = context;
+    const loginToken = getCookie('loginToken', {req, res});
+
+    if (!loginToken) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
+        };
+    }
     const page = parseInt(query.page as string) || 1;
     const {movies, pageSize, documentsCount} = await retrieveMoviesUseCase(page);
     const totalPages = Math.ceil(documentsCount / pageSize);
