@@ -2,7 +2,7 @@ import type {NextApiRequest, NextApiResponse} from "next";
 import {loginUseCase} from "../../src/main/usecases/LoginUseCase";
 
 interface LoginResponse {
-    result: string;
+    token: string;
 }
 
 export default async function handler(
@@ -15,7 +15,7 @@ export default async function handler(
             const result = await loginUseCase(req.body.username as string, req.body.password as string);
 
             if (result) {
-                return res.status(204).end()
+                return res.status(200).json({token: 'XXX'})
             } else {
                 return res.status(401).end()
             }

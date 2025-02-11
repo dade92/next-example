@@ -2,7 +2,6 @@ import type {NextApiRequest, NextApiResponse} from "next";
 import {signupUseCase} from "../../src/main/usecases/SignupUseCase";
 
 interface SignUpResponse {
-
 }
 
 interface SignUpRequest {
@@ -25,7 +24,7 @@ export default async function handler(
                 request.email
             );
 
-            return res.status(204).end()
+            return res.status(200).end()
         default:
             return res.status(405).send(null)
     }
