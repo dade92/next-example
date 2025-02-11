@@ -1,7 +1,10 @@
 import {useState} from "react";
 import {Alert, Box, Button, CircularProgress, Container, Link, TextField, Typography} from "@mui/material";
+import {useRouter} from "next/router";
 
 const SignupForm = () => {
+    const router = useRouter();
+
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -23,9 +26,8 @@ const SignupForm = () => {
             if (!response.ok) {
                 throw new Error("Signup failed");
             }
-
-            const data = await response.json();
-            alert("Signup successful: " + JSON.stringify(data));
+            //TODO proper signup feedback needed here
+            router.push(`/login`);
         } catch (err) {
             setError(err.message);
         } finally {

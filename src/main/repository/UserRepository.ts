@@ -19,7 +19,7 @@ export class UserRepository {
     constructor(host: string, db: string, username: string, password: string) {
         const uri = `mongodb+srv://${username}:${password}@${host}`;
         this.mongoClient = new MongoClient(uri);
-        this.mongoUserCollection = this.mongoClient.db(db).collection<MongoUserDetail>('comments');
+        this.mongoUserCollection = this.mongoClient.db(db).collection<MongoUserDetail>('users');
     }
 
     private async connect(): Promise<void> {
@@ -38,8 +38,8 @@ export class UserRepository {
 
     async addUser(
         username: string,
+        password: string,
         email: string,
-        password: string
     ): Promise<any> {
         try {
             await this.connect();
@@ -66,7 +66,7 @@ export class UserRepository {
         try {
             await this.connect();
             const user = await this.mongoUserCollection
-                .find({username: username})
+                .find({name: username})
                 .limit(1)
                 .toArray();
 

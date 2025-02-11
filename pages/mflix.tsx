@@ -67,7 +67,7 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query, req, res} = context;
-    const loginToken = getCookie('loginToken', {req, res});
+    const loginToken = getCookie('authToken', {req, res});
 
     if (!loginToken) {
         return {

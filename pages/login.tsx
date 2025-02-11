@@ -1,8 +1,11 @@
 import {useState} from "react";
 import {Alert, Box, Button, CircularProgress, Container, TextField, Typography} from "@mui/material";
 import Link from "next/link";
+import Cookies from 'js-cookie';
+import {useRouter} from "next/router";
 
 const Login = () => {
+    const router = useRouter();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -25,7 +28,8 @@ const Login = () => {
             }
 
             const data = await response.json();
-            alert("Login successful: " + JSON.stringify(data));
+            Cookies.set('authToken', data.token, {expires: 1});
+            router.push('/mflix')
         } catch (err) {
             setError(err.message);
         } finally {
@@ -79,7 +83,7 @@ const Login = () => {
                 >
                     {loading ? <CircularProgress size={24}/> : "Login"}
                 </Button>
-                <Typography variant="body2" sx={{mt: 2}}>Don&apos t have an account? <Link href="/signup">Sign Up</Link>
+                <Typography variant="body2" sx={{mt: 2}}>Don&apos;t have an account? <Link href="/signup">Sign Up</Link>
                 </Typography>
             </Box>
         </Container>
