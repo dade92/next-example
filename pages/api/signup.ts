@@ -18,13 +18,18 @@ export default async function handler(
         case 'POST':
             //TODO map better the response
             const request = req.body as SignUpRequest;
-            signupUseCase(
-                request.username,
-                request.password,
-                request.email
-            );
-
-            return res.status(200).end()
+            try {
+                await signupUseCase(
+                    {
+                        username: request.username,
+                        email: request.email,
+                        password: request.password
+                    }
+                );
+                return res.status(200).end()
+            } catch (e) {
+                return res.status(400).end()
+            }
         default:
             return res.status(405).send(null)
     }

@@ -1,15 +1,11 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
+import {User} from "../../../data/users/User";
 
 export interface MongoUserDetail {
     name: string;
     email: string;
     password: string;
-}
-
-export interface User {
-    username: string;
-    password: string;
-}
+};
 
 export class UserRepository {
     private mongoClient: MongoClient;
@@ -37,18 +33,16 @@ export class UserRepository {
     }
 
     async addUser(
-        username: string,
-        password: string,
-        email: string,
+        user: User
     ): Promise<any> {
         try {
             await this.connect();
 
             const newUser = {
                 _id: new ObjectId(),
-                name: username,
-                email: email,
-                password: password
+                name: user.username,
+                email: user.email,
+                password: user.password
             };
 
             const result = await this.mongoUserCollection.insertOne(newUser);
@@ -87,6 +81,7 @@ export class UserRepository {
 const toDomainUser = (mongoUser: MongoUserDetail): User => {
     return {
         username: mongoUser.name,
-        password: mongoUser.password
+        password: mongoUser.password,
+        email: mongoUser.email
     }
 }
