@@ -26,9 +26,9 @@ const Login = () => {
             if (!response.ok) {
                 setError("Login failed. Check your credentials!");
             } else {
-                //TODO properly stor the auth token and give correct feedback to the customer
                 const data = await response.json();
-                Cookies.set('authToken', data.token, {expires: 1});
+                //TODO I can set the expiration taking it from BE
+                Cookies.set('authToken', data.token);
                 router.push('/mflix')
             }
         } finally {

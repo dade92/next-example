@@ -56,7 +56,7 @@ export class SessionRepository {
         }
     }
 
-    async findSession(token: string): Promise<MongoSession | null> {
+    async findSession(token: string): Promise<Session | null> {
         try {
             await this.connect();
             const session = await this.mongoSessionCollection.findOne({sessionToken: token});

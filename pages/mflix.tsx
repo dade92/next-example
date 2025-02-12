@@ -70,6 +70,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query, req, res} = context;
     const loginToken = getCookie('authToken', {req, res});
 
+    //TODO all this stuff can be another use case!
     if (!loginToken) {
         return {
             redirect: {
@@ -78,7 +79,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             },
         };
     } else {
-        await checkAuthTokenUseCase(loginToken);
+        const checkResult = await checkAuthTokenUseCase(loginToken);
+        if (!checkResult) {
+            return {
+                redirect: {
+                    destination: '/login',
+                    permanent: false,
+                },
+            };
+        }
     }
     const page = parseInt(query.page as string) || 1;
     const {movies, pageSize, documentsCount} = await retrieveMoviesUseCase(page);
