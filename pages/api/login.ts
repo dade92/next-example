@@ -11,7 +11,7 @@ export default async function handler(
 ) {
     switch (req.method) {
         case 'POST':
-            const result = await loginUseCase(req.body.username as string, req.body.password as string);
+            const result = await loginUseCase(req.body.username, req.body.password);
 
             if (result) {
                 return res.status(200).json({token: result.token})

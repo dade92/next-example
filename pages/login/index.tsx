@@ -7,6 +7,7 @@ import {deleteCookie} from "cookies-next";
 
 const Login = () => {
     const router = useRouter();
+
     const [username, setUsername] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
@@ -32,9 +33,8 @@ const Login = () => {
                 setError("Login failed. Check your credentials!");
             } else {
                 const data = await response.json();
-                //TODO I can set the expiration taking it from BE
                 Cookies.set('authToken', data.token);
-                router.push('/mflix')
+                router.push('/mflix');
             }
         } finally {
             setLoading(false);
