@@ -21,7 +21,7 @@ export const SuccessSignUp = () => {
 
     return (
         <CenteredContainer>
-            <Typography variant="h4" gutterBottom>Sign Up Success</Typography>
+            <Typography variant="h4" gutterBottom>Sign Up Successful!!</Typography>
             <Typography>Your account has been created successfully</Typography>
             <Button variant="contained" color="primary" onClick={handleLoginRedirect} sx={{mt: 2}}>
                 Go to Login

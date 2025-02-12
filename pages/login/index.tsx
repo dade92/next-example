@@ -1,8 +1,9 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Alert, Box, Button, CircularProgress, Container, TextField, Typography} from "@mui/material";
 import Link from "next/link";
 import Cookies from 'js-cookie';
 import {useRouter} from "next/router";
+import {deleteCookie} from "cookies-next";
 
 const Login = () => {
     const router = useRouter();
@@ -10,6 +11,10 @@ const Login = () => {
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        deleteCookie('authToken');
+    }, []);
 
     const handleLogin = async () => {
         setLoading(true);
