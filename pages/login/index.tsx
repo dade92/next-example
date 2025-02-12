@@ -6,10 +6,10 @@ import {useRouter} from "next/router";
 
 const Login = () => {
     const router = useRouter();
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
     const handleLogin = async () => {
         setLoading(true);
@@ -24,15 +24,13 @@ const Login = () => {
             });
 
             if (!response.ok) {
-                throw new Error("Invalid credentials");
+                setError("Login failed. Check your credentials!");
+            } else {
+                //TODO properly stor the auth token and give correct feedback to the customer
+                const data = await response.json();
+                Cookies.set('authToken', data.token, {expires: 1});
+                router.push('/mflix')
             }
-
-            //TODO properly stor the auth token and give correct feedback to the customer
-            const data = await response.json();
-            Cookies.set('authToken', data.token, {expires: 1});
-            router.push('/mflix')
-        } catch (err) {
-            setError(err.message);
         } finally {
             setLoading(false);
         }

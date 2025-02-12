@@ -13,6 +13,7 @@ import {Paragraph} from "../components/typography/Paragraph";
 import {MoviesCarousel} from "../components/MoviesCarousel";
 import {moviesFetcher} from "../src/main/rest/MovieListFetcher";
 import {getCookie} from "cookies-next";
+import {checkAuthTokenUseCase} from "../src/main/usecases/CheckAuthTokenUseCase";
 
 
 const Wrapper = styled.div`
@@ -76,6 +77,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 permanent: false,
             },
         };
+    } else {
+        await checkAuthTokenUseCase(loginToken);
     }
     const page = parseInt(query.page as string) || 1;
     const {movies, pageSize, documentsCount} = await retrieveMoviesUseCase(page);

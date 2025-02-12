@@ -6,7 +6,7 @@ export const signupUseCase = async (user: User) => {
     if (!foundUser) {
         usersRepository.addUser(user)
             .then(() => {
-                return Promise.resolve()
+                return Promise.resolve();
             }).catch(e => {
                 //TODO better error handling here
                 console.log('Error adding user')
