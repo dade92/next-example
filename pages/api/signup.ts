@@ -24,7 +24,7 @@ export default async function handler(
                 );
                 return res.status(204).end()
             } catch (e) {
-                return res.status(400).end()
+                return res.status(500).end()
             }
         default:
             return res.status(405).send(null)

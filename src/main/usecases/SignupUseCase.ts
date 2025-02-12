@@ -3,6 +3,7 @@ import {User} from "../../../data/users/User";
 
 export const signupUseCase = async (user: User) => {
     const foundUser = await usersRepository.findUserByUsername(user.username);
+
     if (!foundUser) {
         usersRepository.addUser(user)
             .then(() => {
@@ -13,7 +14,7 @@ export const signupUseCase = async (user: User) => {
                 return Promise.reject()
             });
     } else {
-        console.log('User already existing');
+        console.log('Error registering a new user. User already existing');
         await Promise.reject()
     }
 }

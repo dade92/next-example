@@ -5,30 +5,47 @@ import {useRouter} from "next/router";
 const SignupForm = () => {
     const router = useRouter();
 
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [username, setUsername] = useState<string>("");
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const validateParams = () => {
+        if (!username || !email || !password) {
+            setError("Some fields are not correctly filled");
+            return false;
+        }
+        return true;
+    }
+
+    const resetParams = () => {
+        setUsername("");
+        setEmail("");
+        setPassword("");
+    }
 
     const handleSignup = async () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("/api/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({username, email, password}),
-            });
+            if (validateParams()) {
+                const response = await fetch("/api/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({username, email, password}),
+                });
 
-            if (!response.ok) {
-                throw new Error("Signup failed");
+                if (!response.ok) {
+                    throw new Error("Signup failed");
+                }
+                router.push(`/signup/success`);
             }
-            router.push(`/signup/success`);
         } catch (err) {
             setError(err.message);
+            resetParams();
         } finally {
             setLoading(false);
         }
