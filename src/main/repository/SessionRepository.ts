@@ -15,7 +15,7 @@ export class SessionRepository {
     constructor(host: string, db: string, username: string, password: string) {
         const uri = `mongodb+srv://${username}:${password}@${host}`;
         this.mongoClient = new MongoClient(uri);
-        this.mongoSessionCollection = this.mongoClient.db(db).collection<MongoSession>('users');
+        this.mongoSessionCollection = this.mongoClient.db(db).collection<MongoSession>('sessions');
     }
 
     private async connect(): Promise<void> {
