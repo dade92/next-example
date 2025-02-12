@@ -11,11 +11,10 @@ export default async function handler(
 ) {
     switch (req.method) {
         case 'POST':
-            console.log('login API called')
             const result = await loginUseCase(req.body.username as string, req.body.password as string);
 
             if (result) {
-                return res.status(200).json({token: 'XXX'})
+                return res.status(200).json({token: result.token})
             } else {
                 return res.status(401).end()
             }

@@ -1,10 +1,12 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
 import {User} from "../../../data/users/User";
+import {nowProvider} from "../utils/NowProvider";
 
 export interface MongoUserDetail {
     name: string;
     email: string;
     password: string;
+    creationDate: Date;
 };
 
 export class UserRepository {
@@ -42,7 +44,8 @@ export class UserRepository {
                 _id: new ObjectId(),
                 name: user.username,
                 email: user.email,
-                password: user.password
+                password: user.password,
+                creationDate: nowProvider()
             };
 
             const result = await this.mongoUserCollection.insertOne(newUser);
@@ -78,10 +81,8 @@ export class UserRepository {
 
 }
 
-const toDomainUser = (mongoUser: MongoUserDetail): User => {
-    return {
-        username: mongoUser.name,
-        password: mongoUser.password,
-        email: mongoUser.email
-    }
-}
+const toDomainUser = (mongoUser: MongoUserDetail): User => ({
+    username: mongoUser.name,
+    password: mongoUser.password,
+    email: mongoUser.email
+})

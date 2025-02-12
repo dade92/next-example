@@ -16,7 +16,6 @@ export default async function handler(
 ) {
     switch (req.method) {
         case 'POST':
-            //TODO map better the response
             const request = req.body as SignUpRequest;
             try {
                 await signupUseCase(
@@ -26,7 +25,7 @@ export default async function handler(
                         password: request.password
                     }
                 );
-                return res.status(200).end()
+                return res.status(204).end()
             } catch (e) {
                 return res.status(400).end()
             }
