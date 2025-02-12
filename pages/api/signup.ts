@@ -1,10 +1,11 @@
 import type {NextApiRequest, NextApiResponse} from "next";
 import {signupUseCase} from "../../src/main/usecases/SignupUseCase";
+import {signUpRequestToUserAdapter} from "../../src/main/adapters/SignUpRequestAdapter";
 
 interface SignUpResponse {
 }
 
-interface SignUpRequest {
+export interface SignUpRequest {
     username: string;
     email: string;
     password: string;
@@ -19,11 +20,7 @@ export default async function handler(
             const request = req.body as SignUpRequest;
             try {
                 await signupUseCase(
-                    {
-                        username: request.username,
-                        email: request.email,
-                        password: request.password
-                    }
+                    signUpRequestToUserAdapter(request)
                 );
                 return res.status(204).end()
             } catch (e) {
