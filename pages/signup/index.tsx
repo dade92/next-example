@@ -26,7 +26,7 @@ const SignupForm = () => {
             if (!response.ok) {
                 throw new Error("Signup failed");
             }
-            //TODO proper signup feedback needed here
+            //TODO proper signup feedback needed here, maybe with a landing page and redirect to login
             router.push(`/login`);
         } catch (err) {
             setError(err.message);

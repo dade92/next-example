@@ -27,6 +27,7 @@ const Login = () => {
                 throw new Error("Invalid credentials");
             }
 
+            //TODO properly stor the auth token and give correct feedback to the customer
             const data = await response.json();
             Cookies.set('authToken', data.token, {expires: 1});
             router.push('/mflix')
