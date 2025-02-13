@@ -11,7 +11,7 @@ const SignupForm = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const validateParams = () => {
+    const paramsAreValid = () => {
         if (!username || !email || !password) {
             setError("Some fields are not correctly filled");
             return false;
@@ -29,7 +29,7 @@ const SignupForm = () => {
         setLoading(true);
         setError(null);
         try {
-            if (validateParams()) {
+            if (paramsAreValid()) {
                 const response = await fetch("/api/signup", {
                     method: "POST",
                     headers: {

@@ -14,8 +14,8 @@ const Login = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        const expirationDate = getCookie('authToken.expires');
-        if (expirationDate && new Date(expirationDate) > new Date()) {
+        const authToken = getCookie('authToken');
+        if (authToken) {
             router.push('/mflix');
         }
     }, []);

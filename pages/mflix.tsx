@@ -70,7 +70,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const {query, req, res} = context;
     const loginToken = getCookie('authToken', {req, res});
 
-    //TODO all this stuff can be another use case!
     if (!loginToken) {
         return {
             redirect: {
