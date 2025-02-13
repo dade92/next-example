@@ -1,5 +1,5 @@
 import {sessionRepository} from "../../main/repository/Configuration";
-import {nowProvider} from "../../main/utils/NowProvider";
+import {nowProvider} from "../../main/utils/TimeProviders";
 import {checkAuthTokenUseCase} from "../../main/usecases/CheckAuthTokenUseCase";
 
 jest.mock('../../main/repository/Configuration', () => ({
@@ -8,7 +8,7 @@ jest.mock('../../main/repository/Configuration', () => ({
     },
 }));
 
-jest.mock('../../main/utils/NowProvider', () => ({
+jest.mock('../../main/utils/TimeProviders', () => ({
     nowProvider: jest.fn(),
 }));
 

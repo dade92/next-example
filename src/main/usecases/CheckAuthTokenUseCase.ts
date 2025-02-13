@@ -1,5 +1,5 @@
 import {sessionRepository} from "../repository/Configuration";
-import {nowProvider} from "../utils/NowProvider";
+import {nowProvider} from "../utils/TimeProviders";
 
 export const checkAuthTokenUseCase = async (token: string): Promise<boolean> =>
     sessionRepository.findSession(token)

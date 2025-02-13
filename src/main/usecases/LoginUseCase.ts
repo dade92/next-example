@@ -1,5 +1,5 @@
 import {sessionRepository, usersRepository} from "../repository/Configuration";
-import {nowPlusOneHourProvider} from "../utils/NowProvider";
+import {nowPlusOneDayProvider} from "../utils/TimeProviders";
 import {randomSessionTokenGenerator} from "../utils/RandomSessionTokenGenerator";
 import {hashWithSHA256} from "../utils/Crypto";
 
@@ -13,7 +13,7 @@ export const loginUseCase = async (username: string, password: string): Promise<
 
     if (user?.password == hashWithSHA256(password)) {
         const sessionToken = randomSessionTokenGenerator();
-        const expirationDate = nowPlusOneHourProvider();
+        const expirationDate = nowPlusOneDayProvider();
 
         await sessionRepository.addSession({
             username: username,

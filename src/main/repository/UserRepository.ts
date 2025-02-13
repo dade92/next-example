@@ -1,6 +1,6 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
 import {User} from "../../../data/users/User";
-import {nowProvider} from "../utils/NowProvider";
+import {nowProvider} from "../utils/TimeProviders";
 
 export interface MongoUserDetail {
     name: string;

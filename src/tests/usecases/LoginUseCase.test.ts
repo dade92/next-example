@@ -1,7 +1,7 @@
 import {sessionRepository, usersRepository} from "../../main/repository/Configuration";
 import {hashWithSHA256} from "../../main/utils/Crypto";
 import {randomSessionTokenGenerator} from "../../main/utils/RandomSessionTokenGenerator";
-import {nowPlusOneHourProvider} from "../../main/utils/NowProvider";
+import {nowPlusOneDayProvider} from "../../main/utils/TimeProviders";
 import {loginUseCase} from "../../main/usecases/LoginUseCase";
 import {Builder} from "builder-pattern";
 import {User} from "../../../data/users/User";
@@ -23,8 +23,8 @@ jest.mock("../../main/utils/RandomSessionTokenGenerator", () => ({
     randomSessionTokenGenerator: jest.fn(),
 }));
 
-jest.mock("../../main/utils/NowProvider", () => ({
-    nowPlusOneHourProvider: jest.fn(),
+jest.mock("../../main/utils/TimeProviders", () => ({
+    nowPlusOneDayProvider: jest.fn(),
 }));
 
 describe("loginUseCase", () => {
@@ -45,7 +45,7 @@ describe("loginUseCase", () => {
 
         (usersRepository.findUserByUsername as jest.Mock).mockResolvedValue(foundUser);
         (randomSessionTokenGenerator as jest.Mock).mockReturnValue(sessionToken);
-        (nowPlusOneHourProvider as jest.Mock).mockReturnValue(expirationDate);
+        (nowPlusOneDayProvider as jest.Mock).mockReturnValue(expirationDate);
 
         const result = await loginUseCase(username, password);
 
@@ -53,7 +53,7 @@ describe("loginUseCase", () => {
         expect(usersRepository.findUserByUsername).toHaveBeenCalledWith(username);
         expect(hashWithSHA256).toHaveBeenCalledWith(password);
         expect(randomSessionTokenGenerator).toHaveBeenCalled();
-        expect(nowPlusOneHourProvider).toHaveBeenCalled();
+        expect(nowPlusOneDayProvider).toHaveBeenCalled();
         expect(sessionRepository.addSession).toHaveBeenCalledWith({
             username,
             sessionToken,
@@ -72,7 +72,7 @@ describe("loginUseCase", () => {
         expect(hashWithSHA256).toHaveBeenCalledWith(password);
 
         expect(randomSessionTokenGenerator).not.toHaveBeenCalled();
-        expect(nowPlusOneHourProvider).not.toHaveBeenCalled();
+        expect(nowPlusOneDayProvider).not.toHaveBeenCalled();
         expect(sessionRepository.addSession).not.toHaveBeenCalled();
     });
 
@@ -88,7 +88,7 @@ describe("loginUseCase", () => {
         expect(hashWithSHA256).toHaveBeenCalledWith(password);
 
         expect(randomSessionTokenGenerator).not.toHaveBeenCalled();
-        expect(nowPlusOneHourProvider).not.toHaveBeenCalled();
+        expect(nowPlusOneDayProvider).not.toHaveBeenCalled();
         expect(sessionRepository.addSession).not.toHaveBeenCalled();
     });
 });
