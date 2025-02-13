@@ -19,8 +19,7 @@ export const signupUseCase = async (user: User): Promise<SignupResult | null> =>
             .then(() => {
                 return {outcome: SignupOutcome.SUCCESS};
             }).catch(e => {
-                //TODO better error handling here
-                console.log('Error adding user')
+                console.log(`Error adding user due to ${e}`);
                 return null
             });
     } else {

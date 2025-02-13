@@ -18,7 +18,6 @@ export default async function handler(
     switch (req.method) {
         case 'POST':
             const request = req.body as SignUpRequest;
-            //TODO can be extracted everything in a proper method
             try {
                 const result = await signupUseCase(
                     signUpRequestToUserAdapter(request)

@@ -1,6 +1,7 @@
 import {usersRepository} from "../../main/repository/Configuration";
 import {SignupOutcome, signupUseCase} from "../../main/usecases/SignupUseCase";
 import {User} from "../../../data/users/User";
+import {Builder} from "builder-pattern";
 
 jest.mock('../../main/repository/Configuration', () => ({
     usersRepository: {
@@ -10,7 +11,11 @@ jest.mock('../../main/repository/Configuration', () => ({
 }));
 
 describe('signupUseCase', () => {
-    const user: User = {username: 'testuser', email: "email", password: 'password'};
+    const user: User = Builder<User>()
+        .username('username')
+        .password('XXX')
+        .email('email')
+        .build();
 
     afterEach(() => {
         jest.clearAllMocks();
