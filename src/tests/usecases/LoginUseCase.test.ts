@@ -3,6 +3,8 @@ import {hashWithSHA256} from "../../main/utils/Crypto";
 import {randomSessionTokenGenerator} from "../../main/utils/RandomSessionTokenGenerator";
 import {nowPlusOneHourProvider} from "../../main/utils/NowProvider";
 import {loginUseCase} from "../../main/usecases/LoginUseCase";
+import {Builder} from "builder-pattern";
+import {User} from "../../../data/users/User";
 
 jest.mock("../../main/repository/Configuration", () => ({
     usersRepository: {
@@ -32,15 +34,16 @@ describe("loginUseCase", () => {
     const sessionToken = "randomToken";
     const expirationDate = new Date();
 
+    (hashWithSHA256 as jest.Mock).mockReturnValue(hashedPassword);
+
     afterEach(() => {
         jest.clearAllMocks();
     });
 
     it("should return a token if username and password are correct", async () => {
-        const user = {username, password: hashedPassword};
+        const foundUser = Builder<User>().username(username).password(hashedPassword).build();
 
-        (usersRepository.findUserByUsername as jest.Mock).mockResolvedValue(user);
-        (hashWithSHA256 as jest.Mock).mockReturnValue(hashedPassword);
+        (usersRepository.findUserByUsername as jest.Mock).mockResolvedValue(foundUser);
         (randomSessionTokenGenerator as jest.Mock).mockReturnValue(sessionToken);
         (nowPlusOneHourProvider as jest.Mock).mockReturnValue(expirationDate);
 
@@ -60,30 +63,30 @@ describe("loginUseCase", () => {
 
     it("should return null if username is not found", async () => {
         (usersRepository.findUserByUsername as jest.Mock).mockResolvedValue(null);
-        //TODO should I call the password hasher?
-        (hashWithSHA256 as jest.Mock).mockReturnValue(hashedPassword);
 
         const result = await loginUseCase(username, password);
 
         expect(result).toBeNull();
+
         expect(usersRepository.findUserByUsername).toHaveBeenCalledWith(username);
         expect(hashWithSHA256).toHaveBeenCalledWith(password);
+
         expect(randomSessionTokenGenerator).not.toHaveBeenCalled();
         expect(nowPlusOneHourProvider).not.toHaveBeenCalled();
         expect(sessionRepository.addSession).not.toHaveBeenCalled();
     });
 
     it("should return null if password is incorrect", async () => {
-        const user = {username, password: "differentHashedPassword"};
+        const user = Builder<User>().username(username).password("anotherPassword").build();
 
         (usersRepository.findUserByUsername as jest.Mock).mockResolvedValue(user);
-        (hashWithSHA256 as jest.Mock).mockReturnValue(hashedPassword);
 
         const result = await loginUseCase(username, password);
 
         expect(result).toBeNull();
         expect(usersRepository.findUserByUsername).toHaveBeenCalledWith(username);
         expect(hashWithSHA256).toHaveBeenCalledWith(password);
+
         expect(randomSessionTokenGenerator).not.toHaveBeenCalled();
         expect(nowPlusOneHourProvider).not.toHaveBeenCalled();
         expect(sessionRepository.addSession).not.toHaveBeenCalled();
