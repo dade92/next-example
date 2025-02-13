@@ -3,7 +3,7 @@ import {Alert, Box, Button, CircularProgress, Container, TextField, Typography} 
 import Link from "next/link";
 import Cookies from 'js-cookie';
 import {useRouter} from "next/router";
-import {deleteCookie} from "cookies-next";
+import {getCookie} from "cookies-next";
 
 const Login = () => {
     const router = useRouter();
@@ -14,7 +14,10 @@ const Login = () => {
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        deleteCookie('authToken');
+        const expirationDate = getCookie('authToken.expires');
+        if (expirationDate && new Date(expirationDate) > new Date()) {
+            router.push('/mflix');
+        }
     }, []);
 
     const handleLogin = async () => {
@@ -33,7 +36,7 @@ const Login = () => {
                 setError("Login failed. Check your credentials!");
             } else {
                 const data = await response.json();
-                Cookies.set('authToken', data.token);
+                Cookies.set('authToken', data.token, {expires: new Date(data.expirationDate)});
                 router.push('/mflix');
             }
         } finally {
