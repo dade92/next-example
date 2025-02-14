@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {Alert, Box, Button, CircularProgress, Container, Link, TextField, Typography} from "@mui/material";
 import {useRouter} from "next/router";
+import {myFetch} from "../../src/main/rest/MyFetch";
 
 const SignupForm = () => {
     const router = useRouter();
@@ -30,13 +31,7 @@ const SignupForm = () => {
         setError(null);
         try {
             if (paramsAreValid()) {
-                const response = await fetch("/api/signup", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({username, email, password}),
-                });
+                const response = await myFetch("/api/signup", "POST", {username, email, password});
 
                 if (!response.ok) {
                     throw new Error("Signup failed");

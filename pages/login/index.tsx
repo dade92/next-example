@@ -4,6 +4,7 @@ import Link from "next/link";
 import Cookies from 'js-cookie';
 import {useRouter} from "next/router";
 import {getCookie} from "cookies-next";
+import {myFetch} from "../../src/main/rest/MyFetch";
 
 const Login = () => {
     const router = useRouter();
@@ -24,13 +25,7 @@ const Login = () => {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch("/api/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({username, password}),
-            });
+            const response = await myFetch("/api/login", "POST", {username, password});
 
             if (!response.ok) {
                 setError("Login failed. Check your credentials!");

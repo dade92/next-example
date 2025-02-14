@@ -1,9 +1,10 @@
 import {SearchMovieResponse} from "../../../pages/api/search";
+import {myFetch} from "./MyFetch";
 
 export const movieDetailFetcher = async (
     id: string,
 ): Promise<SearchMovieResponse> =>
-    fetch(`/api/movie/${id}`)
+    myFetch(`/api/movie/${id}`)
         .then((res) => {
             if (res.status == 200) {
                 return res.json();
