@@ -11,7 +11,7 @@ import {SearchMovieResponse} from "./api/search";
 import {Box, LinearProgress} from "@mui/material";
 import {Paragraph} from "../components/typography/Paragraph";
 import {MoviesCarousel} from "../components/MoviesCarousel";
-import {moviesFetcher} from "../src/main/rest/MovieListFetcher";
+import {movieFetcher} from "../src/main/rest/MovieSearch";
 import {getCookie} from "cookies-next";
 import {checkAuthTokenUseCase} from "../src/main/usecases/CheckAuthTokenUseCase";
 
@@ -33,7 +33,7 @@ const Mflix: FC<Props> = ({movies, page, totalPages}) => {
     const [search, setSearch] = useState<string | null>("")
     const {data, isLoading, error} = useSWR<SearchMovieResponse>(
         search ? `/api/search?query=${search}` : null,
-        moviesFetcher
+        movieFetcher
     );
 
     const onCardClicked = () => {
