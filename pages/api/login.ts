@@ -4,6 +4,7 @@ import {loginUseCase} from "../../src/main/usecases/LoginUseCase";
 interface LoginResponse {
     token: string;
     expirationDate: Date;
+    username: string;
 }
 
 export default async function handler(
@@ -15,7 +16,11 @@ export default async function handler(
             const result = await loginUseCase(req.body.username, req.body.password);
 
             if (result) {
-                return res.status(200).json({token: result.token, expirationDate: result.expirationDate})
+                return res.status(200).json({
+                    token: result.token,
+                    expirationDate: result.expirationDate,
+                    username: result.username
+                })
             } else {
                 return res.status(401).end()
             }

@@ -6,6 +6,7 @@ import {hashWithSHA256} from "../utils/Crypto";
 interface LoginResult {
     token: string;
     expirationDate: Date;
+    username: string;
 }
 
 export const loginUseCase = async (username: string, password: string): Promise<LoginResult | null> => {
@@ -22,7 +23,8 @@ export const loginUseCase = async (username: string, password: string): Promise<
         })
         return {
             token: sessionToken,
-            expirationDate: expirationDate
+            expirationDate: expirationDate,
+            username: username
         };
     } else {
         return null;
