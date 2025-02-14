@@ -32,6 +32,7 @@ const Login = () => {
             } else {
                 const data = await response.json();
                 Cookies.set('authToken', data.token, {expires: new Date(data.expirationDate)});
+                Cookies.set('username', data.username);
                 router.push('/mflix');
             }
         } finally {
