@@ -23,7 +23,6 @@ describe('checkAuthTokenUseCase', () => {
     });
 
     it('should return true if session exists and is not expired', async () => {
-
         const mockSession = {expirationDate: secondOfJanuary};
 
         (sessionRepository.findSession as jest.Mock).mockResolvedValue(mockSession);

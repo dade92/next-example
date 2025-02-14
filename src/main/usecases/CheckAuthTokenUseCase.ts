@@ -10,5 +10,6 @@ export const checkAuthTokenUseCase = async (token: string): Promise<boolean> =>
                 return false;
             }
         }).catch(() => {
+        console.log(`An error occurred while checking for session token ${token}`);
         return false
     })

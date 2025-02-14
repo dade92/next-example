@@ -4,7 +4,6 @@ import {User} from "../../../data/users/User";
 export enum SignupOutcome {
     SUCCESS = 'SUCCESS',
     USER_ALREADY_EXISTS = 'USER_ALREADY_EXISTS',
-    ERROR = 'ERROR'
 }
 
 export interface SignupResult {
