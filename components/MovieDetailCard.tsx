@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FC, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Comment, Movie} from "../data/movies/Movie";
 import {styled} from '@mui/material/styles';
@@ -8,6 +8,7 @@ import {CommentsSection} from "./CommentsSection";
 import {MovieDetailCardContent} from "./MovieDetailCardContent";
 import Image from "next/image";
 import {addCommentCall} from "../src/main/rest/AddCommentCall";
+import {getCookie} from "cookies-next";
 
 interface Props {
     movie: Movie;
@@ -44,11 +45,15 @@ const StyledImage = styled(Image)`
 export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
     const [expanded, setExpanded] = useState(false);
     const [comments, setComments] = useState(initialComments);
+    let username: string | null = null;
+
+    useEffect(() => {
+        username = getCookie('username') as string;
+    }, []);
 
     const addComment = (comment: string) => {
         const newComment = {
-            //TODO how to retrieve the username at the moment?
-            name: 'Davide',
+            name: username ?? '',
             email: 'davidebotti92@gmail.com',
             text: comment
         };
