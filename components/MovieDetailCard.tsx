@@ -45,10 +45,10 @@ const StyledImage = styled(Image)`
 export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
     const [expanded, setExpanded] = useState(false);
     const [comments, setComments] = useState(initialComments);
-    let username: string | null = null;
+    const [username, setUsername] = useState<string>('')
 
     useEffect(() => {
-        username = getCookie('username') as string;
+        setUsername(getCookie('username') as string);
     }, []);
 
     const addComment = (comment: string) => {
