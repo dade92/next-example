@@ -28,7 +28,7 @@ const MovieDetail: FC<Props> = ({details}) => {
             setMovie(JSON.parse(storedData));
         } else {
             const {id} = router.query;
-            movieDetailFetcher(id as string,)
+            movieDetailFetcher(id as string)
                 .then((m) => {
                     setMovie(m.movie)
                 });

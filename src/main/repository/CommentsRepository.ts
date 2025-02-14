@@ -1,7 +1,7 @@
 import {Collection, MongoClient, ObjectId} from "mongodb";
 import {Comment, MovieDetail} from "../../../data/movies/Movie";
 import {toDomainComment} from "./adapters/MovieCommentAdapter";
-import {nowProvider} from "../utils/NowProvider";
+import {nowProvider} from "../utils/TimeProviders";
 
 export interface MongoMovieDetail {
     text: string;

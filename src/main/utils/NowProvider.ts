@@ -1,1 +1,0 @@
-export const nowProvider = (): Date => new Date()
