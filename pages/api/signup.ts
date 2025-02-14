@@ -22,7 +22,7 @@ export default async function handler(
                 const result = await signupUseCase(
                     signUpRequestToUserAdapter(request)
                 );
-                if (result) {
+                if (result?.outcome === 'SUCCESS') {
                     return res.status(204).end()
                 } else {
                     res.status(500).end()

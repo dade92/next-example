@@ -30,6 +30,8 @@ const SignupForm = () => {
                     throw new Error("Signup failed");
                 }
                 router.push(`/signup/success`);
+            } else {
+                setError('Some fields are empty or invalid');
             }
         } catch (err) {
             setError(err.message);
