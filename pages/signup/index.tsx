@@ -2,6 +2,7 @@ import {useState} from "react";
 import {Alert, Box, Button, CircularProgress, Container, Link, TextField, Typography} from "@mui/material";
 import {useRouter} from "next/router";
 import {myFetch} from "../../src/main/rest/MyFetch";
+import {validate} from "../../src/main/utils/SignUpParamsValidator";
 
 const SignupForm = () => {
     const router = useRouter();
@@ -11,14 +12,6 @@ const SignupForm = () => {
     const [password, setPassword] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-
-    const paramsAreValid = () => {
-        if (!username || !email || !password) {
-            setError("Some fields are not correctly filled");
-            return false;
-        }
-        return true;
-    }
 
     const resetParams = () => {
         setUsername("");
@@ -30,7 +23,7 @@ const SignupForm = () => {
         setLoading(true);
         setError(null);
         try {
-            if (paramsAreValid()) {
+            if (validate(username, email, password)) {
                 const response = await myFetch("/api/signup", "POST", {username, email, password});
 
                 if (!response.ok) {
