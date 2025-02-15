@@ -21,7 +21,6 @@ describe("CachedSessionRepository", () => {
     let delegate: jest.Mocked<SessionRepository>;
     let cache: jest.Mocked<NodeCache>;
 
-    const TTL = 600;
     const sessionToken = 'token';
     const session: Session = Builder<Session>()
         .sessionToken(sessionToken)
@@ -87,7 +86,7 @@ describe("CachedSessionRepository", () => {
 
         expect(result).toBe(session);
         expect(delegate.findSession).toHaveBeenCalledWith(sessionToken);
-        expect(cache.set).toHaveBeenCalledWith(sessionToken, session, TTL);
+        expect(cache.set).toHaveBeenCalledWith(sessionToken, session);
     });
 
     it("should reject if session is not found", async () => {

@@ -12,7 +12,7 @@ export class CachedSessionRepository {
 
     constructor(delegate: SessionRepository) {
         this.delegate = delegate;
-        this.cache = new NodeCache({stdTTL: 600, checkperiod: 120});
+        this.cache = new NodeCache({stdTTL: TTL, checkperiod: 120});
     }
 
     async addSession(
@@ -29,7 +29,7 @@ export class CachedSessionRepository {
         } else {
             const session = await this.delegate.findSession(token);
             if (session) {
-                this.cache.set(token, session, TTL);
+                this.cache.set(token, session);
                 return Promise.resolve(session)
             } else {
                 return Promise.reject();
