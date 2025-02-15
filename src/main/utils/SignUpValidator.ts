@@ -4,5 +4,5 @@ export const signUpValidator = (
     password: string
 ): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return !(!username || !email || !password || !emailRegex.test(email));
+    return !(!username || !email || !password || !emailRegex.test(email) || password.length < 8);
 }

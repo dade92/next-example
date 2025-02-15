@@ -1,7 +1,7 @@
 import { signUpValidator } from '../../main/utils/SignUpValidator';
 
 describe('validate', () => {
-    it('should return true when all parameters are provided', () => {
+    it('should return true when all parameters are provided and meet requirements', () => {
         expect(signUpValidator('user', 'user@example.com', 'password')).toBe(true);
     });
 
@@ -15,6 +15,10 @@ describe('validate', () => {
 
     it('should return false when password is missing', () => {
         expect(signUpValidator('user', 'user@example.com', '')).toBe(false);
+    });
+
+    it('should return false when password is less than 8 chars', () => {
+        expect(signUpValidator('user', 'user@example.com', 'passwor')).toBe(false);
     });
 
     it('should return false when all parameters are missing', () => {

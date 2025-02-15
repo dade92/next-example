@@ -15,9 +15,7 @@ export class CachedSessionRepository {
         this.cache = new NodeCache({stdTTL: TTL, checkperiod: 120});
     }
 
-    async addSession(
-        session: Session
-    ): Promise<any> {
+    async addSession(session: Session): Promise<any> {
         return this.delegate.addSession(session);
     }
 
@@ -26,7 +24,11 @@ export class CachedSessionRepository {
 
         if (cachedSession) {
             console.log(`Returning cached session ${token}`);
-            return this.checkCachedSessionValidity(cachedSession);
+            if (cachedSession.expirationDate > nowProvider()) {
+                return cachedSession
+            } else {
+                return Promise.reject();
+            }
         } else {
             const session = await this.delegate.findSession(token);
             if (session) {
@@ -38,11 +40,4 @@ export class CachedSessionRepository {
         }
     }
 
-    private checkCachedSessionValidity = (cachedSession: Session) => {
-        if (cachedSession.expirationDate > nowProvider()) {
-            return cachedSession
-        } else {
-            return Promise.reject();
-        }
-    };
 }
