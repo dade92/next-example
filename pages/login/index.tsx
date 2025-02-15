@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import {useRouter} from "next/router";
 import {getCookie} from "cookies-next";
 import {myFetch} from "../../src/main/rest/MyFetch";
+import {LoginResponse} from "../api/login";
 
 const Login = () => {
     const router = useRouter();
@@ -30,9 +31,12 @@ const Login = () => {
             if (!response.ok) {
                 setError("Login failed. Check your credentials!");
             } else {
-                const data = await response.json();
-                Cookies.set('authToken', data.token, {expires: new Date(data.expirationDate)});
-                Cookies.set('username', data.username);
+                const data = await response.json() as LoginResponse;
+                const expires = {expires: new Date(data.expirationDate)};
+
+                Cookies.set('authToken', data.token, expires);
+                Cookies.set('username', data.username, expires);
+                Cookies.set('email', data.email, expires);
                 router.push('/mflix');
             }
         } finally {

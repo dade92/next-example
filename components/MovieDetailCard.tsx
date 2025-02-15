@@ -46,15 +46,17 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
     const [expanded, setExpanded] = useState(false);
     const [comments, setComments] = useState(initialComments);
     const [username, setUsername] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
 
     useEffect(() => {
         setUsername(getCookie('username') as string);
+        setEmail(getCookie('email') as string);
     }, []);
 
     const addComment = (comment: string) => {
         const newComment = {
             name: username ?? '',
-            email: 'davidebotti92@gmail.com',
+            email: email ?? '',
             text: comment
         };
         addCommentCall(newComment, movie.id)

@@ -1,10 +1,11 @@
 import type {NextApiRequest, NextApiResponse} from "next";
 import {loginUseCase} from "../../src/main/usecases/LoginUseCase";
 
-interface LoginResponse {
+export interface LoginResponse {
     token: string;
     expirationDate: Date;
     username: string;
+    email: string;
 }
 
 export default async function handler(
@@ -19,7 +20,8 @@ export default async function handler(
                 return res.status(200).json({
                     token: result.token,
                     expirationDate: result.expirationDate,
-                    username: result.username
+                    username: result.username,
+                    email: result.email
                 })
             } else {
                 return res.status(401).end()

@@ -7,6 +7,7 @@ interface LoginResult {
     token: string;
     expirationDate: Date;
     username: string;
+    email: string;
 }
 
 export const loginUseCase = async (username: string, password: string): Promise<LoginResult | null> => {
@@ -24,7 +25,8 @@ export const loginUseCase = async (username: string, password: string): Promise<
         return {
             token: sessionToken,
             expirationDate: expirationDate,
-            username: username
+            username: username,
+            email: user.email
         };
     } else {
         return null;
