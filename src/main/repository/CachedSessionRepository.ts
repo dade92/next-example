@@ -25,6 +25,7 @@ export class CachedSessionRepository {
         const cachedSession = this.cache.get(token) as Session;
 
         if (cachedSession) {
+            console.log(`Returning cached session ${token}`);
             return this.checkCachedSessionValidity(cachedSession);
         } else {
             const session = await this.delegate.findSession(token);
