@@ -1,6 +1,7 @@
 import {SessionRepository} from "./SessionRepository";
 import {Session} from "../../../data/session/Session";
 import NodeCache from "node-cache";
+import {nowProvider} from "../utils/TimeProviders";
 
 const TTL = 600;
 
@@ -24,7 +25,7 @@ export class CachedSessionRepository {
         const cachedSession = this.cache.get(token) as Session;
 
         if (cachedSession) {
-            return cachedSession
+            return this.checkCachedSessionValidity(cachedSession);
         } else {
             const session = await this.delegate.findSession(token);
             if (session) {
@@ -36,4 +37,11 @@ export class CachedSessionRepository {
         }
     }
 
+    private checkCachedSessionValidity = (cachedSession: Session) => {
+        if (cachedSession.expirationDate > nowProvider()) {
+            return cachedSession
+        } else {
+            return Promise.reject();
+        }
+    };
 }
