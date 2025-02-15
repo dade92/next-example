@@ -1,6 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {Comment} from "../../../data/movies/Movie";
 import {addCommentUseCase} from "../../../src/main/usecases/AddCommentUseCase";
+import {checkAuthTokenUseCase} from "../../../src/main/usecases/CheckAuthTokenUseCase";
 
 export default async function handler(
     req: NextApiRequest,
@@ -9,12 +10,17 @@ export default async function handler(
     switch (req.method) {
         case 'POST':
             try {
+                const authToken = req.cookies.authToken as string;
                 const comment = req.body as Comment;
                 const {movieId} = req.query;
 
-                await addCommentUseCase(comment, movieId as string);
-
-                res.status(204).end();
+                const valid = await checkAuthTokenUseCase(authToken);
+                if (valid) {
+                    await addCommentUseCase(comment, movieId as string);
+                    res.status(204).end();
+                } else {
+                    res.status(401).end();
+                }
             } catch (error) {
                 res.status(500).end();
             }
