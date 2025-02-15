@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Alert, Box, Button, CircularProgress, Container, Link, TextField, Typography} from "@mui/material";
 import {useRouter} from "next/router";
 import {myFetch} from "../../src/main/rest/MyFetch";
-import {validate} from "../../src/main/utils/SignUpParamsValidator";
+import {signUpValidator} from "../../src/main/utils/SignUpValidator";
 
 const SignupForm = () => {
     const router = useRouter();
@@ -23,7 +23,7 @@ const SignupForm = () => {
         setLoading(true);
         setError(null);
         try {
-            if (validate(username, email, password)) {
+            if (signUpValidator(username, email, password)) {
                 const response = await myFetch("/api/signup", "POST", {username, email, password});
 
                 if (!response.ok) {

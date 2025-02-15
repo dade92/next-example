@@ -1,4 +1,4 @@
-export const validate = (
+export const signUpValidator = (
     username: string,
     email: string,
     password: string
