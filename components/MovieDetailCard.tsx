@@ -7,8 +7,8 @@ import {Card, CardActions, CardContent, Collapse, IconButton, IconButtonProps} f
 import {CommentsSection} from "./CommentsSection";
 import {MovieDetailCardContent} from "./MovieDetailCardContent";
 import Image from "next/image";
-import {addCommentCall} from "../src/main/rest/AddCommentCall";
 import {getCookie} from "cookies-next";
+import {myFetch} from "../src/main/rest/MyFetch";
 
 interface Props {
     movie: Movie;
@@ -53,13 +53,13 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
         setEmail(getCookie('email') as string);
     }, []);
 
-    const addComment = (comment: string) => {
+    const handleAddComment = (comment: string) => {
         const newComment = {
             name: username ?? '',
             email: email ?? '',
             text: comment
         };
-        addCommentCall(newComment, movie.id)
+        myFetch(`/api/addComment/${movie.id}`, 'POST', newComment)
             .then(() => setComments([
                     ...comments,
                     newComment
@@ -92,7 +92,7 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
             </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" sx={{alignSelf: 'start'}}>
-            <CommentsSection comments={comments} onCommentAdded={(comment: string) => addComment(comment)}/>
+            <CommentsSection comments={comments} onCommentAdded={(comment: string) => handleAddComment(comment)}/>
         </Collapse>
     </Wrapper>
 }
