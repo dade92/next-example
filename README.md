@@ -26,3 +26,7 @@ This will run all the tests with Jest providing the outcome in the console.
 ## CI/CD
 There is a pipeline implemented using Github actions attached to the project. 
 You can read it on `./github/workflow/ci.yml`.
+
+## Deployment
+The project is integrated with [Vercel framework](https://vercel.com). You can find the deployed application at
+[this url](https://mflix-eight.vercel.app/).
