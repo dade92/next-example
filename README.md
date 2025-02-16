@@ -1,22 +1,28 @@
-# NEXT EXAMPLE
+# MFLIX
 
-This project is a POC on Next.js technology. To see the running application, run the development server:
+This project is a POC on Nextjs technology. It interacts with a serverless MongoDB cluster
+to fetch and show a list of movies (from 1930 to nowadays). It includes a signup/login feature too.
+
+It was done for pure instructional purposes.
+
+## Run locally
+After cloned, use `npm i` to install all dependencies and then run the command:
 
 ```bash
 npm run dev
 ```
+To launch the web server locally. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-Inside the `./pages` folder you can find the main page components, while
-inside the `./pages/api` there are the exposed (simple) APIs.
+In order to connect to the mongoDB instance locally, you have to provide proper credentials using the 
+environment variables `MONGO_DB_USERNAME` and `MONGO_DB_PASSWORD`.
 
+## Testing
+The testing framework is Jest, you can run all the tests using the command: 
+```bash
+npm t
+```
+This will run all the tests with Jest providing the outcome in the console.
 
 ## CI/CD
-
 There is a pipeline implemented using Github actions attached to the project. 
 You can read it on `./github/workflow/ci.yml`.
-
-## Dockerization
-
-Application is dockerized, and pushed on a Amazon ECR. Inside the 
-`Dockerfile` you can find the image building process.
