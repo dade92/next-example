@@ -13,7 +13,7 @@ export const FloatingPagination: FC<Props> = ({page, totalPages, onPageChanged})
 
     const handlePageChange = (newPage: number) => {
         onPageChanged();
-        router.push(`/mflix?page=${newPage}`);
+        router.push(`/?page=${newPage}`);
     };
 
     return (

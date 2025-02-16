@@ -15,10 +15,12 @@ const Login = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
+    const goToMflix = () => router.push('/')
+
     useEffect(() => {
         const authToken = getCookie('authToken');
         if (authToken) {
-            router.push('/mflix');
+            goToMflix();
         }
     }, []);
 
@@ -37,7 +39,7 @@ const Login = () => {
                 Cookies.set('authToken', data.token, expires);
                 Cookies.set('username', data.username, expires);
                 Cookies.set('email', data.email, expires);
-                router.push('/mflix');
+                goToMflix();
             }
         } finally {
             setLoading(false);
