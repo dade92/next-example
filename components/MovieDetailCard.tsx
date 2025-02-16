@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {FC, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Comment, Movie} from "../data/movies/Movie";
 import {styled} from '@mui/material/styles';
@@ -7,7 +7,8 @@ import {Card, CardActions, CardContent, Collapse, IconButton, IconButtonProps} f
 import {CommentsSection} from "./CommentsSection";
 import {MovieDetailCardContent} from "./MovieDetailCardContent";
 import Image from "next/image";
-import {addCommentCall} from "../src/main/rest/AddCommentCall";
+import {getCookie} from "cookies-next";
+import {myFetch} from "../src/main/rest/MyFetch";
 
 interface Props {
     movie: Movie;
@@ -44,15 +45,21 @@ const StyledImage = styled(Image)`
 export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
     const [expanded, setExpanded] = useState(false);
     const [comments, setComments] = useState(initialComments);
+    const [username, setUsername] = useState<string>('')
+    const [email, setEmail] = useState<string>('')
 
-    const addComment = (comment: string) => {
+    useEffect(() => {
+        setUsername(getCookie('username') as string);
+        setEmail(getCookie('email') as string);
+    }, []);
+
+    const handleAddComment = (comment: string) => {
         const newComment = {
-            //TODO how to retrieve the username at the moment?
-            name: 'Davide',
-            email: 'davidebotti92@gmail.com',
+            name: username ?? '',
+            email: email ?? '',
             text: comment
         };
-        addCommentCall(newComment, movie.id)
+        myFetch(`/api/addComment/${movie.id}`, 'POST', newComment)
             .then(() => setComments([
                     ...comments,
                     newComment
@@ -85,7 +92,7 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
             </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" sx={{alignSelf: 'start'}}>
-            <CommentsSection comments={comments} onCommentAdded={(comment: string) => addComment(comment)}/>
+            <CommentsSection comments={comments} onCommentAdded={(comment: string) => handleAddComment(comment)}/>
         </Collapse>
     </Wrapper>
 }

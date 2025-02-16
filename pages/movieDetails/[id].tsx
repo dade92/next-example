@@ -7,6 +7,7 @@ import {MovieDetailCard} from "../../components/MovieDetailCard";
 import {FloatingBackButton} from "../../components/FloatingBackButton";
 import {retrieveMovieDetailsUseCase} from "../../src/main/usecases/RetrieveMovieDetailUseCase";
 import {movieDetailFetcher} from "../../src/main/rest/MovieDetailFetcher";
+import {getCookie} from "cookies-next";
 
 const Wrapper = styled.div`
     display: flex;
@@ -37,7 +38,7 @@ const MovieDetail: FC<Props> = ({details}) => {
 
     const onBackClicked = () => {
         const lastPage = sessionStorage.getItem('lastPage');
-        router.push(`/mflix?page=${lastPage}`);
+        router.push(`/?page=${lastPage}`);
     };
 
     return (
@@ -51,6 +52,18 @@ const MovieDetail: FC<Props> = ({details}) => {
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
     const {params} = context;
     const {id} = params;
+    const {req, res} = context;
+
+    const loginToken = getCookie('authToken', {req, res});
+
+    if (!loginToken) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
+        };
+    }
 
     const details = await retrieveMovieDetailsUseCase(id);
     return {

@@ -49,7 +49,7 @@ describe("loginUseCase", () => {
 
         const result = await loginUseCase(username, password);
 
-        expect(result).toEqual({token: sessionToken, expirationDate: expirationDate});
+        expect(result).toEqual({token: sessionToken, expirationDate: expirationDate, username: username});
         expect(usersRepository.findUserByUsername).toHaveBeenCalledWith(username);
         expect(hashWithSHA256).toHaveBeenCalledWith(password);
         expect(randomSessionTokenGenerator).toHaveBeenCalled();
