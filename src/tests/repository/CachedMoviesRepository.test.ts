@@ -11,9 +11,11 @@ describe('CachedMoviesRepository', () => {
     let repository: CachedMoviesRepository;
     let mockCache: jest.Mocked<NodeCache>;
     const movieId = 'XXX';
-    let movieTitle = 'title';
+    const movieTitle = 'title';
     const movie: Movie = Builder<Movie>().id(movieId).title(movieTitle).build();
     const movies: Movie[] = [movie];
+    const page = 1;
+    const pageSize = 10;
 
     beforeEach(() => {
         delegate = {
@@ -32,8 +34,6 @@ describe('CachedMoviesRepository', () => {
         repository = new CachedMoviesRepository(delegate);
     });
 
-    let page = 1;
-    let pageSize = 10;
     test('countMovies should call delegate', async () => {
         delegate.countMovies.mockResolvedValue(pageSize);
 
