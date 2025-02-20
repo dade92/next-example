@@ -6,6 +6,7 @@ import styled from "styled-components";
 import {Paragraph} from "./typography/Paragraph";
 import {CardTitle} from "./typography/CardTitle";
 import Link from "next/link";
+import {dateFormatter} from "../src/main/repository/adapters/DateFormatter";
 
 interface Props {
     movie: Movie
@@ -35,7 +36,7 @@ export const MovieDetailCardContent: FC<Props> = ({movie}) =>
         <Subtitle text={`Rating: ${movie.rating}`}/>
         <Subtitle text={`Directors: ${movie.directors.join(", ")}`}/>
         <Subtitle text={`Genres: ${movie.genres.join(", ")}`}/>
-        <Subtitle text={`Release date: ${movie.releaseDate}`}/>
+        {movie.releaseDate && <Subtitle text={`Release date: ${dateFormatter(movie.releaseDate)}`}/>}
         <StyledLink
             href={movie.googleLink}
             target="_blank"
