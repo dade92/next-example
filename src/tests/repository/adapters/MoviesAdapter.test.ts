@@ -3,7 +3,9 @@ import {ObjectId} from "mongodb";
 
 describe('moviesAdapter', () => {
     it('should adapt correctly', async () => {
-        const mongoMovie = toDomainMovie({
+        const releaseDate = new Date(2025, 0, 1);
+
+        const actual = toDomainMovie({
             _id: ObjectId.createFromHexString('573a1390f29313caabcd63d6'),
             title: 'title',
             plot: 'plot',
@@ -15,10 +17,10 @@ describe('moviesAdapter', () => {
             imdb: {
                 rating: 6.5
             },
-            released: new Date(2025, 0, 1),
+            released: releaseDate,
         });
 
-        expect(mongoMovie).toEqual({
+        expect(actual).toEqual({
             id: '573a1390f29313caabcd63d6',
             title: 'title',
             plot: 'plot',
@@ -29,7 +31,7 @@ describe('moviesAdapter', () => {
             directors: ['Nolan'],
             rating: 6.5,
             googleLink: 'https://google.com/search?q=title+movie+year:1999',
-            releaseDate: '01 Jan 2025',
+            releaseDate: releaseDate,
         });
     });
 });
