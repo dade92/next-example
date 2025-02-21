@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 import {getCookie} from "cookies-next";
 import {myFetch} from "../../src/main/rest/MyFetch";
 import {LoginResponse} from "../api/login";
+import {loginValidator} from "../../src/main/utils/LoginValidator";
 
 const Login = () => {
     const router = useRouter();
@@ -25,24 +26,28 @@ const Login = () => {
     }, []);
 
     const handleLogin = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-            const response = await myFetch("/api/login", "POST", {username, password});
+        if(loginValidator(username, password)) {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await myFetch("/api/login", "POST", {username, password});
 
-            if (!response.ok) {
-                setError("Login failed. Check your credentials!");
-            } else {
-                const data = await response.json() as LoginResponse;
-                const expires = {expires: new Date(data.expirationDate)};
+                if (!response.ok) {
+                    setError("Login failed. Check your credentials!");
+                } else {
+                    const data = await response.json() as LoginResponse;
+                    const expires = {expires: new Date(data.expirationDate)};
 
-                Cookies.set('authToken', data.token, expires);
-                Cookies.set('username', data.username, expires);
-                Cookies.set('email', data.email, expires);
-                goToMflix();
+                    Cookies.set('authToken', data.token, expires);
+                    Cookies.set('username', data.username, expires);
+                    Cookies.set('email', data.email, expires);
+                    goToMflix();
+                }
+            } finally {
+                setLoading(false);
             }
-        } finally {
-            setLoading(false);
+        } else {
+            setError("Please provide both username and password!");
         }
     };
 
