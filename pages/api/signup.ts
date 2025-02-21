@@ -25,7 +25,7 @@ export default async function handler(
                 if (result?.outcome === 'SUCCESS') {
                     return res.status(204).end()
                 } else {
-                    res.status(500).end()
+                    return res.status(500).end()
                 }
             } catch (e) {
                 return res.status(500).end()
