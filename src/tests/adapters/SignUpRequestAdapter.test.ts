@@ -8,20 +8,23 @@ jest.mock('../../main/utils/Crypto', () => ({
 }));
 
 describe('signUpRequestToUserAdapter', () => {
+    const username = 'testUser';
+    const password = 'testPassword';
+    const email = 'test@example.com';
+    const hashedPassword = 'hashedPassword';
+
     it('should correctly transform SignUpRequest to User', () => {
         const signUpRequest: SignUpRequest = {
-            username: 'testUser',
-            password: 'testPassword',
-            email: 'test@example.com'
+            username: username,
+            password: password,
+            email: email
         };
-
-        const hashedPassword = 'hashedPassword';
         (hashWithSHA256 as jest.Mock).mockReturnValue(hashedPassword);
 
         const expectedUser: User = {
-            username: 'testUser',
+            username: username,
             password: hashedPassword,
-            email: 'test@example.com'
+            email: email
         };
 
         const result = signUpRequestToUserAdapter(signUpRequest);
