@@ -6,9 +6,10 @@ import {commentsRepository} from "../../main/repository/Configuration";
 jest.mock('../../main/repository/Configuration');
 
 describe('addCommentUseCase', () => {
+    const movieId = '123';
+
     it('should add the comment properly', async () => {
         const comment = Builder<Comment>().build();
-        const movieId = '123';
 
         const expected = {};
         (commentsRepository.addComment as jest.Mock).mockResolvedValue(expected);
@@ -20,7 +21,6 @@ describe('addCommentUseCase', () => {
 
     it('should throw an error when the repository fails', async () => {
         const comment = Builder<Comment>().build();
-        const movieId = '123';
 
         const error = new Error('Repository failure');
         (commentsRepository.addComment as jest.Mock).mockRejectedValue(error);
