@@ -14,7 +14,9 @@ npm run dev
 To launch the web server locally. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 In order to connect to the mongoDB instance locally, you have to provide proper credentials using the 
-environment variables `MONGO_DB_USERNAME` and `MONGO_DB_PASSWORD`.
+environment variables `MONGO_DB_USERNAME` and `MONGO_DB_PASSWORD`. 
+
+Be careful, the local instance will connect to the cloud mongoDB instance directly!
 
 ## Testing
 The testing framework is Jest, you can run all the tests using the command: 

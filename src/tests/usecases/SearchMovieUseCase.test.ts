@@ -6,9 +6,9 @@ import {moviesRepository} from "../../main/repository/Configuration";
 jest.mock('../../main/repository/Configuration');
 
 describe('searchMovieUseCase', () => {
-    it('should return the found movie', async () => {
-        const title = 'title';
+    const title = 'title';
 
+    it('should return the found movie', async () => {
         const response = Builder<Movie>().title('title').build();
 
         (moviesRepository.findByTitle as jest.Mock).mockResolvedValue(response);
@@ -19,7 +19,6 @@ describe('searchMovieUseCase', () => {
     });
 
     it('should throw an error when the repository fails', async () => {
-        const title = 'title';
         const error = new Error('Repository failure');
 
         (moviesRepository.findByTitle as jest.Mock).mockRejectedValue(error);

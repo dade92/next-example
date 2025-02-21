@@ -6,8 +6,9 @@ import {moviesRepository} from "../../main/repository/Configuration";
 jest.mock('../../main/repository/Configuration');
 
 describe('findMovieUseCase', () => {
+    const movieId = '123';
+
     it('should find the movie', async () => {
-        const movieId = '123';
         const expected = Builder<Movie>().build();
 
         (moviesRepository.findById as jest.Mock).mockResolvedValue(expected);
@@ -18,8 +19,6 @@ describe('findMovieUseCase', () => {
     });
 
     it('should throw an error when the repository fails', async () => {
-        const movieId = '123';
-
         const error = new Error('Repository failure');
         (moviesRepository.findById as jest.Mock).mockRejectedValue(error);
 

@@ -1,4 +1,8 @@
-export const myFetch = async (url: string, httpMethod: string = 'GET', body?: any): Promise<Response> =>
+export const myFetch = async (
+    url: string,
+    httpMethod: string = 'GET',
+    body: any | null = null
+): Promise<Response> =>
     fetch(
         url,
         {

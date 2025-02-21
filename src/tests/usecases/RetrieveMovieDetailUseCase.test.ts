@@ -6,8 +6,9 @@ import {commentsRepository} from "../../main/repository/Configuration";
 jest.mock('../../main/repository/Configuration');
 
 describe('getMovieDetailsUseCase', () => {
+    const movieId = '123';
+
     it('should return movie details for the given id', async () => {
-        const movieId = '123';
         const response: MovieDetail = Builder<MovieDetail>().comments([
             {
                 name: 'name',
@@ -25,7 +26,6 @@ describe('getMovieDetailsUseCase', () => {
     });
 
     it('should throw an error when the repository fails', async () => {
-        const movieId = '123';
         const error = new Error('Repository failure');
 
         (commentsRepository.findMovieDetail as jest.Mock).mockRejectedValue(error);

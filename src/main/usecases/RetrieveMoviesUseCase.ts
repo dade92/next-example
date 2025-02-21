@@ -6,6 +6,7 @@ export const PAGE_SIZE = 10;
 export const retrieveMoviesUseCase = async (page: number): Promise<MovieResponse> => {
     const movies = await moviesRepository.findBy(page, PAGE_SIZE);
     const documentCounts = await moviesRepository.countMovies();
+
     return {
         movies,
         pageSize: PAGE_SIZE,
