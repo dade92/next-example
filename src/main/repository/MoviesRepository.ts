@@ -24,8 +24,8 @@ export class MoviesRepository {
     private isConnected: boolean = false;
     private movieCountCache: number | null = null;
 
-    constructor(host: string, db: string, username: string, password: string) {
-        const uri = `mongodb+srv://${username}:${password}@${host}`;
+    constructor(prefix: string, host: string, db: string, username: string, password: string) {
+        const uri = `${prefix}://${username}:${password}@${host}`;
         this.mongoClient = new MongoClient(uri);
         this.mongoMovieCollection = this.mongoClient.db(db).collection<MongoMovie>('movies');
     }

@@ -12,8 +12,8 @@ export class SessionRepository {
     private mongoSessionCollection: Collection<MongoSession>;
     private isConnected: boolean = false;
 
-    constructor(host: string, db: string, username: string, password: string) {
-        const uri = `mongodb+srv://${username}:${password}@${host}`;
+    constructor(prefix: string, host: string, db: string, username: string, password: string) {
+        const uri = `${prefix}://${username}:${password}@${host}`;
         this.mongoClient = new MongoClient(uri);
         this.mongoSessionCollection = this.mongoClient.db(db).collection<MongoSession>('sessions');
     }
