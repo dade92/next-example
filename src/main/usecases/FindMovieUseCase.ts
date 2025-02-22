@@ -1,5 +1,8 @@
 import {Movie} from "../../../data/movies/Movie";
-import {moviesRepository} from "../repository/Configuration";
+import {CachedMoviesRepository} from "../repository/CachedMoviesRepository";
 
-export const findMovieUseCase = async (id: string): Promise<Movie | null> =>
+export const findMovieUseCase = async (
+    id: string,
+    moviesRepository: CachedMoviesRepository
+): Promise<Movie | null> =>
     moviesRepository.findById(id)
