@@ -224,4 +224,14 @@ db.movies.insert([
         },
         "num_mflix_comments": 0
     }
+]);
+
+db.users.insert([
+    {
+        "_id": "XXX",
+        "name": "test",
+        "email": "davidebotti@gmail.com",
+        "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+        "creationDate": new Date(2025, 1, 22, 12,6,0)
+    }
 ])
