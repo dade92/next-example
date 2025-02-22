@@ -1,19 +1,30 @@
 import {retrieveMoviesUseCase, PAGE_SIZE} from "../../main/usecases/RetrieveMoviesUseCase";
-import {moviesRepository} from "../../main/repository/Configuration";
-
-jest.mock('../../main/repository/Configuration');
+import {Builder} from "builder-pattern";
+import {Movie} from "../../../data/movies/Movie";
+import {CachedMoviesRepository} from "../../main/repository/CachedMoviesRepository";
 
 describe('getMoviesUseCase', () => {
+    let moviesRepository: jest.Mocked<CachedMoviesRepository>;
+
+    beforeEach(() => {
+        moviesRepository = {
+            countMovies: jest.fn(),
+            findById: jest.fn(),
+            findBy: jest.fn(),
+            findByTitle: jest.fn()
+        } as unknown as jest.Mocked<CachedMoviesRepository>;
+    })
+
     it('should return movies correctly', async () => {
-        const movies = [{id: 1, title: 'Movie 1'}];
+        const movies = [Builder<Movie>().id('movieId').title('movieTitle').build()];
         const count = 100;
 
-        (moviesRepository.findBy as jest.Mock).mockResolvedValue(movies);
-        (moviesRepository.countMovies as jest.Mock).mockResolvedValue(count);
+        moviesRepository.findBy.mockResolvedValue(movies);
+        moviesRepository.countMovies.mockResolvedValue(count);
 
         const page = 2;
 
-        const result = await retrieveMoviesUseCase(page);
+        const result = await retrieveMoviesUseCase(page, moviesRepository);
 
         expect(moviesRepository.findBy).toHaveBeenCalledWith(page, PAGE_SIZE);
         expect(moviesRepository.countMovies).toHaveBeenCalled();

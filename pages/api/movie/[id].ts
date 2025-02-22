@@ -1,6 +1,7 @@
 import type {NextApiRequest, NextApiResponse} from 'next'
 import {findMovieUseCase} from "../../../src/main/usecases/FindMovieUseCase";
 import {SearchMovieResponse} from "../search";
+import {moviesRepository} from "../../../src/main/repository/Configuration";
 
 export default async function handler(
     req: NextApiRequest,
@@ -10,7 +11,7 @@ export default async function handler(
         case 'GET':
             try {
                 const {id} = req.query;
-                const result = await findMovieUseCase(id as string);
+                const result = await findMovieUseCase(id as string, moviesRepository);
 
                 if (!result) {
                     return res.status(404).end();

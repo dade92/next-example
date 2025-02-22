@@ -6,6 +6,7 @@ import {CachedSessionRepository} from "./CachedSessionRepository";
 import {CachedMoviesRepository} from "./CachedMoviesRepository";
 
 export const commentsRepository = new CommentsRepository(
+    process.env.MONGO_DB_PREFIX!,
     process.env.MONGO_DB_HOST!,
     process.env.MONGO_DB_DATABASE!,
     process.env.MONGO_DB_USERNAME!,
@@ -15,6 +16,7 @@ export const commentsRepository = new CommentsRepository(
 export const moviesRepository =
     new CachedMoviesRepository(
         new MoviesRepository(
+            process.env.MONGO_DB_PREFIX!,
             process.env.MONGO_DB_HOST!,
             process.env.MONGO_DB_DATABASE!,
             process.env.MONGO_DB_USERNAME!,
@@ -23,6 +25,7 @@ export const moviesRepository =
     );
 
 export const usersRepository = new UserRepository(
+    process.env.MONGO_DB_PREFIX!,
     process.env.MONGO_DB_HOST!,
     process.env.MONGO_DB_DATABASE!,
     process.env.MONGO_DB_USERNAME!,
@@ -32,6 +35,7 @@ export const usersRepository = new UserRepository(
 export const sessionRepository =
     new CachedSessionRepository(
         new SessionRepository(
+            process.env.MONGO_DB_PREFIX!,
             process.env.MONGO_DB_HOST!,
             process.env.MONGO_DB_DATABASE!,
             process.env.MONGO_DB_USERNAME!,

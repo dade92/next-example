@@ -14,6 +14,7 @@ import {MoviesCarousel} from "../components/MoviesCarousel";
 import {movieFetcher} from "../src/main/rest/MovieSearch";
 import {getCookie} from "cookies-next";
 import {checkAuthTokenUseCase} from "../src/main/usecases/CheckAuthTokenUseCase";
+import {moviesRepository} from "../src/main/repository/Configuration";
 
 
 const Wrapper = styled.div`
@@ -89,7 +90,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         }
     }
     const page = parseInt(query.page as string) || 1;
-    const {movies, pageSize, documentsCount} = await retrieveMoviesUseCase(page);
+    const {movies, pageSize, documentsCount} = await retrieveMoviesUseCase(page, moviesRepository);
     const totalPages = Math.ceil(documentsCount / pageSize);
 
     return {

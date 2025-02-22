@@ -1,9 +1,12 @@
 import {Movie} from "../../../data/movies/Movie";
-import {moviesRepository} from "../repository/Configuration";
+import {CachedMoviesRepository} from "../repository/CachedMoviesRepository";
 
 export const PAGE_SIZE = 10;
 
-export const retrieveMoviesUseCase = async (page: number): Promise<MovieResponse> => {
+export const retrieveMoviesUseCase = async (
+    page: number,
+    moviesRepository: CachedMoviesRepository
+): Promise<MovieResponse> => {
     const movies = await moviesRepository.findBy(page, PAGE_SIZE);
     const documentCounts = await moviesRepository.countMovies();
 

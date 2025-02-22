@@ -1,5 +1,12 @@
 services:
-  mysqldb:
-    build: .
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
     ports:
-      - "3306:3306"
+      - "27017:27017"
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
