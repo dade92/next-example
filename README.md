@@ -15,10 +15,12 @@ npm run dev
 
 To launch the web server locally. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-In order to connect to the mongoDB instance locally, you have to provide proper credentials using the 
-environment variables `MONGO_DB_USERNAME` and `MONGO_DB_PASSWORD`. 
-
+IMPORTANT:
 The local instance will connect to the local mongo db, wit username `root` and password `password`.
+In order to connect to the mongoDB instance locally, you have to provide proper credentials using the 
+environment variables `MONGO_DB_USERNAME` and `MONGO_DB_PASSWORD`. MAKE SURE you are passing the correct environment
+variables, otherwise the app will not connect to the db.
+
 In the local instance there is already a user with username `test` and password `password`.
 
 ## Testing

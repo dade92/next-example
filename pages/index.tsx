@@ -32,7 +32,7 @@ interface Props {
 
 const Index: FC<Props> = ({movies, page, totalPages}) => {
     const [search, setSearch] = useState<string | null>("")
-    const {data, isLoading, error} = useSWR<SearchMovieResponse>(
+    const {data: queryData, isLoading, error} = useSWR<SearchMovieResponse>(
         search ? `/api/search?query=${search}` : null,
         movieFetcher
     );
@@ -42,7 +42,7 @@ const Index: FC<Props> = ({movies, page, totalPages}) => {
     };
 
     const shouldShowList =
-        data == null &&
+        queryData == null &&
         error == undefined
         && !isLoading;
 
@@ -54,7 +54,7 @@ const Index: FC<Props> = ({movies, page, totalPages}) => {
                     <LinearProgress/>
                 </Box>
             }
-            {data && <MovieSummaryCard movie={data.movie} onCardClicked={onCardClicked}/>}
+            {queryData && <MovieSummaryCard movie={queryData.movie} onCardClicked={onCardClicked}/>}
             {error?.status == 404 && <Paragraph text={'No results found'}/>}
             {error?.status == 500 && <Paragraph text={'Ops.. Unexpected error!'}/>}
             {shouldShowList && <MoviesCarousel movies={movies} onCardClicked={onCardClicked}/>}
