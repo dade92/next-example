@@ -8,7 +8,7 @@ import {FloatingBackButton} from "../../components/FloatingBackButton";
 import {retrieveMovieDetailsUseCase} from "../../src/main/usecases/RetrieveMovieDetailUseCase";
 import {movieDetailFetcher} from "../../src/main/rest/MovieDetailFetcher";
 import {getCookie} from "cookies-next";
-import {commentsRepository} from "../../src/main/repository/Configuration";
+import {movieDetailsRepository} from "../../src/main/repository/Configuration";
 
 const Wrapper = styled.div`
     display: flex;
@@ -66,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
         };
     }
 
-    const details = await retrieveMovieDetailsUseCase(id, commentsRepository);
+    const details = await retrieveMovieDetailsUseCase(id, movieDetailsRepository);
     return {
         props: {
             details
