@@ -1,17 +1,17 @@
 import {retrieveMovieDetailsUseCase} from "../../main/usecases/RetrieveMovieDetailUseCase";
 import {MovieDetail} from "../../../data/movies/Movie";
 import {Builder} from "builder-pattern";
-import {CommentsRepository} from "../../main/repository/CommentsRepository";
+import {MovieDetailsRepository} from "../../main/repository/MovieDetailsRepository";
 
 describe('getMovieDetailsUseCase', () => {
     const movieId = '123';
-    let commentsRepository: jest.Mocked<CommentsRepository>;
+    let commentsRepository: jest.Mocked<MovieDetailsRepository>;
 
     beforeEach(() => {
         commentsRepository = {
             findMovieDetail: jest.fn(),
             addComment: jest.fn()
-        } as unknown as jest.Mocked<CommentsRepository>
+        } as unknown as jest.Mocked<MovieDetailsRepository>
     })
 
     it('should return movie details for the given id', async () => {

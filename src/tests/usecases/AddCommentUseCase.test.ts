@@ -1,19 +1,19 @@
 import {Comment} from "../../../data/movies/Movie";
 import {Builder} from "builder-pattern";
 import {addCommentUseCase} from "../../main/usecases/AddCommentUseCase";
-import {CommentsRepository} from "../../main/repository/CommentsRepository";
+import {MovieDetailsRepository} from "../../main/repository/MovieDetailsRepository";
 
 jest.mock('../../main/repository/Configuration');
 
 describe('addCommentUseCase', () => {
     const movieId = '123';
-    let commentsRepository: jest.Mocked<CommentsRepository>;
+    let commentsRepository: jest.Mocked<MovieDetailsRepository>;
 
     beforeEach(() => {
         commentsRepository = {
             findMovieDetail: jest.fn(),
             addComment: jest.fn()
-        } as unknown as jest.Mocked<CommentsRepository>
+        } as unknown as jest.Mocked<MovieDetailsRepository>
     })
 
     it('should add the comment properly', async () => {

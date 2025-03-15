@@ -9,7 +9,7 @@ export interface MongoMovieDetail {
     name: string;
 }
 
-export class CommentsRepository {
+export class MovieDetailsRepository {
     private mongoClient: MongoClient;
     private mongoCommentsCollection: Collection<MongoMovieDetail>;
     private isConnected: boolean = false;

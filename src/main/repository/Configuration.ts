@@ -1,11 +1,11 @@
-import {CommentsRepository} from "./CommentsRepository";
+import {MovieDetailsRepository} from "./MovieDetailsRepository";
 import {MoviesRepository} from "./MoviesRepository";
 import {UserRepository} from "./UserRepository";
 import {SessionRepository} from "./SessionRepository";
 import {CachedSessionRepository} from "./CachedSessionRepository";
 import {CachedMoviesRepository} from "./CachedMoviesRepository";
 
-export const commentsRepository = new CommentsRepository(
+export const commentsRepository = new MovieDetailsRepository(
     process.env.MONGO_DB_PREFIX!,
     process.env.MONGO_DB_HOST!,
     process.env.MONGO_DB_DATABASE!,
