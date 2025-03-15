@@ -4,6 +4,6 @@ import {MovieDetailsRepository} from "../repository/MovieDetailsRepository";
 export const addCommentUseCase = async (
     comment: Comment,
     movieId: string,
-    commentsRepository: MovieDetailsRepository
+    movieDetailsRepository: MovieDetailsRepository
 ): Promise<any> =>
-    commentsRepository.addComment(comment, movieId);
+    movieDetailsRepository.addComment(comment, movieId);
