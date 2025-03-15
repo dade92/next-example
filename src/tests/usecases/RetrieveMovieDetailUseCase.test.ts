@@ -5,10 +5,10 @@ import {MovieDetailsRepository} from "../../main/repository/MovieDetailsReposito
 
 describe('getMovieDetailsUseCase', () => {
     const movieId = '123';
-    let commentsRepository: jest.Mocked<MovieDetailsRepository>;
+    let movieDetailsRepository: jest.Mocked<MovieDetailsRepository>;
 
     beforeEach(() => {
-        commentsRepository = {
+        movieDetailsRepository = {
             findMovieDetail: jest.fn(),
             addComment: jest.fn()
         } as unknown as jest.Mocked<MovieDetailsRepository>
@@ -23,20 +23,20 @@ describe('getMovieDetailsUseCase', () => {
             }
         ]).build();
 
-        (commentsRepository.findMovieDetail as jest.Mock).mockResolvedValue(response);
+        (movieDetailsRepository.findMovieDetail as jest.Mock).mockResolvedValue(response);
 
-        const result = await retrieveMovieDetailsUseCase(movieId, commentsRepository);
+        const result = await retrieveMovieDetailsUseCase(movieId, movieDetailsRepository);
 
-        expect(commentsRepository.findMovieDetail).toHaveBeenCalledWith(movieId);
+        expect(movieDetailsRepository.findMovieDetail).toHaveBeenCalledWith(movieId);
         expect(result).toEqual(response);
     });
 
     it('should throw an error when the repository fails', async () => {
         const error = new Error('Repository failure');
 
-        (commentsRepository.findMovieDetail as jest.Mock).mockRejectedValue(error);
+        (movieDetailsRepository.findMovieDetail as jest.Mock).mockRejectedValue(error);
 
-        await expect(retrieveMovieDetailsUseCase(movieId, commentsRepository)).rejects.toThrow(error);
-        expect(commentsRepository.findMovieDetail).toHaveBeenCalledWith(movieId);
+        await expect(retrieveMovieDetailsUseCase(movieId, movieDetailsRepository)).rejects.toThrow(error);
+        expect(movieDetailsRepository.findMovieDetail).toHaveBeenCalledWith(movieId);
     });
 });

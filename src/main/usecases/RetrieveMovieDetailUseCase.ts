@@ -3,6 +3,6 @@ import {MovieDetailsRepository} from "../repository/MovieDetailsRepository";
 
 export const retrieveMovieDetailsUseCase = async (
     id: string,
-    commentsRepository: MovieDetailsRepository
+    movieDetailsRepository: MovieDetailsRepository
 ): Promise<MovieDetail> =>
-    await commentsRepository.findMovieDetail(id)
+    await movieDetailsRepository.findMovieDetail(id)

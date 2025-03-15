@@ -7,10 +7,10 @@ jest.mock('../../main/repository/Configuration');
 
 describe('addCommentUseCase', () => {
     const movieId = '123';
-    let commentsRepository: jest.Mocked<MovieDetailsRepository>;
+    let movieDetailsRepository: jest.Mocked<MovieDetailsRepository>;
 
     beforeEach(() => {
-        commentsRepository = {
+        movieDetailsRepository = {
             findMovieDetail: jest.fn(),
             addComment: jest.fn()
         } as unknown as jest.Mocked<MovieDetailsRepository>
@@ -20,10 +20,10 @@ describe('addCommentUseCase', () => {
         const comment = Builder<Comment>().build();
 
         const expected = {};
-        (commentsRepository.addComment as jest.Mock).mockResolvedValue(expected);
-        const actual = await addCommentUseCase(comment, movieId, commentsRepository);
+        (movieDetailsRepository.addComment as jest.Mock).mockResolvedValue(expected);
+        const actual = await addCommentUseCase(comment, movieId, movieDetailsRepository);
 
-        expect(commentsRepository.addComment).toHaveBeenCalledWith(comment, movieId);
+        expect(movieDetailsRepository.addComment).toHaveBeenCalledWith(comment, movieId);
         expect(actual).toEqual(expected);
     });
 
@@ -31,9 +31,9 @@ describe('addCommentUseCase', () => {
         const comment = Builder<Comment>().build();
 
         const error = new Error('Repository failure');
-        (commentsRepository.addComment as jest.Mock).mockRejectedValue(error);
+        (movieDetailsRepository.addComment as jest.Mock).mockRejectedValue(error);
 
-        await expect(addCommentUseCase(comment, movieId, commentsRepository)).rejects.toThrow(error);
-        expect(commentsRepository.addComment).toHaveBeenCalledWith(comment, movieId);
+        await expect(addCommentUseCase(comment, movieId, movieDetailsRepository)).rejects.toThrow(error);
+        expect(movieDetailsRepository.addComment).toHaveBeenCalledWith(comment, movieId);
     });
 });
