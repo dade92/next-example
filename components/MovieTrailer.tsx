@@ -16,7 +16,7 @@ export const MovieTrailer: FC<Props> = ({trailerUrl}) =>
             width="560"
             height="315"
             src={trailerUrl}
-            title="YouTube video player"
+            title="trailer"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
         ></iframe>
