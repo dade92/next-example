@@ -68,7 +68,7 @@ export const MovieDetailCard: FC<Props> = ({movie, initialComments}) => {
             .catch((error) => console.error("Error adding comment:", error));
     }
 
-    return <Wrapper sx={{minWidth: 800}}>
+    return <Wrapper sx={{width: 800}}>
         <StyledImage
             width={600}
             height={400}
