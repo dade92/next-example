@@ -18,6 +18,7 @@ describe('moviesAdapter', () => {
                 rating: 6.5
             },
             released: releaseDate,
+            trailerUrl: 'trailer'
         });
 
         expect(actual).toEqual({
@@ -32,6 +33,7 @@ describe('moviesAdapter', () => {
             rating: 6.5,
             googleLink: 'https://google.com/search?q=title+movie+year:1999',
             releaseDate: releaseDate,
+            trailer: 'trailer'
         });
     });
 });
