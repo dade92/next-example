@@ -2,7 +2,7 @@ import {toDomainMovie} from "../../../main/repository/adapters/MoviesAdapter";
 import {ObjectId} from "mongodb";
 
 describe('moviesAdapter', () => {
-    it('should adapt correctly', async () => {
+    it('should adapt correctly', () => {
         const releaseDate = new Date(2025, 0, 1);
 
         const actual = toDomainMovie({
