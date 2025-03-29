@@ -7,6 +7,7 @@ import {Paragraph} from "./typography/Paragraph";
 import {CardTitle} from "./typography/CardTitle";
 import Link from "next/link";
 import {dateFormatter} from "../src/main/repository/adapters/DateFormatter";
+import {MovieTrailer} from "./MovieTrailer";
 
 interface Props {
     movie: Movie
@@ -44,15 +45,5 @@ export const MovieDetailCardContent: FC<Props> = ({movie}) =>
         >
             {'Google link'}
         </StyledLink>
-        {movie.trailer && <div className="video-container">
-            <iframe
-                width="560"
-                height="315"
-                src={movie.trailer}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-            ></iframe>
-        </div>}
+        {movie.trailer && <MovieTrailer trailerUrl={movie.trailer}/>}
     </Wrapper>

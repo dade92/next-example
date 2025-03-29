@@ -56,7 +56,8 @@ db.movies.insert([
                 "numReviews": 607,
                 "meter": 60
             },
-        }
+        },
+        "trailerUrl": "https://www.youtube.com/embed/BG2fpqSCNGk?si=HrPX8orRHMbcwZub"
     },
     {
         "_id": "573a1391f29313caabcd7616",
@@ -115,7 +116,8 @@ db.movies.insert([
                 "meter": 60
             },
             "rotten": 2,
-        }
+        },
+        "trailerUrl": "https://www.youtube.com/embed/s3QqlMoMpgs?si=IpT79yaPvNXctX6n"
     },
     {
         "_id": "573a1390f29313caabcd4eaf",
@@ -167,7 +169,8 @@ db.movies.insert([
             "dvd": {
                 "$date": "2008-08-26T00:00:00.000Z"
             },
-        }
+        },
+        "trailerUrl": "https://www.youtube.com/embed/_71l48gkepI?si=oBvMkwKg0EscbjgF"
     }
 ]);
 
