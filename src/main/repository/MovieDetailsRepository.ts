@@ -13,6 +13,7 @@ export class MovieDetailsRepository {
     private mongoClient: MongoClient;
     private mongoCommentsCollection: Collection<MongoMovieDetail>;
     private isConnected: boolean = false;
+    private COMMENTS_LIMIT: number = 10;
 
     constructor(prefix: string, host: string, db: string, username: string, password: string) {
         const uri = `${prefix}://${username}:${password}@${host}`;
@@ -38,7 +39,10 @@ export class MovieDetailsRepository {
         try {
             await this.connect();
             const query = {movie_id: new ObjectId(id)};
-            const result = await this.mongoCommentsCollection.find(query).limit(10).toArray();
+            const result = await this.mongoCommentsCollection
+                .find(query)
+                .limit(this.COMMENTS_LIMIT)
+                .toArray();
 
             if (result) {
                 return {
