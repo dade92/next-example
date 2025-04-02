@@ -16,6 +16,7 @@ export interface MongoMovie {
     directors: string[] | undefined;
     imdb: Imdb;
     released: Date | undefined;
+    trailerUrl: string | undefined;
 }
 
 export class MoviesRepository {

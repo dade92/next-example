@@ -7,6 +7,7 @@ import {Paragraph} from "./typography/Paragraph";
 import {CardTitle} from "./typography/CardTitle";
 import Link from "next/link";
 import {dateFormatter} from "../src/main/repository/adapters/DateFormatter";
+import {MovieTrailer} from "./MovieTrailer";
 
 interface Props {
     movie: Movie
@@ -44,4 +45,5 @@ export const MovieDetailCardContent: FC<Props> = ({movie}) =>
         >
             {'Google link'}
         </StyledLink>
+        {movie.trailer && <MovieTrailer trailerUrl={movie.trailer}/>}
     </Wrapper>

@@ -10,6 +10,7 @@ export interface Movie {
     rating: number;
     googleLink: string;
     releaseDate: Date | null;
+    trailer: string | undefined;
 }
 
 export interface MovieDetail {

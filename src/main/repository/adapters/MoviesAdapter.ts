@@ -14,4 +14,5 @@ export const toDomainMovie = (mongoMovie: WithId<MongoMovie>): Movie => ({
     rating: mongoMovie.imdb.rating,
     googleLink: `https://google.com/search?q=${mongoMovie.title.split(" ").join("+") + '+movie' + `+year:${mongoMovie.year}`}`,
     releaseDate: mongoMovie.released ?? null,
+    trailer: mongoMovie.trailerUrl
 })
