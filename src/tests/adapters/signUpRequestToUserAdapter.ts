@@ -30,6 +30,6 @@ describe('signUpRequestToUserAdapter', () => {
         const result = signUpRequestToUserAdapter(signUpRequest);
 
         expect(result).toEqual(expectedUser);
-        expect(hashWithSHA256).toHaveBeenCalledWith(signUpRequest.password);
+        expect(hashWithSHA256).toHaveBeenCalledWith(password);
     });
 });
