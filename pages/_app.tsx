@@ -5,10 +5,18 @@ import styled from "styled-components";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const GeneralWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100vw;
+  
+  @media (max-width: 600px) {
+    display: block;
+    padding: 0 8px;
+    width: 100%;
+    min-height: auto;
+  }
 `
 
 const theme = createTheme({

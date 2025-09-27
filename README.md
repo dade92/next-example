@@ -36,4 +36,4 @@ You can read it on `./github/workflow/ci.yml`.
 
 ## Deployment
 The project is integrated with [Vercel framework](https://vercel.com). You can find the deployed application at
-[this url](https://mflix-eight.vercel.app/).
+[this url](https://mflix-eight.vercel.app/), while the vercel project is at [this url](https://vercel.com/dade92s-projects/mflix).
