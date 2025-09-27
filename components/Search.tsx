@@ -11,7 +11,7 @@ export const Search: FC<Props> = ({onSearch}) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     return (
-        <Box sx={{display: "flex", alignItems: "center", gap: 1}}>
+        <Box sx={{display: "flex", alignItems: "center", gap: 1, padding: 2}}>
             <SearchTextField searchQuery={searchQuery} onChange={(text: string) => setSearchQuery(text)}/>
             <IconButton
                 color="primary"
