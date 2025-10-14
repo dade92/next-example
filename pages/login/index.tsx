@@ -54,6 +54,8 @@ const Login = () => {
     return (
         <Container maxWidth="xs">
             <Box
+                component="form"
+                onSubmit={(e) => { e.preventDefault(); if (!loading) handleLogin(); }}
                 sx={{
                     mt: 8,
                     p: 4,
@@ -78,6 +80,7 @@ const Login = () => {
                     variant="outlined"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    autoFocus
                 />
                 <TextField
                     fullWidth
@@ -92,7 +95,7 @@ const Login = () => {
                     fullWidth
                     variant="contained"
                     sx={{mt: 2}}
-                    onClick={handleLogin}
+                    type="submit"
                     disabled={loading}
                 >
                     {loading ? <CircularProgress size={24}/> : "Login"}
