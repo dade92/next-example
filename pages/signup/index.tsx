@@ -42,8 +42,9 @@ const SignupForm = () => {
     };
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="xs" data-testid="signup-container">
             <Box
+                data-testid="signup-form"
                 sx={{
                     mt: 8,
                     p: 4,
@@ -55,11 +56,11 @@ const SignupForm = () => {
                     bgcolor: "background.paper",
                 }}
             >
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" gutterBottom data-testid="signup-title">
                     Sign Up
                 </Typography>
 
-                {error && <Alert severity="error">{error}</Alert>}
+                {error && <Alert severity="error" data-testid="signup-error">{error}</Alert>}
 
                 <TextField
                     fullWidth
@@ -68,6 +69,7 @@ const SignupForm = () => {
                     variant="outlined"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    data-testid="signup-username-input"
                 />
                 <TextField
                     fullWidth
@@ -77,6 +79,7 @@ const SignupForm = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    data-testid="signup-email-input"
                 />
                 <TextField
                     fullWidth
@@ -86,6 +89,7 @@ const SignupForm = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    data-testid="signup-password-input"
                 />
                 <Button
                     fullWidth
@@ -93,10 +97,11 @@ const SignupForm = () => {
                     sx={{mt: 2}}
                     onClick={handleSignup}
                     disabled={loading}
+                    data-testid="signup-submit-button"
                 >
-                    {loading ? <CircularProgress size={24}/> : "Sign Up"}
+                    {loading ? <CircularProgress size={24} data-testid="signup-loading-spinner"/> : "Sign Up"}
                 </Button>
-                <Typography variant="body2" sx={{mt: 2}}>
+                <Typography variant="body2" sx={{mt: 2}} data-testid="signup-login-link">
                     Already have an account? <Link href="/login">Login</Link>
                 </Typography>
             </Box>

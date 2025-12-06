@@ -1,5 +1,4 @@
 import {toDomainMovie} from "../../../main/repository/adapters/MoviesAdapter";
-import {ObjectId} from "mongodb";
 import {Movie} from "../../../../data/movies/Movie";
 import {Builder} from "builder-pattern";
 
@@ -7,8 +6,8 @@ describe('moviesAdapter', () => {
     it('should adapt correctly', () => {
         const releaseDate = new Date(2025, 0, 1);
 
-        const actual = toDomainMovie({
-            _id: ObjectId.createFromHexString('573a1390f29313caabcd63d6'),
+        const mockMongoMovie = {
+            _id: { toString: () => '573a1390f29313caabcd63d6' },
             title: 'title',
             plot: 'plot',
             fullplot: 'fullPlot',
@@ -21,7 +20,9 @@ describe('moviesAdapter', () => {
             },
             released: releaseDate,
             trailerUrl: 'trailer'
-        });
+        };
+
+        const actual = toDomainMovie(mockMongoMovie as any);
 
         expect(actual).toEqual(
             Builder<Movie>()
